@@ -1,4 +1,6 @@
-package Tree;
+package Tree.Preorder;
+
+import Tree.TreeNode;
 
 public class PathSum {
 
