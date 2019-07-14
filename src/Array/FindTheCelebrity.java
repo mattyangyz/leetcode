@@ -1,5 +1,10 @@
 package Array;
 
+
+/**
+ *
+ * 题意不明，陌生人之间认识吗
+ */
 public class FindTheCelebrity {
 
     public int findCelebrity(int n) {

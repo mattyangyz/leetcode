@@ -1,9 +1,13 @@
 package Array;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
+ *
+ * 关键要lower - 1， 当curr等于upper的时候
+ *
  * Given a sorted integer array where the range of elements are [lower, upper] inclusive, return its missing ranges.
  *
  * For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4->49", "51->74", "76->99"].
@@ -27,7 +31,8 @@ public class MissingRange {
         long curr = 0;
         for (int i = 0; i <= nums.length; i++) {
 
-            curr = i == nums.length ? upper + 1 : nums[i];
+            // upper + 1 是处理 upper range用的 包括upper range
+            curr = (i == nums.length) ? upper + 1 : nums[i];
             if (curr - prev > 1) {
                 res.add(getRanges(prev + 1, curr - 1));
             }

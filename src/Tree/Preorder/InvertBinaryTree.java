@@ -2,12 +2,16 @@ package Tree.Preorder;
 
 
 import Tree.TreeNode;
+import com.sun.source.tree.Tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * 关键要理解 如果一个弄得从左边变换到右边， 他所有的children都会变 所以只需要变换他自己就行，children会在recursive下去的时候被处理
+ *
+ * 两种做法 一种recursice 一种stack
  */
 public class InvertBinaryTree {
 
@@ -29,7 +33,7 @@ public class InvertBinaryTree {
             return null;
         }
 
-        Deque<TreeNode> stack = new LinkedList<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
 
         while (!stack.isEmpty()) {

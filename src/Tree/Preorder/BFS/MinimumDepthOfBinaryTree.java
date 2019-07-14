@@ -1,12 +1,13 @@
 package Tree.Preorder.BFS;
 
 import Tree.TreeNode;
+import com.sun.source.tree.Tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 用BFS去做，不要用DFS。
+ * 用BFS去做，不要用DFS. 用BFS的基本上是queue用
  * <p>
  * Given a binary tree, find its minimum depth.
  * <p>
@@ -50,5 +51,4 @@ public class MinimumDepthOfBinaryTree {
         }
         return depth;
     }
-
 }

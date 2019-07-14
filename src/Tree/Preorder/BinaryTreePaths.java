@@ -49,4 +49,6 @@ public class BinaryTreePaths {
             searchBT(root.right, path + root.val + "->", ans);
         }
     }
+
+
 }

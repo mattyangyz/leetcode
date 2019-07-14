@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 public class Combinations {
-
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> combs = new ArrayList<>();
         combine(combs, new ArrayList<>(), 1, n, k);
@@ -32,8 +31,6 @@ public class Combinations {
     public static void combine(List<List<Integer>> ans, List<Integer> temp, int start, int n, int k) {
         if (k == 0) {
             ans.add(new ArrayList<>(temp));
-            temp.forEach(num -> System.out.print(num));
-            System.out.println("\n");
             return;
         }
 
