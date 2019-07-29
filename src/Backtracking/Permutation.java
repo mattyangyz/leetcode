@@ -15,8 +15,9 @@ public class Permutation {
     }
 
     private static void backtrack(List<List<Integer>> ans, List<Integer> candidate, int[] nums) {
-        if (ans.size() == nums.length) {
-            ans.add(candidate);
+        if (candidate.size() == nums.length) {
+            System.out.println(candidate);
+            ans.add(new ArrayList<>(candidate));
         } else {
             for (int i = 0; i < nums.length; i++) {
                 if (candidate.contains(nums[i])) {
