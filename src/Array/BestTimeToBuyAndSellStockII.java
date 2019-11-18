@@ -20,33 +20,15 @@ package Array;
 
 public class BestTimeToBuyAndSellStockII {
 
-    public static int maxProfit(int[] prices) {
-        int i = 0;
-        int valley = prices[0];
-        int peak = prices[0];
-        int maxProfit = 0;
+    public int maxProfit(int[] nums) {
 
-        while (i < prices.length - 1) {
-            while (i < prices.length - 1 && prices[i] >= prices[i + 1]) {
-                i++;
-            }
-            valley = prices[i];
-            while (i < prices.length - 1 && prices[i] <= prices[i + 1]) {
-                i++;
-            }
-            peak = prices[i];
-            maxProfit += peak - valley;
-        }
-        return maxProfit;
-    }
-
-    public static int maxProfitOptimize(int[] prices) {
-        int maxProfit = 0;
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] > prices[i - 1]) {
-                maxProfit += prices[i] - prices[i - 1];
+        int profit = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                profit += nums[i] - nums[i - 1];
             }
         }
-        return maxProfit;
+        return profit;
+
     }
 }

@@ -1,30 +1,35 @@
 package Array;
 
-// TODO: not yet.
+/**
+ * Linkedin
+ * <p>
+ * Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.
+ * <p>
+ * word1 and word2 may be the same and they represent two individual words in the list.
+ * <p>
+ * Example:
+ * Assume that words = ["practice", "makes", "perfect", "coding", "makes"].
+ * <p>
+ * Input: word1 = “makes”, word2 = “coding”
+ * Output: 1
+ * Input: word1 = "makes", word2 = "makes"
+ * Output: 3
+ */
+
 public class ShorestWordDistanceIII {
 
     public static int shortestWordDistance(String[] words, String word1, String word2) {
-        int idx1 = -1;
-        int idx2 = -1;
-        int distance = Integer.MAX_VALUE;
-        int turn = 0;
-        int inc = word1.equals(word2) ? 1 : 0;
+        int index = -1;
+        int min = words.length;
 
         for (int i = 0; i < words.length; i++) {
-            if (words[i].equals(word1) && turn % 2 == 0) {
-                idx1 = i;
-                if (idx2 != -1) {
-                    distance = Math.min(distance, idx1 - idx2);
+            if (words[i].equals(word1) || words[i].equals(word2)) {
+                if (index != -1 && (word1.equals(word2) || !words[index].equals(words[i]))) {
+                    min = Math.min(i - index, min);
                 }
-                turn += inc;
-            } else if (words[i].equals(word2)) {
-                idx2 = i;
-                if(idx1 != -1){
-                    distance = Math.min(distance, idx2 - idx1);
-                }
-                turn += inc;
+                index = i;
             }
         }
-        return distance;
+        return min;
     }
 }

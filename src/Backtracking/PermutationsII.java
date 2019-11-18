@@ -4,8 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+ * <p>
+ * Example:
+ * <p>
+ * Input: [1,1,2]
+ * Output:
+ * [
+ * [1,1,2],
+ * [1,2,1],
+ * [2,1,1]
+ * ]
+ * <p>
+ * 思路： 跟permutation是一样的，只是这里要处理dup的情况。 https://ibb.co/k4zv00 , https://ibb.co/ncMm7f
+ */
 public class PermutationsII {
-
 
     public static List<List<Integer>> permutationUnique(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -21,16 +35,15 @@ public class PermutationsII {
     private static void dfs(int[] nums, boolean[] used, List<Integer> list, List<List<Integer>> res) {
 
         if (list.size() == nums.length) {
-            System.out.println(list.toString());
             res.add(new ArrayList<>(list));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if(used[i]){
+            if (used[i]) {                                                    // 这个看这个数有没有用过
                 continue;
             }
-            if(i > 0 && nums[i - 1] == nums[i] && used[i - 1] == false){
+            if (i > 0 && nums[i - 1] == nums[i] && used[i - 1] == false) {    // [1,2,2] -> 想想
                 continue;
             }
             used[i] = true;

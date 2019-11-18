@@ -1,7 +1,9 @@
 package Array;
 
 
-/**
+/** Linkedin Review 1
+ *
+ * Can be done in one pass, with only one index variable.
  *
  * Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.
  *
@@ -19,17 +21,20 @@ package Array;
 public class ShorestWordDistance {
 
     public static int shortestDistance(String[] words, String word1, String word2) {
-        int res = words.length;
-        for (int i = 0; i < word2.length(); i++) {
-            if (words[i].equals(word1)) {
-                for (int j = 0; j < word2.length(); j++) {
-                    if (words[j].equals(word2)) {
-                        res = Math.min(res, Math.abs(i - j));
-                    }
+        int index = -1;
+        int min = words.length;
+
+        for (int i = 0; i < words.length; i++) {
+
+            if (words[i].equals(word1) || words[i].equals(word2)) {
+                if (index != -1 && (word1.equals(word2) || !words[index].equals(words[i]))) {
+                    min = Math.min(i - index, min);
                 }
+                index = i;
             }
         }
-        return res;
+        return min;
+
     }
 
     public static int shortestDistanceOnePass(String[] words, String word1, String word2) {

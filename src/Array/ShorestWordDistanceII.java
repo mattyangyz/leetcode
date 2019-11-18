@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/** Linkedin Review 1
  *
  * Design a class which receives a list of words in the constructor,
  * and implements a method that takes two words word1 and word2 and return the shortest distance between these two words in the list.
@@ -44,7 +44,7 @@ public class ShorestWordDistanceII {
         int j = 0;
         while (i < idx1.size() && j < idx2.size()) {
             distance = Math.min(distance, Math.abs(idx1.get(i) - idx2.get(j)));
-            if(idx1.get(i) > idx2.get(j)){
+            if (idx1.get(i) > idx2.get(j)) {          // the order is alrady sorted. List.add will add to the end of array.
                 j++;
             }
             else{

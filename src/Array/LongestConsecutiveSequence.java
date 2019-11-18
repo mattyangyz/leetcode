@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
+/** TODO: NEED TO REVIEW
+ *
+ *
  * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
  * <p>
  * Your algorithm should run in O(n) complexity.
@@ -29,7 +31,7 @@ public class LongestConsecutiveSequence {
     }
 
 
-    public int longestConsecutive(int[] nums) {
+    public int longestConsecutive(int[] nums) {             // TIME OUT !!!
 
         int longest = 0;
 

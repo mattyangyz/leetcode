@@ -2,7 +2,7 @@ package Stack;
 
 import java.util.Stack;
 
-/**
+/** Linkedin Review 1 TODO: NEED TO IMPROVE
  * if we add [2, 1, 5, 3, 9]
  * maxStack is [2, 2, 5, 5, 9]
  */
@@ -18,9 +18,12 @@ public class MaxStack {
     }
 
     public void push(int x) {
-        int max = maxStack.isEmpty() ? x : maxStack.peek();
-        maxStack.push(max > x ? max : x);
         stack.push(x);
+        if (maxStack.isEmpty()) {
+            maxStack.push(x);
+            return;
+        }
+        maxStack.push(x > maxStack.peek() ? x : maxStack.peek());
     }
 
     public int pop() {

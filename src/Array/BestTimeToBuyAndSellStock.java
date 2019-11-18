@@ -19,15 +19,16 @@ package Array;
 
 public class BestTimeToBuyAndSellStock {
 
-    public int maxProfile(int[] nums) {
-        int minValue = Integer.MAX_VALUE;
+    public int maxProfit(int[] nums) {
+
+        int minPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            if (minValue > nums[i]) {
-                minValue = nums[i];
-            } else if (maxProfit < nums[i] - minValue) {
-                maxProfit = nums[i] - minValue;
+        for (int num : nums) {
+            if (num < minPrice) {
+                minPrice = num;
+            } else {
+                maxProfit = Math.max(num - minPrice, maxProfit);
             }
         }
         return maxProfit;
