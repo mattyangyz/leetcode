@@ -2,10 +2,10 @@ package Design;
 
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
 
 /**
+ *
+ * 非常重要
  *
  * doubly linked list + hashmap + dummy head + dummy head
  *
@@ -22,8 +22,6 @@ import java.util.Hashtable;
  * Follow up:
  * Could you do both operations in O(1) time complexity?
  *
- *
- * TODO: go over one more time, very important
  *
  */
 
@@ -71,7 +69,7 @@ public class LRUCache {
         tail.prev = head;
         head.prev = null;
         tail.next = null;
-        int count = 0;
+        count = 0;
     }
 
     public int get(int key) {
@@ -83,29 +81,6 @@ public class LRUCache {
             return result;
         }
         return -1;
-    }
-
-    public void put2(int key, int value) {
-
-        if (map.get(key) != null) {
-            Node node = map.get(key);
-            node.value = value;
-            this.deleteNode(node);
-            this.addToHead(node);
-        }
-        else{
-            Node node = new Node(key, value);
-            map.put(key, node);
-            if (count < capacity) {
-                addToHead(node);
-                count++;
-            }
-            else{
-                map.remove(key);
-                this.deleteNode(tail.prev);
-                this.addToHead(node);
-            }
-        }
     }
 
     public void put(int key, int value) {

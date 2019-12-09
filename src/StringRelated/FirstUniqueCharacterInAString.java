@@ -14,7 +14,8 @@ package StringRelated;
  * Note: You may assume the string contain only lowercase letters.
  * <p>
  * <p>
- * there is a better solution if the input size is big
+ *
+ * 思路:
  */
 
 public class FirstUniqueCharacterInAString {

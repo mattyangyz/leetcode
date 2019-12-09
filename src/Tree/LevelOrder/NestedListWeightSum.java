@@ -1,6 +1,6 @@
 package Tree.LevelOrder;
 
-import Tree.Preorder.DFS.NestedInteger;
+import Tree.DFS.NestedInteger;
 
 import java.util.LinkedList;
 import java.util.List;

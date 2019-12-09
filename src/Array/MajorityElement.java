@@ -30,7 +30,7 @@ public class MajorityElement {
         return nums[nums.length / 2];
     }
 
-    public int majorityElement2(int[] nums) {
+    public int majorityElement2(int[] nums) {           // 一边加到hashmap里面一边检查有没有大于nums.length/2， 如果有就马上返回break
         Map<Integer, Integer> map = new HashMap<>();
 
         int ret = 0;
@@ -48,4 +48,14 @@ public class MajorityElement {
         }
         return ret;
     }
+
+//    public int majorityElement3(int[] nums) {           // 这个做法巧妙，必须理解
+//        int count = 0;
+//        int res = 0;
+//        for (int num : nums) {
+//            if (count == 0) {
+//                res = num;
+//            }
+//        }
+//    }
 }

@@ -71,14 +71,11 @@ public class GraphValidTree {
                 adjList.get(neighbor).remove(node);
             }
         }
-
-
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
                 return false;
             }
         }
-
         return true;
     }
 

@@ -1,0 +1,1 @@
+1. BFS 标准就是一个queue 然后加一个while。

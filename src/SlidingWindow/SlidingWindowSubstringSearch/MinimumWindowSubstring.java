@@ -3,7 +3,7 @@ package SlidingWindow.SlidingWindowSubstringSearch;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Linkedin 非常难， 跟FindAllAnagramsInAString 一样
+/** Linkedin 难， 跟FindAllAnagramsInAString 一样
  *
  * 总结: https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/Sliding-Window-algorithm-template-to-solve-all-the-Leetcode-substring-search-problem.
  *
