@@ -26,7 +26,6 @@ class Entry<K, V> {
         this.value = value;
     }
 
-    // getters, equals, hashCode and toString
 }
 
 

@@ -17,7 +17,19 @@ package Array;
  * Output: 0
  * Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
  * <p>
- * 思路： 必须维持一个最大跟最小的，因为负负得正 正负得负。所以两种都有可能。
+ * 思路： 必须维持一个最大跟最小的，因为负负得正 正负得负。所以两种都有可能
+ *
+ * this is very similar to the " max cumulative sum subarray" problem. here you keep 2 values:
+ * the max cumulative product UP TO current element starting from SOMEWHERE in the past,
+ * and the minimum cumuliative product UP TO current element .
+ * it would be easier to see the DP structure if we store these 2 values for each index,
+ * like maxProduct[i],minProduct[i] .
+ *
+ * at each new element, u could either add the new element to the existing product,
+ * or start fresh the product from current index (wipe out previous results), hence the 2 Math.max() lines.
+ *
+ * if we see a negative number, the "candidate" for max should instead become the previous min product,
+ * because a bigger number multiplied by negative becomes smaller, hence the swap()
  */
 public class MaximumProductSubarray {
 
@@ -30,12 +42,16 @@ public class MaximumProductSubarray {
         int minHere = a[0];
         int maxSoFar = a[0];
 
-
         for (int i = 1; i < a.length; i++) {
-            int tempMax = maxHere;
-            maxHere = Math.max(Math.max(maxHere * a[i], minHere * a[i]), a[i]);
-            minHere = Math.min(Math.min(tempMax * a[i], minHere * a[i]), a[i]);
-            maxSoFar = Math.max(maxHere, maxSoFar);
+            if (a[i] < 0) {
+                int temp = maxHere;
+                maxHere = minHere;
+                minHere = temp;
+            }
+
+            maxHere = Math.max(maxHere * a[i], a[i]);   // a[i]有可能是0.5
+            minHere = Math.min(minHere * a[i], a[i]);
+            maxSoFar = Math.max(maxSoFar, maxHere);
         }
         return maxSoFar;
     }

@@ -22,7 +22,7 @@ package DP;
  * Or paint house 0 into color 2, paint house 1 into color 0. Minimum cost: 3 + 2 = 5.
  * <p>
  * 思路: 我们只需要keep track min1跟min2 就行啦，如果当前index跟min1一样 则取min2。 两个loop， 注意怎么在第二个loop
- * 里面 在计算每一个颜色的value的时候同时计算min1 跟 min2 ->用额外的var去实现。
+ * 里面 在计算每一个颜色的value的时候同时计算min1 跟 min2 ->用额外的var去实现， 记住这两个var都是index而不是实际的最小值。
  */
 public class PaintHouseII {
 

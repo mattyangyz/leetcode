@@ -15,6 +15,9 @@ package Array;
  * Input: word1 = "makes", word2 = "coding"
  * Output: 1
  *
+ *
+ * 思路: onepass 就可以做到， 两个index分别是word1和word2的index。注意计算距离的时候要用abs去计算。
+ *
  */
 
 

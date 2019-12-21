@@ -46,6 +46,10 @@ import java.util.List;
  * [2, 4, 4],
  * [4, 8]
  * ]
+ *
+ * 思路: 用backtracking去做，但是要注意必须注意以下两点 1. factor的定义是从2开始，小于n 2. 必须是 i <= number。
+ * 其实这个可以有优化的。
+ *
  */
 
 public class FactorCombinations {
@@ -53,7 +57,7 @@ public class FactorCombinations {
     public static List<List<Integer>> getFactor(int number) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> list = new ArrayList<>();
-        helper(number, 2, result, list);
+        helper(number, 2, result, list);                // key is start from 2 instead of 0 or 1
         return result;
     }
 
@@ -67,7 +71,6 @@ public class FactorCombinations {
             for (int i = start; i <= number; i++) {  // key point is here it MUST BE i <= number
                 if (number % i == 0) {
                     curr.add(i);
-                    System.out.println(i);
                     helper((number / i), i, result, curr);
                     curr.remove(curr.size() - 1);
                 }

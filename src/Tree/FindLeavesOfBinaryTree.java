@@ -51,9 +51,8 @@ public class FindLeavesOfBinaryTree {
         }
 
         int level = 1 + Math.max(heigh(node.left, res), heigh(node.right, res));
-        node.left = null;
-        node.right = null;
-        if (res.size() < level + 1) {
+
+        if (res.size() < level + 1) {                       // 这里必须是res.size 不能用res.get(level - 1)
             res.add(new ArrayList<>());
         }
         res.get(level).add(node.val);

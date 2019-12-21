@@ -17,6 +17,9 @@ package Array;
  * The input array won't violate no-adjacent-flowers rule.
  * The input array size is in the range of [1, 20000].
  * n is a non-negative integer which won't exceed the input array size.
+ *
+ * 思路: 直接走一遍array，对于当前为0的地方 判断前后时候violate 导致不能放。 如果此index能放的话，就set成一，然后n - 1
+ *
  */
 
 

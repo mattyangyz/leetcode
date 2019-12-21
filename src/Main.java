@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -72,7 +73,15 @@ public class Main {
 
 //        TopKFrequentElement.topKFrequent(new int[]{4, 1, -1, 2, -1, 2, 3}, 2);
 
-        System.out.println(new StringBuilder("((())").reverse().toString());
+        List<Integer> ints = Arrays.asList(null, null, null, null);
+        List<Integer> ints2 = Arrays.asList(1, 2, 3, 4);
+        List<Integer> ints3 = Arrays.asList(null, 5);
+
+
+        List<List<Integer>> lists = new ArrayList<>();
+        lists.add(ints);
+        lists.add(ints2);
+        lists.add(ints3);
 
 
 

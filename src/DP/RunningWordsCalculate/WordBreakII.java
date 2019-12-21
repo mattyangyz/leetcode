@@ -1,4 +1,4 @@
-package DP.WordBreak;
+package DP.RunningWordsCalculate;
 
 import java.util.ArrayList;
 import java.util.HashMap;

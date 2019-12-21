@@ -1,4 +1,6 @@
-package LinkedList;
+package PriorityQueue;
+
+import LinkedList.ListNode;
 
 import java.util.PriorityQueue;
 

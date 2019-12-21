@@ -25,10 +25,11 @@ import java.util.Arrays;
  * <p>
  * a + b > c 固定一个C， 从后面开始。 然后A从前面开始， B从C前一个数开始.
  * <p>
- * i                  j   k
- * [3, 19, 22, 24, 35, 82, 84] 如果i + j > k 则j-1的所有index都可以拿，因为里边的数字全部比3要大的， 一旦找到了 加入结果里面 然后把 j--
+ *  i                   j   k
+ * [3, 19, 22, 24, 35, 82, 84] 如果i + j > k 则j-1的所有index都可以拿，因为里边的数字全部比3要大的。
+ * 一旦找到了 加入结果里面 然后把 j--，如果没有的话 就对i 进行一个++的操作。
  */
-public class ValidateTriangleNumber {
+public class ValidTriangleNumber {
 
     public static int trigangleNumber(int[] nums) {
 

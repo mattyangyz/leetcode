@@ -1,6 +1,18 @@
 package Array.Sorting;
 
 /**
+ *
+ * Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white and blue.
+ *
+ * Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+ *
+ * Note: You are not suppose to use the library's sort function for this problem.
+ *
+ * Example:
+ *
+ * Input: [2,0,2,1,1,0]
+ * Output: [0,0,1,1,2,2]
+ *
  *我们先用两个指针，一个指向已经排好序的0的序列的后一个点，
  * 一个指向已经排好序的2的序列的前一个点。这样在一开始，
  * 两个指针是指向头和尾的，因为我们还没有开始排序。

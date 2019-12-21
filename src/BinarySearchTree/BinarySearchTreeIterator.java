@@ -1,4 +1,6 @@
-package Tree;
+package BinarySearchTree;
+
+import Tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +8,11 @@ import java.util.Stack;
 
 /**
  *
- * // TODO: 还有其他解法
- *
  * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
  *
  * Calling next() will return the next smallest number in the BST.
  *
- * 我的理解 -> 下去找左节点的时候，把找左节点的路径都push到stack上。 然后pop stack， 如果pop完 这个有右节点的话 就push 右节点 找最左 的path。
+ * 思路:  下去找左节点的时候，把找左节点的路径都push到stack上。 然后pop stack， 如果pop完 这个有右节点的话 就push 右节点 找最左 的path。
  * 如此类推
  *
  * 这题是要快速求一个二叉搜索数是否有下一个最小结点。我们知道二叉搜索数的性质，结点左边的值比根节点小，结点右边的值比根节点大。
@@ -41,6 +41,8 @@ import java.util.Stack;
  *
  * 平均时间复杂度还是O(1)，空间复杂度降为O(h)。
  * ---------------------
+ *
+ * 另外一种做法就是 用inorder去做， 把inorder在constructor的时候去call。
  */
 
 
