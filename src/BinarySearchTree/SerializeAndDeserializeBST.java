@@ -30,9 +30,10 @@ public class SerializeAndDeserializeBST {
         StringBuilder res = new StringBuilder();        // preorder traversal
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
+
         while (!stack.isEmpty()) {
             TreeNode cur = stack.pop();
-            res.append(cur + " ");
+            res.append(cur.val + " ");
             if (cur.right != null) {
                 stack.push(cur.right);
             }
@@ -61,11 +62,13 @@ public class SerializeAndDeserializeBST {
         if (queue.isEmpty()) {
             return null;
         }
+
         TreeNode root = new TreeNode(queue.poll());
         Queue<Integer> smallerQ = new LinkedList<>();
         while (!queue.isEmpty() && queue.peek() < root.val) {   // 分离
             smallerQ.offer((queue.poll()));
         }
+
         root.left = getNode(smallerQ);                          // 区分开左边小的
         root.right = getNode(queue);                            // 剩下queue里边的都是root的右边的
         return root;

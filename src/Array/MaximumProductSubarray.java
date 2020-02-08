@@ -49,7 +49,7 @@ public class MaximumProductSubarray {
                 minHere = temp;
             }
 
-            maxHere = Math.max(maxHere * a[i], a[i]);   // a[i]有可能是0.5
+            maxHere = Math.max(maxHere * a[i], a[i]);   // a[i]有可能是0.5, 必须是maxHere * a[i]跟a[i]比较
             minHere = Math.min(minHere * a[i], a[i]);
             maxSoFar = Math.max(maxSoFar, maxHere);
         }

@@ -43,6 +43,8 @@ public class PermutationsII {
             if (used[i]) {                                                    // 这个看这个数有没有用过
                 continue;
             }
+            // 1 2 2' with used[i - 1] == false, it will enter the 1 2 2' immediate
+            // but not enter 1 2' 2.. Think about this.
             if (i > 0 && nums[i - 1] == nums[i] && used[i - 1] == false) {    // [1,2,2] -> 想想
                 continue;
             }

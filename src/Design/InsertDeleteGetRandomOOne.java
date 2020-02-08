@@ -1,10 +1,7 @@
 package Design;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Design a data structure that supports all following operations in average O(1) time.
@@ -40,7 +37,7 @@ import java.util.Map;
  * <p>
  * 思路： 用一个arraylist去存元素的值， 用于random的时候。 然后用map去存value跟他们的index的对应关系。
  * 当arraylist remove的时候， runtime是O（N）， 但是当remove最后一个index的element的时候， 是O（1） 因为
- * 不需要shift。
+ * 不需要shift。这题的关键是swap.
  */
 public class InsertDeleteGetRandomOOne {
 
@@ -67,7 +64,7 @@ public class InsertDeleteGetRandomOOne {
             return false;
         }
 
-        Collections.swap(list, index, list.size() - 1);
+        Collections.swap(list, index, list.size() - 1);         // 这里是关键。
         int swapWith = list.get(index);
         valToIndex.put(swapWith, index);
         list.remove(list.size() - 1);
@@ -76,8 +73,7 @@ public class InsertDeleteGetRandomOOne {
     }
 
     public int getRandom() {
-        int max = list.size();
-        int index = (int) (Math.random() * max);
+        int index = new Random().nextInt(list.size());
         return list.get(index);
     }
 }

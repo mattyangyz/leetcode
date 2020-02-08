@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -21,34 +22,37 @@ import java.util.Queue;
  * [9,20],
  * [15,7]
  * ]
+ *
+ * 思路: 不要把null的node放进去，不需要什么fancy的东西 也不需要level。 要知道每一层的size
  */
 
 public class BinaryTreeLevelOrderTraversal {
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        List<List<Integer>> result = new LinkedList<>();
+        List<List<Integer>> list = new ArrayList<>();
 
         if (root == null) {
-            return result;
+            return list;
         }
 
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
+
         while(!queue.isEmpty()){
-            int levelNum = queue.size();
-            List<Integer> subList = new LinkedList<>();
-            for (int i = 0; i < levelNum; i++) {
-                if (queue.peek().left != null) {
-                    queue.offer(queue.peek().left);
+            int size = queue.size();
+            List<Integer> subList = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                subList.add(curr.val);
+                if (curr.left != null) {
+                    queue.offer(curr.left);
                 }
-                if (queue.peek().right != null) {
-                    queue.offer(queue.peek().right);
+                if (curr.right != null) {
+                    queue.offer(curr.right);
                 }
-                subList.add(queue.poll().val);
             }
-            result.add(subList);
+            list.add(subList);
         }
-        return result;
+        return list;
     }
 }

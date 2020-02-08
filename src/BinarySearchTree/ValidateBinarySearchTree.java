@@ -1,26 +1,31 @@
-//package BinarySearchTree;
-//
-//import Tree.TreeNode;
-//
-//import java.util.LinkedList;
-//
-//// TODO: NOT YET
-//public class ValidateBinarySearchTree {
-//    LinkedList<TreeNode> stack = new LinkedList<>();
-//    LinkedList<Integer> uppers = new LinkedList<>();
-//    LinkedList<Integer> lowers = new LinkedList<>();
-//
-//    public void update(TreeNode root, Integer lower, Integer upper) {
-//        stack.add(root);
-//        lowers.add(lower);
-//        uppers.add(upper);
-//    }
-//
-//    public boolean isValidBST(TreeNode root) {
-//        Integer lower = null;
-//        Integer upper = null;
-//        Integer val = null;
-//
-//        update(root, lower, upper);
-//    }
-//}
+package BinarySearchTree;
+
+import Tree.TreeNode;
+
+/**
+ * Given a binary tree, determine if it is a valid binary search tree (BST).
+ * <p>
+ * Assume a BST is defined as follows:
+ * <p>
+ * The left subtree of a node contains only nodes with keys less than the node's key.
+ * The right subtree of a node contains only nodes with keys greater than the node's key.
+ * Both the left and right subtrees must also be binary search trees.
+ */
+
+public class ValidateBinarySearchTree {
+
+    public boolean isValidBST(TreeNode root) {
+        return bstHelper(root, null, null);
+    }
+
+    boolean bstHelper(TreeNode root, Integer min, Integer max) {
+        if (root == null) {
+            return true;
+        }
+        if ((min != null && root.val <= min) || (max != null && root.val >= max)) {
+            return false;
+        }
+
+        return bstHelper(root.left, min, root.val) && bstHelper(root.right, root.val, max);
+    }
+}

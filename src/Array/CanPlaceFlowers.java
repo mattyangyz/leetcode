@@ -29,6 +29,7 @@ public class CanPlaceFlowers {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
 
         for (int i = 0; i < flowerbed.length; i++) {
+
             if (flowerbed[i] == 0) {
                 boolean can = true;
                 if (i - 1 >= 0 && flowerbed[i - 1] == 1) {

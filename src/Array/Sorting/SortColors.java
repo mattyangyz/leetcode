@@ -13,7 +13,7 @@ package Array.Sorting;
  * Input: [2,0,2,1,1,0]
  * Output: [0,0,1,1,2,2]
  *
- *我们先用两个指针，一个指向已经排好序的0的序列的后一个点，
+ * 思路: 我们先用两个指针，一个指向已经排好序的0的序列的后一个点，
  * 一个指向已经排好序的2的序列的前一个点。这样在一开始，
  * 两个指针是指向头和尾的，因为我们还没有开始排序。
  * 然后我们遍历数组，当遇到0时，将其和0序列后面一个数交换，然后将0序列的指针向后移。
@@ -44,7 +44,7 @@ public class SortColors {
         for (int i = 0; i < nums.length; i++) {
             if (i < redCount) {
                 nums[i] = 0;
-            } else if (i < redCount + blueCount) {
+            } else if (i < redCount + whiteCount) {
                 nums[i] = 1;
             }
             else{
@@ -53,21 +53,22 @@ public class SortColors {
         }
     }
 
+    // 思路: https://www.youtube.com/watch?v=yTwW8WiGrKw
     public static void sortColors(int[] nums) {
-        int redIndex = 0;
-        int rightIndex = nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
         int index = 0;
 
-        while (index <= rightIndex) {
+        while (index <= right) {
             if (nums[index] == 0) {
-                swap(nums, index, redIndex);
+                swap(nums, index, left);
                 index++;
-                redIndex++;
+                left++;
             } else if (nums[index] == 1) {
                 index++;
-            } else if (nums[index] == 2) {
-                swap(nums, index, rightIndex);
-                rightIndex--;
+            } else if (nums[index] == 2) {  // 理解这里为什么不能index++;
+                swap(nums, index, right);   // 这里不能移动index++, 因为我们是把最后的一个元素放到前面 而不知道他是什么。 这里是关键
+                right--;
             }
         }
     }

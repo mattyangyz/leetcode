@@ -1,48 +1,40 @@
 package Array;
 
+import java.util.Stack;
+
 /**
- * https://leetcode.wang/leetCode-42-Trapping-Rain-Water.html
- * <p>
- * 说到栈，我们肯定会想到括号匹配了。我们仔细观察蓝色的部分，可以和括号匹配类比下。每次匹配出一对括号（找到对应的一堵墙），就计算这两堵墙中的水。
- * <p>
- * <p>
- * 0， 1， 0， 2， 1， 0， 1， 3， 2， 1， 2， 1
- * <p>
- * *
- * *              *   *      *
- * *      *   *      *   *   *  *   *   *
- * 0， 1， 2， 3， 4， 5， 6， 7， 8， 9， 0， 1
- * l                             r
- * leftMax : 1
- * -->
- * <p>
- * rightMax : 1
- * -->
- * <p>
- * res
- * <p>
- * left   1
- * right 10
+ *
+ * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+ *
+ *
+ * The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped. Thanks Marcos for contributing this image!
+ *
+ * Example:
+ *
+ * Input: [0,1,0,2,1,0,1,3,2,1,2,1]
+ * Output: 6
+ *
+ * 思路: 利用stack去找左边和右边的boundary，然后通过index和面积去计算高度。
+ *
  */
 
 
 public class TrappingRainWater {
 
     public int trap(int[] height) {
-        int left = 0;
-        int right = height.length - 1;
+        Stack<Integer> s = new Stack<>();
+        int i = 0;
+        int n = height.length;
         int res = 0;
-        int leftMax = 0;
-        int rightMax = 0;
-        while (left < right) {
-            if (height[left] <= height[right]) {
-                leftMax = Math.max(height[left], leftMax);
-                res += leftMax - height[left];
-                left++;
+        while (i < n) {
+            if (s.isEmpty() || height[i] <= height[s.peek()]) {
+                s.push(i++);
             } else {
-                rightMax = Math.max(height[right], rightMax);
-                res += rightMax - height[right];
-                right--;
+                int t = s.pop();
+                if (s.isEmpty()) {
+                    continue;
+                }
+                res += (Math.min(height[i], height[s.peek()]) - height[t]) * (i - s.peek() - 1);
             }
         }
         return res;

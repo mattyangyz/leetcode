@@ -18,6 +18,10 @@ import java.util.Stack;
  * For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
  * <p>
  * Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
+ *
+ *
+ * 思路： 保持一个由底往上的一个递减stack, 当遇到当前元素比stack的top小的时候 就直接peek一下top的位置 计算。 如果当前元素比stack的peek大的话，就不断
+ * 地pop，知道遇到前一句话那种当前元素比stack的top小的这种情况。
  */
 
 public class DailyTemperatures {
@@ -25,7 +29,8 @@ public class DailyTemperatures {
     public int[] dailyTemperatures(int[] t) {
 
         int[] res = new int[t.length];
-        Stack<Integer> stack = new Stack();
+        Stack<Integer> stack = new Stack();      // 这个stack是用来保存index的。
+
         for (int i = t.length - 1; i >= 0; i--) {
 
             while (!stack.isEmpty() && t[i] >= t[stack.peek()]) {

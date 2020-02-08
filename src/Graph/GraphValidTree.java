@@ -1,9 +1,7 @@
 package Graph;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Linkedin TODO: Need to go over AGAIN.
@@ -39,36 +37,37 @@ import java.util.Stack;
  * 1. 先建立一个adj list去存所有对应的关系
  * 2. 选0开始，遍历0所有的邻居。 把邻居加入到stack中，并且把邻居连到0的edge去除。
  * 3. 一旦遇到有的邻居已经是visited过得，那么久存在环。
- * 4.
+ *
+ * 用map也可以做， 但是比较慢点，此题最佳的解法的union find.
  */
 public class GraphValidTree {
 
-    public boolean validTree(int n, int[][] edges) { // 这种写法必须用set
-        List<List<Integer>> adjList = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            adjList.add(i, new ArrayList<>());
+    public boolean validTree(int n, int[][] edges) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            graph.putIfAbsent(u, new ArrayList<>());
+            graph.get(u).add(v);
+            graph.putIfAbsent(v, new ArrayList<>());
+            graph.get(v).add(u);
         }
-        for (int i = 0; i < edges.length; i++) {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            adjList.get(u).add(v);
-            adjList.get(v).add(u);
-        }
+
         boolean[] visited = new boolean[n];
-
-
-        // no cycle
         Stack<Integer> stack = new Stack<>();
         stack.push(0);
+
         while (!stack.isEmpty()) {
-            Integer node = stack.pop();
-            if (visited[node]) {
+            Integer curr = stack.pop();
+            if (visited[curr]) {
                 return false;
             }
-            visited[node] = true;
-            for (Integer neighbor : adjList.get(node)) {
-                stack.push(neighbor);
-                adjList.get(neighbor).remove(node);
+            visited[curr] = true;
+            if (graph.containsKey(curr)) {
+                for (Integer nei : graph.get(curr)) {
+                    stack.push(nei);
+                    graph.get(nei).remove(curr);
+                }
             }
         }
         for (int i = 0; i < n; i++) {

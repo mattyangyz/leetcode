@@ -15,6 +15,7 @@ public class DesignHashMapSimpleVersion {
     ListNode[] nodes;
 
     public DesignHashMapSimpleVersion() {
+
         nodes = new ListNode[10000];
     }
 

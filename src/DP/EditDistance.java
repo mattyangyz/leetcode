@@ -15,8 +15,7 @@ class EditDistance {
                 }
                 else if(word1.charAt(i - 1) == (word2.charAt(j - 1))){
                     array[i][j] = array[i-1][j-1];
-                }
-                else{
+                } else if (word1.charAt(i - 1) != (word2.charAt(j - 1))) {
                     array[i][j] = 1 + Math.min(array[i-1][j], Math.min(array[i][j-1], array[i-1][j-1]));
                 }
             }

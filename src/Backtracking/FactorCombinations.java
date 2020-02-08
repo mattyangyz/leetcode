@@ -63,7 +63,7 @@ public class FactorCombinations {
 
     public static void helper(int number, int start, List<List<Integer>> result, List<Integer> curr) {
         if (number == 1) {
-            if (curr.size() > 1) {
+            if (curr.size() > 1) {                  // 这里必须是 > 1，不能是大于0， 因为factor的定义是 > 1 而且 < n
                 result.add(new ArrayList<>(curr));
             }
             return;

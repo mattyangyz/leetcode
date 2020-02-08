@@ -23,7 +23,8 @@ package LinkedList;
  * 思路: Basic idea is straight forward:
  * <p>
  * Start form the head , move one step each time to the next node
- * When meet with a node with child, say node p, follow its child chain to the end and connect the tail node with p.next, by doing this we merged the child chain back to the main thread
+ * When meet with a node with child, say node p, follow its child chain
+ * to the end and connect the tail node with p.next, by doing this we merged the child chain back to the main thread
  * Return to p and proceed until find next node with child.
  * Repeat until reach null
  */

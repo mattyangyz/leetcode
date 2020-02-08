@@ -28,7 +28,7 @@ public class PathSum {
         if (root == null) {
             return false;
         }
-        if (root.left == null && root.right == null && sum - root.val == 0) {
+        if (root.left == null && root.right == null && sum - root.val == 0) { // 注意这里是sum - root.val 不是sum
             return true;
         }
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);

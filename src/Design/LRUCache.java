@@ -7,7 +7,7 @@ import java.util.HashMap;
  *
  * 非常重要
  *
- * doubly linked list + hashmap + dummy head + dummy head
+ * doubly linked list + hashmap + dummy head + dummy head, 重点是先remove 在 moveTohead， 顺序不能乱。
  *
  * 关键是要define两个function， 一个是delete， 一个是move to head。跟一个dummy tail 和 dummy head
  *
@@ -75,6 +75,7 @@ public class LRUCache {
     public int get(int key) {
         if (map.get(key) != null) {
             Node node = map.get(key);
+            System.out.println(node.value);
             int result = node.value;
             this.deleteNode(node);
             this.addToHead(node);

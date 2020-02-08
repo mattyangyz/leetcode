@@ -39,7 +39,7 @@ public class BuddyString {
         if (a.length() != b.length()) {
             return false;
         }
-        if (a.equals(b)) {
+        if (a.equals(b)) { // If A == B, we need swap two same characters. Check is duplicated char in A.
             Set<Character> set = new HashSet<>();
             for (char ch : a.toCharArray()) {
                 if (set.contains(ch)) {
@@ -51,7 +51,7 @@ public class BuddyString {
         }
 
         List<Integer> dif = new ArrayList<>();
-        for (int i = 0; i < a.length(); i++) {
+        for (int i = 0; i < a.length(); i++) { // In other cases, we find index for A[i] != B[i]. There should be only 2 diffs and it's our one swap.
             if (a.charAt(i) != b.charAt(i)) {
                 dif.add(i);
             }

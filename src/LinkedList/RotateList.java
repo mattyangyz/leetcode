@@ -32,28 +32,19 @@ public class RotateList {
             return head;
         }
 
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-
-        ListNode fast = dummy;
-        ListNode slow = dummy;
-
-        int length = 0;
-        for (int i = 0; fast.next != null; i++) {
-            fast = fast.next;
+        ListNode lastElement = head;
+        int length = 1;
+        while (lastElement.next != null) {
+            lastElement = lastElement.next;
             length++;
         }
-
-        ListNode prev = new ListNode(0);
-        for (int i = length - n % length; i > 0; i--) {
-            slow = slow.next;
+        lastElement.next = head;
+        // 1,2,3,4,5,6,7,8,9,10,11  -> 11 - 4 = 7   那就说明 8 是头。
+        for (int i = 1; i < length - n % length; i++) { // length - n % length 实际上是找出头是谁
+            head = head.next;
         }
-
-        fast.next = dummy.next;         // rotate
-        dummy.next = slow.next;
-        slow.next = null;
-
-        return dummy.next;
-
+        ListNode result = head.next;
+        head.next = null;
+        return result;
     }
 }

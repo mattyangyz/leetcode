@@ -43,7 +43,7 @@ import java.util.Map;
  * "bbaA" is also a valid answer, but "Aabb" is incorrect.
  * Note that 'A' and 'a' are treated as two different characters.
  * <p>
- * 思路： bucket sort
+ * 思路： bucket sort, 先统计每个char有多少的次数，然后将相同次数的合并起来， 最后再由最后到最前去看次数是否null 如果不是就加入。
  */
 
 
@@ -56,7 +56,7 @@ public class SortCharactersByFrequency {
             map.put(cha, map.getOrDefault(cha, 0) + 1);
         }
 
-        List<Character>[] bucket = new ArrayList[s.length() + 1];
+        List<Character>[] bucket = new ArrayList[s.length() + 1];       // 注意这里一定要加一， 不然 eeeee 这种情况就会导致index out of bound.
 
         for (Character cha : map.keySet()) {
             int freq = map.get(cha);

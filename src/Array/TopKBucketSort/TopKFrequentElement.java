@@ -31,6 +31,9 @@ import java.util.Map;
  * 1. 先遍历一次，用hashmap建立数字-> 出现次数的map。
  * 2. 创建bucket, 每个bucket都是一个List，把次数放入对应序号的bucket里面.
  * 3.对bucket从后往前遍历，把适合条件的元素放入最后集合list.
+ *
+ * 但是这里有bug， [4,1,-1,2,-1,2,3] k = 3，it should return 所有五个元素，但是在这题里面只return了-1, 2. 这里需要问
+ * 清楚面试官, 问清楚是 k most of frequency 还是 k most of the result.
  */
 
 public class TopKFrequentElement {
@@ -53,10 +56,8 @@ public class TopKFrequentElement {
         }
 
         List<Integer> ans = new ArrayList<>();
-        int count = 0;
-        for (int i = bucket.length - 1; i >= 0 && count < k; i--) {
+        for (int i = bucket.length - 1; i >= 0 && ans.size() < k; i--) { // 这里注意是ans.size < k 不是 count < k
             if (bucket[i] != null) {
-                count++;
                 ans.addAll(bucket[i]);
             }
         }

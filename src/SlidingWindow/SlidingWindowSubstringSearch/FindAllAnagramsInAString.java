@@ -72,7 +72,7 @@ public class FindAllAnagramsInAString {
 
             while (countForAllOccurance == 0) {
 
-                if (fast - slow == p.length()) {
+                if (fast - slow == p.length()) {                // 这里是关键要
                     ans.add(slow);
                 }
                 char slowChar = s.charAt(slow);

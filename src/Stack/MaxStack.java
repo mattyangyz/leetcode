@@ -29,6 +29,8 @@ import java.util.Stack;
  *
  */
 
+// 用treemap
+
 public class MaxStack {
 
     Stack<Integer> stack;

@@ -20,26 +20,24 @@ public class LowestCommonAncestorOfABinaryTree {
         return lowestCommonAncestorHelper(root, p, q);
     }
 
-    public TreeNode lowestCommonAncestorHelper(TreeNode root, TreeNode p, TreeNode q) {
 
+    private TreeNode lowestCommonAncestorHelper(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return null;
         }
         if (root.val == p.val || root.val == q.val) {
             return root;
         }
+
         TreeNode left = lowestCommonAncestorHelper(root.left, p, q);
         TreeNode right = lowestCommonAncestorHelper(root.right, p, q);
 
-        if (left != null && right != null) {                            // 这个是p和q上面的parent的情况
-            return root;
-        } else if (left == null) {                                      // 这个是找到p和q以后继续往上返回的情况
+        if (left == null) {
             return right;
         } else if (right == null) {
             return left;
         } else {
-            return null;
+            return root;
         }
-
     }
 }

@@ -95,10 +95,15 @@ public class StringToIntegerAtoi {
             if (digit < 0 || digit > 9) {
                 break;
             }
-
-            if (Integer.MAX_VALUE / 10 < total || Integer.MAX_VALUE / 10 == total && Integer.MAX_VALUE < 10) { // 这里是关键
-                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            // suppose 748 is max. If current total is 75 > 748 / 10, then enter the loop.
+            // also if current is 74, then current digit is greater than 8 then enter.
+            if (sign == 1 && (Integer.MAX_VALUE / 10 < total || Integer.MAX_VALUE / 10 == total && Integer.MAX_VALUE % 10 < digit)) { // 这里是关键
+                return Integer.MAX_VALUE;
             }
+            if (sign == -1 && (Integer.MAX_VALUE / 10 < total || Integer.MAX_VALUE / 10 == total && Integer.MAX_VALUE % 10 + 1 < digit)) { // 这里是关键
+                return Integer.MIN_VALUE;
+            }
+
             total = total * 10 + digit;
             index++;
         }

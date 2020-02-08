@@ -31,26 +31,30 @@ import java.util.List;
 
 public class MergeIntervals {
 
-    public static int[][] merge(int[][] intervals) {
+    public int[][] merge(int[][] intervals) {
+
         if (intervals.length <= 1)
             return intervals;
 
         Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
+        List<int[]> list = new ArrayList<>();
 
-        List<int[]> result = new ArrayList<>();
-        int[] prevInterval = intervals[0];
-        result.add(prevInterval);                                       //TODO: 先把这个加进去先， 然后再改
+        list.add(intervals[0]);
 
-        for (int[] interval : intervals) {
-            if (interval[0] <= prevInterval[1]) {                       // overlap
-                prevInterval[1] = Math.max(prevInterval[1], interval[1]);
-            }
-            else {
-                prevInterval = interval;
-                result.add(prevInterval);
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] <= list.get(list.size() - 1)[1]) {
+                list.get(list.size() - 1)[1] = Math.max(intervals[i][1], list.get(list.size() - 1)[1]);
+            } else {
+                list.add(intervals[i]);
             }
         }
-        return result.toArray(new int[result.size()][]);                // TODO: 注意这个如何转换
+
+        int[][] result = new int[list.size()][2];
+        int i = 0;
+        for (int[] array : list) {
+            result[i++] = array;
+        }
+        return result;
     }
 
 }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -55,7 +54,7 @@ public class Main {
 //        node31.next = node32;
 //        node32.next = node33;
 //
-//        ListNode[] arr = new ListNode[3];
+//        ListNode[] arr = new ListNode[3];ß
 //        arr[0] = node1;
 //        arr[1] = node10;
 //        arr[2] = node30;
@@ -73,17 +72,7 @@ public class Main {
 
 //        TopKFrequentElement.topKFrequent(new int[]{4, 1, -1, 2, -1, 2, 3}, 2);
 
-        List<Integer> ints = Arrays.asList(null, null, null, null);
-        List<Integer> ints2 = Arrays.asList(1, 2, 3, 4);
-        List<Integer> ints3 = Arrays.asList(null, 5);
-
-
-        List<List<Integer>> lists = new ArrayList<>();
-        lists.add(ints);
-        lists.add(ints2);
-        lists.add(ints3);
-
-
-
+        //MissingElementInSortedArray.missingElement(new int[]{2,3,5,7}, 1);
+//        SqrtX.mySqrt(26);
     }
 }

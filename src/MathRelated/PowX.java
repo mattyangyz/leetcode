@@ -1,7 +1,7 @@
 package MathRelated;
 
 /**
- * Implement pow(x, n), which calculates x raised to the power n (xn).
+ * Implement ]pow(x, n), which calculates x raised to the power n (xn).
  * <p>
  * Example 1:
  * <p>
@@ -20,12 +20,14 @@ package MathRelated;
  * <p>
  * -100.0 < x < 100.0
  * n is a 32-bit signed integer, within the range [−231, 231 − 1]
+ *
+ * 思路: 8^7 -> 8^3 -> 8^1 -> 8^0 === 1 -> 1 * 1 * 8 -> 8 * 8 * 8 -> 8^3 * 8^3 * 8 这个是整个流程， 需要理解。
+ *
  */
 
 public class PowX {
 
     public double myPow(double x, int n) {
-
         if (n > 0) {
             return pow(x, n);
         } else {
@@ -41,7 +43,7 @@ public class PowX {
         if (n % 2 == 0) {
             return y * y;
         } else {
-            return y * y * x;
+            return y * y * x;           // 这里是关键
         }
     }
 }
