@@ -1,4 +1,6 @@
-package Tree;
+package LevelOrder;
+
+import Tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

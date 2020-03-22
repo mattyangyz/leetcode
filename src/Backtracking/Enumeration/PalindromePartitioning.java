@@ -44,7 +44,7 @@ public class PalindromePartitioning {
             list.add(new ArrayList<>(tempList));
         }
         else{
-            for (int i = start; i < s.length(); i++) {
+            for (int i = start; i < s.length(); i++) {                      // backtracking templdate
                 if(isPalindrome(s, start, i)){
                     tempList.add(s.substring(start, i + 1));
                     backtrack(list, tempList, s, i + 1);
@@ -54,7 +54,7 @@ public class PalindromePartitioning {
         }
     }
 
-    private static boolean isPalindrome(String s, int low, int high) {
+    private static boolean isPalindrome(String s, int low, int high) {      // palindrome template
         while (low < high) {
             if (s.charAt(low++) != s.charAt(high--)) {
                 return false;

@@ -1,0 +1,1 @@
+1 PriorityQueue<Integer> 默认是从小到大的排序，insert 3, 2, 1进去， poll/peek出来的第一个会是1。

@@ -1,4 +1,4 @@
-package DFS;
+package DFS.ClassicalDFSTemplate;
 
 /**
  * int[3][4]  A  =  {  {  1,  0, 12, -1 },

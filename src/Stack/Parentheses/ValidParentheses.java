@@ -1,4 +1,4 @@
-package Stack;
+package Stack.Parentheses;
 
 import java.util.Stack;
 

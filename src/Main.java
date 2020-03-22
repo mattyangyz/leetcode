@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -51,7 +53,7 @@ public class Main {
 //        ListNode node32 = new ListNode(15);
 //        ListNode node33 = new ListNode(90);
 //        node30.next = node31;
-//        node31.next = node32;
+//        node31.next = node32;s
 //        node32.next = node33;
 //
 //        ListNode[] arr = new ListNode[3];ß
@@ -74,5 +76,27 @@ public class Main {
 
         //MissingElementInSortedArray.missingElement(new int[]{2,3,5,7}, 1);
 //        SqrtX.mySqrt(26);
+//        TaskScheduler.leastInterval(new char[]{'A','B','A','B'}, 2);
+
+//        PriorityQueue<Integer> queue = new PriorityQueue<>(3);
+//        queue.offer(3);
+//        queue.offer(2);
+//        queue.offer(1);
+//        queue.offer(0);
+//        System.out.println(queue.poll());
+//        System.out.println(queue.peek());
+
+        Comparator<String> cp = new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                String s1 = o1 + o2;
+                String s2 = o2 + o1;
+                return s2.compareTo(s1);
+            }
+        };
+
+        String[] sts = new String[]{"3", "30"};
+        Arrays.sort(sts, cp);
+        System.out.println(sts[0]);
     }
 }

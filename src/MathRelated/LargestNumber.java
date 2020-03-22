@@ -18,6 +18,12 @@ import java.util.Comparator;
  * Input: [3,30,34,5,9]
  * Output: "9534330"
  * Note: The result may be very large, so you need to return a string instead of an integer.
+ *
+ * 思路: 这里o1表示位于前面的字符，o2表示后面的字符
+ *      上面的条件是，o1比o2小，这个时候，我们需要需要调整它们的顺序
+ *      如果你想升序，那么o1比o2小就是我想要的；所以返回-1，类比成false；表示我不想调整顺序
+ *      如果你想降序，那么o1比o2小不是我想要的；所以返回1，类比成true；表示我想调整顺序
+ *
  */
 
 public class LargestNumber {
