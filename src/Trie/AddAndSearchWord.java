@@ -20,19 +20,18 @@ package Trie;
  * You may assume that all words are consist of lowercase letters a-z.
  */
 
+// 数据结构就是典型的trie，addword跟trie的一模一样。然后find使用recursive去找
+
 public class AddAndSearchWord {
 
-    public static class TrieNode {
-
-        TrieNode[] children;
+    class TrieNode {                                 // 每一个node就是一个char 加上一个size 26的children TrieNode
+        char val;
         boolean isWord;
-        String word;
-
+        TrieNode[] children = new TrieNode[26];
 
         public TrieNode() {
-            children = new TrieNode[26];
+            val = ' ';
             isWord = false;
-            word = "";
         }
     }
 
@@ -42,18 +41,21 @@ public class AddAndSearchWord {
         root = new TrieNode();
     }
 
-    public void addWord(String word) {
-        TrieNode node = root;
+    public void addWord(String word) {                         // 这个方法跟implementTrie的一样
+        TrieNode cur = root;
         for (int i = 0; i < word.length(); i++) {
-            int j = word.charAt(i) - 'a';
-            if (node.children[j] == null) {
-                node.children[j] = new TrieNode();
+            char c = word.charAt(i);
+
+            if (cur.children[c - 'a'] == null) {
+                TrieNode newNode = new TrieNode();
+                newNode.val = c;
+                cur.children[c - 'a'] = newNode;
             }
-            node = node.children[j];
+            cur = cur.children[c - 'a'];
         }
-        node.isWord = true;
-        node.word = word;
+        cur.isWord = true;
     }
+
 
     public boolean search(String word) {
         return find(word, root, 0);

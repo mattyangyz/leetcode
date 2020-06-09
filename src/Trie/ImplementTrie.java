@@ -22,59 +22,64 @@ package Trie;
 
 public class ImplementTrie {
 
-    AddAndSearchWord.TrieNode root;
+    class TrieNode {                                 // 每一个node就是一个char 加上一个size 26的children TrieNode
+        char val;
+        boolean isWord;
+        TrieNode[] children = new TrieNode[26];
 
-    public ImplementTrie() {
-        root = new AddAndSearchWord.TrieNode();
-    }
-
-    /**
-     * Inserts a word into the trie.
-     */
-    public void insert(String word) {
-
-        AddAndSearchWord.TrieNode node = root;
-        for (int i = 0; i < word.length(); i++) {
-            int j = word.charAt(i) - 'a';
-            if (node.children[j] == null) {
-                AddAndSearchWord.TrieNode child = new AddAndSearchWord.TrieNode();
-                node.children[j] = child;
-            }
-            node = node.children[j];
+        public TrieNode() {
+            val = ' ';
+            isWord = false;
         }
-        node.isWord = true;
-        node.word = word;
-
     }
 
-    /**
-     * Returns if the word is in the trie.
-     */
-    public boolean search(String word) {
+    public class Trie {
+        private TrieNode root;                      // 有一个root
 
-        AddAndSearchWord.TrieNode node = root;
-        for (int i = 0; i < word.length(); i++) {
-            int j = word.charAt(i) - 'a';
-            if (node.children[j] == null) {
-                return false;
-            }
-            node = node.children[j];
+        public Trie() {
+            root = new TrieNode();
+            root.val = ' ';
         }
-        return node.isWord;
+
+        public void insert(String word) {
+
+            TrieNode cur = root;
+            for (int i = 0; i < word.length(); i++) {
+                char c = word.charAt(i);
+
+                if (cur.children[c - 'a'] == null) {
+                    TrieNode newNode = new TrieNode();
+                    newNode.val = c;
+                    cur.children[c - 'a'] = newNode;
+                }
+                cur = cur.children[c - 'a'];
+            }
+            cur.isWord = true;
+        }
+
+        public boolean search(String word) {
+            TrieNode cur = root;
+            for (int i = 0; i < word.length(); i++) {
+                char c = word.charAt(i);
+                if (cur.children[c - 'a'] == null) {
+                    return false;
+                }
+                cur = cur.children[c - 'a'];
+            }
+            return cur.isWord;
+        }
+
+        public boolean startWith(String prefix) {
+            TrieNode cur = root;
+            for (int i = 0; i < prefix.length(); i++) {
+                char c = prefix.charAt(i);
+                if (cur.children[c - 'a'] == null) {
+                    return false;
+                }
+                cur = cur.children[c - 'a'];
+            }
+            return true;
+        }
     }
 
-    /**
-     * Returns if there is any word in the trie that starts with the given prefix.
-     */
-    public boolean startsWith(String prefix) {
-        AddAndSearchWord.TrieNode node = root;
-        for (int i = 0; i < prefix.length(); i++) {
-            int j = prefix.charAt(i) - 'a';
-            if (node.children[j] == null) {
-                return false;
-            }
-            node = node.children[j];
-        }
-        return true;
-    }
 }

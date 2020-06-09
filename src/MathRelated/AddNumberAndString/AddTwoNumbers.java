@@ -24,6 +24,9 @@ import LinkedList.ListNode;
  *
  */
 
+// 要注意算carry和当前node值的时候一定要加上carry再算，而且注意while一定是||的。
+// 而且要注意如何更新curr index这个问题，什么时候curr.next = newNode。
+// 最后的判断carry也是一个比较容易忘记的地方。
 public class AddTwoNumbers {
 
     public ListNode addTwoNumber(ListNode l1, ListNode l2) {

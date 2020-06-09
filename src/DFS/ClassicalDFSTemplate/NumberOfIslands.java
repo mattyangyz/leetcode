@@ -38,7 +38,7 @@ package DFS.ClassicalDFSTemplate;
  * Output: 3
  */
 
-
+// 不需要用一个visited，只需要用DFS就可以了。
 public class NumberOfIslands {
 
     private int n;

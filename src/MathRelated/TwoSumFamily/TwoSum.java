@@ -18,6 +18,8 @@ import java.util.Map;
  * return [0, 1].
  *
  **/
+
+// 要用one pass的做法。
 public class TwoSum {
 
     public static int[] twoSum(int[] nums, int target) { // One pass

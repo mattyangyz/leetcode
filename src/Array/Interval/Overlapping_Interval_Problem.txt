@@ -8,4 +8,5 @@ https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/discuss
 56 Merge Intervals <- very similar to 452
 252 Meeting Rooms
 253 Meeting Rooms II
+986 IntervalListIntersections
 
