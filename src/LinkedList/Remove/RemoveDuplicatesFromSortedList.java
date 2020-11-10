@@ -14,7 +14,7 @@ import LinkedList.ListNode;
  * Input: 1->1->2->3->3
  * Output: 1->2->3
  * <p>
- * 思路: 一个pointer就够了
+ * 思路: 一个pointer就够了, 千万要注意iterator只有在不相等的时候才move to next。一定不能放在else外面
  */
 
 public class RemoveDuplicatesFromSortedList {

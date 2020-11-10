@@ -15,55 +15,74 @@ package LinkedList;
  * <p>
  * 思路: 先进行找到中点然后进行一个merge。
  */
+
+// 先用一个fast slow pointer找到中间的element。 如果是 1 2 3 4找到2， 如果是 1 2 3 4 5找到3.
+// 然后把中间往后的element给reversele，然后中间element的next设置为null
+// 最后进行一个merge，merge的时候好好走一遍就能理解了 没有什么特别复杂的。
 public class ReorderList {
 
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        ListNode one = new ListNode(2);
+
+        ListNode two = new ListNode(3);
+
+        ListNode three = new ListNode(4);
+
+
+        head.next = one;
+        one.next = two;
+        two.next = three;
+        ReorderList reorder = new ReorderList();
+        reorder.reorderList(head);
+    }
+
     public void reorderList(ListNode head) {
-        if (head == null || head.next == null) {
+        if (head == null) {
             return;
         }
 
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode temp = null;                           // 这个是中间元素的前面一个
         ListNode slow = head;
-        ListNode fast = head;
-        ListNode l1 = head;
-
+        ListNode fast = head.next;
         while (fast != null && fast.next != null) {
-            temp = slow;
             slow = slow.next;
             fast = fast.next.next;
         }
-        temp.next = null;
 
-        //进行翻转
-        ListNode l2 = reverse(slow);
-        merge(l1, l2);
+        ListNode reverseHead = this.reverse(slow.next);
+
+        slow.next = null;
+        merge(head, reverseHead);
     }
 
-    private ListNode reverse(ListNode head) {           // 正常的reverse linklist也行
-        ListNode prev = null;
 
-        while (head != null) {
-            ListNode temp = head.next;
-            head.next = prev;
-            prev = head;
-            head = temp;
+    private ListNode reverse(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = null;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
         return prev;
     }
 
-    private void merge(ListNode l1, ListNode l2) {
-        while (l1 != l2) {
-            ListNode n1 = l1.next;
-            ListNode n2 = l2.next;
-            l1.next = l2;
-            if (n1 == null) {
-                break;
-            }
-            l2.next = n1;
-            l1 = n1;
-            l2 = n2;
+    private void merge(ListNode head1, ListNode head2) {
+
+        while (head1 != null & head2 != null) {
+            ListNode next = head1.next;
+            ListNode next2 = head2.next;
+            head1.next = head2;
+            head2.next = next;
+            head2 = next2;
+            head1 = next;
         }
     }
 }

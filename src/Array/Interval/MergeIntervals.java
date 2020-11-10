@@ -36,8 +36,8 @@ public class MergeIntervals {
         if (intervals.length <= 1)
             return intervals;
 
-        Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
-        List<int[]> list = new ArrayList<>();
+        Arrays.sort(intervals, (i1, i2) -> i1[0] - i2[2]);
+        List<int[]> list = new ArrayList<>();           // 这里注意可以写成这样子的，List<int[]>
 
         list.add(intervals[0]);
 

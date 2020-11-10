@@ -45,7 +45,11 @@ package Array;
  */
 public class BestTimeToBuyAndSellStockIII {
 
-    public int maxPrice(int[] prices) {
+    public static void main(String[] args) {
+        BestTimeToBuyAndSellStockIII.maxPrice(new int[]{3, 3, 5, 0, 0, 3, 1, 4});
+    }
+
+    public static int maxPrice(int[] prices) {
 
         int oneBuyOneSell = 0;
         int twoBuyTwoSell = 0;

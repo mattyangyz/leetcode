@@ -29,6 +29,9 @@ package LinkedList;
  * Repeat until reach null
  */
 
+// 一个一个node地走，如果current有child的话，就开始赶回。先拿到child chain的尾部，然后把child chain的尾部跟
+// current的next链接起来，同时curr的next跟child chain的尾部链接起来。然后curr的next指向child chain的头部，
+// 然后child chain的头部的prev指向current，然后把child的ref给设置成null。这样就行了。
 public class FlattenAMultilevelDoublyLinkedList {
 
     class Node {

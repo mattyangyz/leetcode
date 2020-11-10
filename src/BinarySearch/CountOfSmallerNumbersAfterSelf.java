@@ -39,9 +39,15 @@ import java.util.List;
 
 public class CountOfSmallerNumbersAfterSelf {
 
-    public List<Integer> countSmaller(int[] nums) {
+    public static void main(String[] args) {
+        CountOfSmallerNumbersAfterSelf.countSmaller(new int[]{5, 2, 6, 1});
+    }
+
+    public static List<Integer> countSmaller(int[] nums) {
+
         Integer[] res = new Integer[nums.length];
         List<Integer> list = new ArrayList<>();
+
         for (int i = nums.length - 1; i >= 0; i--) {
             int index = findIndex(list, nums[i]);
             res[i] = index;                     // 相应地也要从后面开始 不能从前面开始
@@ -51,7 +57,7 @@ public class CountOfSmallerNumbersAfterSelf {
         return Arrays.asList(res);
     }
 
-    private int findIndex(List<Integer> list, int target) {
+    private static int findIndex(List<Integer> list, int target) {
         if (list.size() == 0) {
             return 0;
         }

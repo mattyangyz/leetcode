@@ -28,6 +28,8 @@ import java.util.Map;
  * Explanation:
  * We will visit "google.mail.com" 900 times, "yahoo.com" 50 times, "intel.mail.com" once and "wiki.org" 5 times. For the subdomains, we will visit "mail.com" 900 + 1 = 901 times, "com" 900 + 50 + 1 = 951 times, and "org" 5 times.
  * <p>
+ *
+ * 题意: 给出一个count 和一堆domain，统计domain以及parent domain出现的次数放到map里面。
  * 思路: 正常的hashmap加indexof和substring去一个一个遍历做。 没什么难的算法。
  */
 
@@ -38,12 +40,15 @@ public class SubdomainVisitCount {
         Map<String, Integer> map = new HashMap<>();
         for (String cd : cpdomains) {
             int spaceIndex = cd.indexOf(' ');
+
             int n = Integer.valueOf(cd.substring(0, spaceIndex));
             String fullDomain = cd.substring(spaceIndex + 1);
+
             map.put(fullDomain, map.getOrDefault(fullDomain, 0) + n);
+
             for (int i = 0; i < fullDomain.length(); i++) {
                 if (fullDomain.charAt(i) == '.') {
-                    String subDomain = fullDomain.substring(i + 1);
+                    String subDomain = fullDomain.substring(i + 1);                     // 这里是fullDomain的substring要注意
                     map.put(subDomain, map.getOrDefault(subDomain, 0) + n);
                 }
             }

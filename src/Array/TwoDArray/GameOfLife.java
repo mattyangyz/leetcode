@@ -11,9 +11,9 @@ package Array.TwoDArray;
  * Any live cell with more than three live neighbors dies, as if by over-population..       01 -> 01
  * Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction. 00 -> 10 (need to take care)
  * Write a function to compute the next state (after one update) of the board given its current state. The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously.
- * <p>
+ *
  * Example:
- * <p>
+ *
  * Input:
  * [
  * [0,1,0],
@@ -25,25 +25,24 @@ package Array.TwoDArray;
  * [
  * [0,0,0],
  * [1,0,1],               // 这里是i - 1
- * [0,1,1],               // 这里是 i
+ * [0,1,1],               // 这里是 i     -> 这是对于每一个cell需要遍历的地方， 一共八个cell。
  * [0,1,0]                // 这里是i + 1
  * ]
- * <p>
- * <p>
+ *
  * next  current
  * 1    0
  * 0    1   -> & 01的话就能知道现在的状态，不care next的状态
  * 1    1
- * <p>
- * <p>
- * 00
- * 01   这都是死亡的状态，但是我们不需要管。因为next默认为零了，shift的话 会变成 00
- * <p>
- * <p>
+ * 0    0
+ * 0    1   这都是死亡的状态，但是我们不需要管。因为next默认为零了，shift的话 会变成 00
+ *
  * 时间复杂度： O(m * n)
  * space: O(1)
  */
 
+// 用两位数的binary number去表示现在以及下一个状态。当前状态里面 要考虑三种live的状态，一种dead的状态。
+// 一个难点就是新的数字放上去了以后，怎么保证遍历到这个数字的时候得到之前的状态。这里需要考虑用到bit的运算。
+//
 public class GameOfLife {
 
     public void gameOfLife(int[][] board) {
@@ -73,15 +72,19 @@ public class GameOfLife {
         }
     }
 
-    private int countNeighbor(int[][] board, int i, int j) {//判断周围有多少的存活
+    private int countNeighbor(int[][] board, int i, int j) {
         int count = 0;
+        int rowBegin = i - 1 < 0 ? 0 : i - 1;
+        int rowEnd = i + 1 > board.length - 1 ? board.length - 1 : i + 1;
+        int colBegin = j - 1 < 0 ? 0 : j - 1;
+        int colEnd = j + 1 > board[0].length - 1 ? board[0].length - 1 : j + 1;
 
-        for (int row = Math.max(0, i - 1); row <= Math.min(i + 1, board.length - 1); row++) { // 用max跟min是防止越界的问题
-            for (int col = Math.max(0, j - 1); col <= Math.min(j + 1, board[0].length - 1); col++) {
+        for (int row = rowBegin; row <= rowEnd; row++) {
+            for (int col = colBegin; col <= colEnd; col++) {
                 if (row == i && col == j) {
                     continue;
                 }
-                if ((board[row][col] & 1) == 1) {         // 如果变化后是 10 或 11的话， 我们 & 01 的话就能知道当前的状态
+                if ((board[row][col] & 01) == 1) {
                     count++;
                 }
             }

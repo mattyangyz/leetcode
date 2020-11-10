@@ -31,6 +31,9 @@ import java.util.PriorityQueue;
  * 思路: 思考一下用priorityQueue排序好了之后， poll出来会是怎么样的。line 51的comment很关键，要想明白。
  */
 
+// 1 - 10  2 13
+
+
 public class EmployeeFreeTime {
 
     public List<Interval> employeeFreeTime(List<List<Interval>> avails) {
@@ -52,6 +55,8 @@ public class EmployeeFreeTime {
                 result.add(new Interval(prev.end, pq.peek().start));
                 prev = pq.poll(); // 变成下一个prev.
             } else {
+                //  这里不需要考虑start的，因为下一个start肯定是比这个start要后面的，要考虑end的大小 看哪个更大，更大那个会影响
+                // 下一个start
                 prev = prev.end > pq.peek().end ? prev : pq.peek();
                 pq.poll();
             }

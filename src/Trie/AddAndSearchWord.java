@@ -21,8 +21,19 @@ package Trie;
  */
 
 // 数据结构就是典型的trie，addword跟trie的一模一样。然后find使用recursive去找
-
+// find的时候要注意碰到 . 什么样情况下返回false，要所有的children都走完 都找不到才能返回false
 public class AddAndSearchWord {
+
+    public static void main(String[] args) {
+        AddAndSearchWord search = new AddAndSearchWord();
+        search.addWord("at");
+        search.addWord("and");
+        search.addWord("an");
+        search.addWord("add");
+        search.addWord("bat");
+
+        System.out.println(search.search("a.d"));
+    }
 
     class TrieNode {                                 // 每一个node就是一个char 加上一个size 26的children TrieNode
         char val;
@@ -67,7 +78,7 @@ public class AddAndSearchWord {
         }
         if (word.charAt(index) == '.') {
             for (TrieNode temp : node.children) {
-                if (temp != null && find(word, temp, index + 1)) {    // 只要是有孩子就行，因为是 '.'
+                if (temp != null && find(word, temp, index + 1)) {    // 只要是有孩子就行，因为是 '.', 这里必须是find true的时候才返回，false的时候接着找，这是个关键。
                     return true;
                 }
             }
@@ -78,6 +89,5 @@ public class AddAndSearchWord {
             return temp != null && find(word, temp, index + 1);
         }
     }
-
 
 }

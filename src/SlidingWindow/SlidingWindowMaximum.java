@@ -1,7 +1,6 @@
 package SlidingWindow;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.PriorityQueue;
 
 /**
  * Deque
@@ -12,29 +11,47 @@ import java.util.Deque;
 
 public class SlidingWindowMaximum {
 
-    public static int[] maxSlidingWindow(int[] a, int k) {
+    public static void main(String[] args) {
+        SlidingWindowMaximum slidingWindowMaximum = new SlidingWindowMaximum();
+        slidingWindowMaximum.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3);
+    }
 
-        if (a == null || k == 0) {
-            return new int[0];
+    class Unit {
+        int index;
+        int value;
+
+        public Unit(int index, int value) {
+            this.index = index;
+            this.value = value;
         }
+    }
 
-        int[] arr = new int[a.length - k + 1];
-        int index = 0;
-        Deque<Integer> dq = new ArrayDeque<>();
-
-        for (int i = 0; i < a.length; i++) {
-            while (!dq.isEmpty() && dq.peek() < i - k + 1) {
-                dq.poll();
-            }
-            while (!dq.isEmpty() && a[dq.peekLast()] < a[i]) {
-                dq.pollLast();
-            }
-            dq.offer(i);
-
-            if (i >= k - 1) {
-                arr[index++] = a[dq.peek()];
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        PriorityQueue<Unit> queue = new PriorityQueue<>((n1, n2) -> n2.value - n1.value);
+        int length = nums.length;
+        int ansLength = length - k + 1;
+        int count = 0;
+        int[] ans = new int[ansLength];
+        for (int i = 0; i < length; i++) {
+            int cur = nums[i];
+            if (count < k) {
+                while (!queue.isEmpty() && queue.peek().value <= cur) {
+                    queue.poll();
+                }
+                queue.offer(new Unit(i, cur));
+                count++;
+                if (count == k) {
+                    ans[0] = queue.peek().value;
+                }
+            } else {
+                int head = nums[i - k];
+                while (!queue.isEmpty() && (queue.peek().value <= cur || queue.peek().index <= i - k)) {
+                    queue.poll();
+                }
+                queue.offer(new Unit(i, cur));
+                ans[i - k + 1] = queue.peek().value;
             }
         }
-        return arr;
+        return ans;
     }
 }

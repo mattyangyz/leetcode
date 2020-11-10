@@ -16,6 +16,8 @@ package Array;
  * [1,   4,   7,   5,   9]
  * [买，卖/买, 卖,  买,   卖]
  *
+ * 意思: profit可以carry over的 所以只需要比较后一个和前一个就行
+ *
  */
 
 public class BestTimeToBuyAndSellStockII {

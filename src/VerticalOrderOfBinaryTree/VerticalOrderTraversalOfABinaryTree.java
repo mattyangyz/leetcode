@@ -19,6 +19,9 @@ import java.util.*;
  * 然后利用comparator根据y去排序放入结果里面。
  */
 
+// 这题的关键在于把每一个treeNode打包成一个包含treeNode以及x y坐标的一个node，然后再从root往下走把每一层的node都放到对应的x坐标map中。
+// 首先把root按照一层一层去遍历，同时打包成一个Node class，然后打包的同时计算相应的x和y。然后把这些node根据x的坐标放到一个map中，
+// 然后从最小到最大值依次从map中取出来 然后放到结果当中
 public class VerticalOrderTraversalOfABinaryTree {
 
     class Node {
@@ -46,36 +49,38 @@ public class VerticalOrderTraversalOfABinaryTree {
         int minX = 0;
         int maxX = 0;
 
-        while (!queue.isEmpty()) {                      // 注意这里不需要keep track of size
-            Node cur = queue.poll();
-            map.putIfAbsent(cur.x, new ArrayList<>());
-            minX = Math.min(minX, cur.x);
-            maxX = Math.max(maxX, cur.x);
+        while (!queue.isEmpty()) {
+            int size = queue.size();                            // 其实这里这个size的for loop有没有都没有关系。
+            for (int i = 0; i < size; i++) {
+                Node cur = queue.poll();
+                map.putIfAbsent(cur.x, new ArrayList<>());
+                minX = Math.min(minX, cur.x);
+                maxX = Math.max(maxX, cur.x);
 
-            map.get(cur.x).add(cur);
+                map.get(cur.x).add(cur);
 
-            if (cur.root.left != null) {
-                queue.offer(new Node(cur.root.left, cur.x - 1, cur.y - 1));
-            }
-            if (cur.root.right != null) {
-                queue.offer(new Node(cur.root.right, cur.x + 1, cur.y - 1));
+                if (cur.root.left != null) {
+                    queue.offer(new Node(cur.root.left, cur.x - 1, cur.y - 1));
+                }
+                if (cur.root.right != null) {
+                    queue.offer(new Node(cur.root.right, cur.x + 1, cur.y - 1));
+                }
             }
         }
 
-        int index = 0;
+
         for (int i = minX; i <= maxX; i++) {
             Collections.sort(map.get(i), (a, b) -> {
                 if (a.y == b.y) {
-                    return a.root.val - b.root.val;
+                    return a.root.val - b.root.val; // 如果坐标相同，则按照数字由大到小排序
                 } else {
                     return b.y - a.y;               // 注意这里， 是降序根据y。
                 }
             });
             res.add(new ArrayList<>());
             for (Node node : map.get(i)) {
-                res.get(index).add(node.root.val);
+                res.get(res.size() - 1).add(node.root.val);
             }
-            index++;
         }
         return res;
 

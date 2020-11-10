@@ -24,6 +24,8 @@ import java.util.Stack;
  * 地pop，知道遇到前一句话那种当前元素比stack的top小的这种情况。
  */
 
+// 思路: 从后面往前走， 用一个mono stack去做, 这是一个单调递减的stack。想一想为什么是单调递减。
+//
 public class DailyTemperatures {
 
     public int[] dailyTemperatures(int[] t) {

@@ -50,7 +50,8 @@ public class CriticalConnectionsInANetwork {
             if (!visited[neigh]) {
                 criticalConnectionsHelper(map, node, neigh, timer, visited, result, timeStamps);
             }
-            timeStamps[node] = Math.min(timeStamps[neigh], timeStamps[node]);                   // 这里是关键， 如果遇到环的话，这个timeStamps[node]就会被更新成min 然后会一直被带上去parent那里。
+            // // 这里是关键， 如果遇到环的话，这个timeStamps[node]就会被更新成min 然后会一直被带上去parent那里
+            timeStamps[node] = Math.min(timeStamps[neigh], timeStamps[node]);
             if (currentTimeStamp < timeStamps[neigh]) {
                 result.add(Arrays.asList(node, neigh));
             }

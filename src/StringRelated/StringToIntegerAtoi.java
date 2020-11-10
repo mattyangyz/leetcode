@@ -61,6 +61,8 @@ package StringRelated;
  * max / min can directly be returned if the next digit >= 8; or we've parsed num > 64, directly return too.
  */
 
+// 先处理空格，然后处理符号。然后开始处理数字，处理数字的时候对于overflow是预先处理的，不是等到计算到当前的结果再处理的。
+// 用 % / 去判断overflow的情况。
 public class StringToIntegerAtoi {
 
     public int myAtoi(String str) {

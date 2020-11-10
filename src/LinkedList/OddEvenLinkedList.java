@@ -30,6 +30,9 @@ public class OddEvenLinkedList {
         ListNode even = head.next;
         ListNode evenHead = even;                   // 最后的时候吧最后一个基数的node，跟偶数的头连起来。
 
+
+        // 这里不止需要even ！= null还要 even.next != null， 因为想想例子
+        // 1 2 3 4 5 6 7 8这个。
         while (even != null && even.next != null) {
             odd.next = even.next;
             odd = odd.next;

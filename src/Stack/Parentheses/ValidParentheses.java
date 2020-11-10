@@ -31,6 +31,8 @@ import java.util.Stack;
  * <p>
  * Input: "{[]}"
  * Output: trueaaaa
+ *
+ * 用stack，看见（ 就 push ）， 然后再往后走。
  */
 
 
@@ -53,4 +55,6 @@ public class ValidParentheses {
         }
         return stack.isEmpty();
     }
+
+
 }

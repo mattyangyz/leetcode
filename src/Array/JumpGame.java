@@ -32,6 +32,8 @@ package Array;
  *
  */
 
+// 思路: 从后面开始遍历，然后遇到0的时候把needJump的counter加一，因为这个是需要被逾越的。然后继续往左边走， 知道遇到左边的步数可以足够
+// 逾越needJump为止。
 public class JumpGame {
 
     public boolean canJump(int[] nums) {
@@ -45,7 +47,9 @@ public class JumpGame {
                 while (neededJumps > nums[curr]) {
                     neededJumps++;
                     curr--;
-
+                    if (curr < 0) {
+                        return false;
+                    }
                 }
             }
         }

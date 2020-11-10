@@ -37,29 +37,29 @@ public class TopKFrequentWords {
     public List<String> topKFrequent(String[] words, int k) {
 
         Map<String, Integer> map = new HashMap<>();
-        int max = 0;
-        for (String word : words) {                                         // 频率map
+        for (String word : words) {
             map.put(word, map.getOrDefault(word, 0) + 1);
-            max = Math.max(max, map.get(word));
         }
 
-        List<String>[] bucket = new ArrayList[max + 1];                     // TODO: 注意
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {           // 把每一个fre对应的字放到bucket里面
-            int freq = entry.getValue();
-            if (bucket[freq] == null) {
-                bucket[freq] = new ArrayList<>();
+        List<String>[] bucket = new ArrayList[words.length];
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (bucket[entry.getValue()] == null) {
+                bucket[entry.getValue()] = new ArrayList<>();
             }
-            bucket[freq].add(entry.getKey());
+            bucket[entry.getValue()].add(entry.getKey());
         }
 
         List<String> res = new ArrayList<>();
-        for (int i = max; i >= 0 && res.size() < k; i--) {                    // 从bucket里面拿出来，放到放到ans里面
+
+        for (int i = bucket.length - 1; i >= 0 && res.size() < k; i--) {
             if (bucket[i] != null) {
-                Collections.sort(bucket[i]);                                // TODO: 注意
-                res.addAll(bucket[i]);
+                Collections.sort(bucket[i]);
+                for (int j = 0; j < (bucket[i]).size() && res.size() < k; j++) {
+                    res.add(bucket[i].get(j));
+                }
             }
         }
-        return res.subList(0, k);
+        return res;
 
     }
 }

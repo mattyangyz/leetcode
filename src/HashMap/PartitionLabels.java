@@ -19,29 +19,30 @@ import java.util.Map;
  * 思路: 用map去记录最后的位置，然后遍历每个char，更新碰见字母的最后出现index。
  */
 
+// 每个字母只出现在其中一个字串中，思路： https://www.youtube.com/watch?v=nKf6wJ6SCa8
 public class PartitionLabels {
 
     public List<Integer> partitionLabels(String S) {
 
         Map<Character, Integer> map = new HashMap<>();
-        char[] chars = S.toCharArray();
-
-        for (int i = 0; i < chars.length; i++) {
-            map.put(chars[i], i);
+        for (int i = 0; i < S.length(); i++) {
+            map.put(S.charAt(i), i);
         }
-
-        int start = 0;
-        int end = 0;
 
         List<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i < chars.length; i++) {
-            int lastIndex = map.get(chars[i]);
+        int partialEnd = 0;                     // 把这个想象成结果里面的每一段的end
+        int partialStart = 0;
 
-            end = Math.max(end, lastIndex);
-            if (i == end) {
-                list.add(end - start + 1);
-                start = end + 1;
+        for (int i = 0; i < S.length(); i++) {
+
+            int lastIndex = map.get(S.charAt(i));
+            partialEnd = Math.max(partialEnd, lastIndex);
+
+            if (i == partialEnd) {                // 说明当前到 i 位置， 碰见的所有元素都在这个partialEnd的范围之内
+                list.add(partialEnd - partialStart + 1);
+                partialStart = partialEnd + 1;
+                partialEnd = partialEnd + 1;
             }
         }
         return list;

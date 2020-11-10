@@ -1,6 +1,7 @@
 package Array;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://zhuanlan.zhihu.com/p/32854569
@@ -35,30 +36,36 @@ import java.util.HashMap;
  * So knowing that at index 2 the total sum is 4, and at index 5, the total sum is 7,
  * that means the elements between index 2 and index 5 incremented the total sum by 3, or k!
  * <p>
- * 用HashMap, Key指i及之前元素的总和，value指index。
+ * 用HashMap, Key指i及之前元素的总和，freq。
  * <p>
  * 对于每个i，不仅检查当前sum，也要检查(currentSum - previousSum)来看看是否与k相等。对map.containsKey(sum - k) 的理解是一个重点：
  */
 
-
+// 用hashmap存running sum，key是runningSum value是出现的次数。 要次数因为有可能出现负数 譬如 2 3 -1 1 6 k = 11，有两个 2 3 6 和 2 3 -1 1 6
+// 因为2 + 3是5，然后2 + 3 + -1 + 1 也是5，到6的时候有两个subarray都可以构成 所有需要用 map.getOrDefault(runningSum, 0) + 1
+// 这也就是为什么要保存freq。
 public class SubarraySumEqualsK {
-    public int maxSubArrayLen(int[] nums, int k) {
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+    public static void main(String[] args) {
+        SubarraySumEqualsK.subarraySum(new int[]{2, 3, -1, 1, 6}, 6);
+    }
 
-        int sum = 0;
-        int max = 0;
+    public static int subarraySum(int[] nums, int k) {
+
+        Map<Integer, Integer> map = new HashMap<>();
+        int runningSum = 0;
+        int ans = 0;
+        map.put(0, 1);
+
         for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (sum == k) {
-                max = i + 1;
-            } else if (map.containsKey(sum - k)) {
-                max = Math.max(i - map.get(sum - k), max);
+            runningSum += nums[i];
+
+            if (map.containsKey(runningSum - k)) {
+                ans += map.get(runningSum - k);
             }
-            if (!map.containsKey(sum)) {                      // this is for [7, 5, 3, -3] always, always take the previous one.
-                map.put(sum, i);
-            }
+            map.put(runningSum, map.getOrDefault(runningSum, 0) + 1);
         }
-        return max;
+
+        return ans;
     }
 }

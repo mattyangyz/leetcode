@@ -52,6 +52,6 @@ public class AddTwoNumbers {
         if (carry != 0) {
             curr.next = new ListNode(1);
         }
-        return dummyHead;
+        return dummyHead.next;
     }
 }

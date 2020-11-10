@@ -28,29 +28,31 @@ package Array;
  *
  * 需要注意为什么是nums.length - 1
  *
- *
  * 这里要注意一个细节，就是 for 循环中，i < nums.length - 1，少了末尾。
  * 因为开始的时候边界是第 0 个位置，steps 已经加 1 了。
- * 如下图，如果最后一步刚好跳到了末尾，此时 steps 其实不用加 1 了。如果是 i < nums.length，i 遍历到最后的时候，会进入 if 语句中，steps 会多加 1 。
+ * 如下图，如果最后一步刚好跳到了末尾，此时 steps 其实不用加 1 了。如果是 i < nums.length,
+ * i 遍历到最后的时候，会进入 if 语句中，steps 会多加 1 。
  *
  *
  */
 
-
-
+// 就在当前nums[i]最多能走到多少，然后当前的 index 于 index + nums[i] 形成一个区间。然后遍历这里面的区间，从 index i走到这个区间里面的
+// 任何index都是步数为1的，走的同时要update windowCanReachMax, 当走到index + nums[i]的时候就再windowCanReachMax, 因为要走下一个区间了
+// 下一个区间的长度是最新的 windowCanReachMax
 public class JumpGameII {
 
     public int jump(int[] nums) {
-        int end = 0;
-        int maxJumps = 0;
-        int steps = 0;
+
+        int requireSteps = 0;
+        int windowCanReachMax = 0;
+        int windowEnd = 0;
         for (int i = 0; i < nums.length - 1; i++) {
-            maxJumps = Math.max(maxJumps, i + nums[i]);
-            if (i == end) {
-                end = maxJumps;
-                steps++;
+            windowCanReachMax = Math.max(windowCanReachMax, i + nums[i]);
+            if (i == windowEnd) {
+                requireSteps++;
+                windowEnd = windowCanReachMax;
             }
         }
-        return steps;
+        return requireSteps;
     }
 }

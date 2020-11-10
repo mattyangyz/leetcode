@@ -17,7 +17,7 @@ package StringRelated;
  * Input: "race a car"
  * Output: false
  * <p>
- * 思路： two pointer 加isLetterOrDigit
+ * 思路： two pointer 加isLetterOrDigit 加 toLowerCase 这两个方法。
  */
 
 public class ValidPalindrome {

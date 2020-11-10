@@ -43,6 +43,8 @@ import java.util.Set;
 
 // 把二维数组转换为一维的， 这样好比较。同时关键点是要把所有0在的positions的可能移动的方位先列明出来。
 // 然后就是正常的BFS了
+// 把 [[4,1,2],[5,0,3]] , 看成是 4 1 2 5 0 3, 然后利用找出 0 的位置，再从dir里面找出相应可以走的direction 放到queue里面
+// 同时还要自己写一个swap方法去得到新的 string
 public class SlidingPuzzle {
 
     public int slidingPuzzle(int[][] board) {
@@ -58,6 +60,10 @@ public class SlidingPuzzle {
         }
 
         Set<String> visited = new HashSet();
+
+        // 0 1 2
+        // 3 4 5
+        // 第一个dir表示若0在index 0，时候可以走的位置， 第二个dir表示若0在index 1，时候可以走的三个位置
         int[][] dir = new int[][]{
                 {1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}
         };
@@ -95,7 +101,7 @@ public class SlidingPuzzle {
     }
 
     public String swap(String s, int i, int j) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(s);
         sb.setCharAt(j, s.charAt(i));
         sb.setCharAt(i, s.charAt(j));
         return sb.toString();

@@ -30,7 +30,7 @@ package BinarySearch;
  * looking from the top right, it's a binary search tree
  */
 
-
+// 从右上角看，这就是一个binary search tree 注意initialize从那里开始往左下角走
 public class SearchA2dMatrixII {
 
     public boolean searchMatrix(int[][] matrix, int target) {

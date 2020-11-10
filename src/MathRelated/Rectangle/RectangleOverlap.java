@@ -22,6 +22,15 @@ package MathRelated.Rectangle;
  * <p>
  * <p>
  * 思路: 没什么算法，把六种overlap的情况画出来就知道结果了。 给点时间，能理解的。
+ *
+ *              x4y4
+ *      |-----|
+ *      |     |
+ *      |   |-|----| x2y2
+ * x3y3 |- -|-|    |
+ *          |------|
+ *         x1y1
+ *
  */
 
 public class RectangleOverlap {
@@ -37,6 +46,6 @@ public class RectangleOverlap {
         int y3 = rec2[1];
         int y4 = rec2[3];
 
-        return x1 < x3 && x2 < x4 && y1 < y4 && y2 > y3;
+        return x4 > x1 && y4 > y1 && x3 < x2 && y3 < y2;
     }
 }

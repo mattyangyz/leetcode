@@ -15,8 +15,12 @@ import java.util.Iterator;
  * Calling hasNext() after that should return false.
  * <p>
  * How would you extend your design to be generic and work with all types, not just integer?
+ *
+ * 思路: 用一个var 把下一个element cache起来call next的时候就return这个next。并且把当前next挪到下一个element那里去。
  */
 
+// ini一个iterator和一个next的variable，去cache这个next的element，在constructor的时候直接init
+// next, 然后peek的时候直接返回，然后next的时候也是返回这个next，但记得要更新到下一个元素
 public class PeekingIterator<T> implements Iterator<T> {
 
     private Iterator<T> iterator;
@@ -26,6 +30,8 @@ public class PeekingIterator<T> implements Iterator<T> {
         this.iterator = iterator;
         if (iterator.hasNext()) {
             next = iterator.next();
+        } else {
+            next = null;
         }
 
     }
@@ -40,8 +46,13 @@ public class PeekingIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         T res = next;
-        next = iterator.hasNext() ? iterator.next() : null;
-        return next;
+        if (iterator.hasNext()) {
+            next = iterator.next();
+        } else {
+            next = null;
+        }
+        return res;
+
     }
 
     @Override

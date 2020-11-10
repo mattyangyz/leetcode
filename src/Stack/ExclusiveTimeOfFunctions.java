@@ -33,6 +33,9 @@ import java.util.Stack;
  * 0                        -----------
  */
 
+// 思路: 碰见end的时候才开始行动， 关键点是in order to exclude某段，peek top的time slot，先
+// 减去当前的time。譬如到了👆 3的结束时候， 计算完结果后把3的长度先从2的res array那里先减去，之后到了
+// 2 结尾的时候，加上这个已经被减去过的结果 也就是line 65.
 public class ExclusiveTimeOfFunctions {
 
     private static class Log {
@@ -54,6 +57,7 @@ public class ExclusiveTimeOfFunctions {
         int[] result = new int[n];
         for (String content : logs) {
             Log currLog = new Log(content);
+
             if (currLog.isStart) {
                 stack.push(currLog);
             } else {
@@ -61,6 +65,9 @@ public class ExclusiveTimeOfFunctions {
                 result[currLog.id] += currLog.time - popedLog.time + 1;
                 if (!stack.empty()) {
                     result[stack.peek().id] -= currLog.time - popedLog.time + 1;
+                    // 注意这里必须是这样，不能直接 减result[currLog.id]， 因为上面例子那里 若我们在1号线
+                    // 减去result[currLog.id]的话，就只会exclude2号线的结果(不包含1号线)，如果按
+                    // currLog.time - popedLog.time + 1 这样的写法，就会exclude整条2号线。
                 }
             }
         }

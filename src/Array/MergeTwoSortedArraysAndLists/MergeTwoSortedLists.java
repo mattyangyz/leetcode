@@ -3,13 +3,13 @@ package Array.MergeTwoSortedArraysAndLists;
 import LinkedList.ListNode;
 
 /**
- * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
- * <p>
+ * Merge two sorted linked lists and return it as a new list.
+ * The new list should be made by splicing together the nodes of the first two lists.
+ *
  * Example:
- * <p>
  * Input: 1->2->4, 1->3->4
  * Output: 1->1->2->3->4->4
- * <p>
+ *
  * 思路: 正常地merge就行， 不需要考虑什么edge case。 准许你一个while 加两个if的套路， 记得while那里是l1 != null。
  */
 

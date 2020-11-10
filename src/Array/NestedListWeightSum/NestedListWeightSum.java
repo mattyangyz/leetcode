@@ -26,6 +26,8 @@ import java.util.Queue;
  *
  */
 
+
+// 思路是用类似level order的queue去做，如果是integer的话就加 不然的话就把list里面的东西加到queue里面。
 public class NestedListWeightSum {
     public int depthSum(List<NestedInteger> nestedList) {
 

@@ -12,28 +12,31 @@ import java.util.Set;
  * and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
  * Those numbers for which this process ends in 1 are happy numbers.
  * <p>
- * 思路： 用一个hashset去去除circle的情况
+ * 思路： 用一个hashset去去除circle的情况, 同时用两个while loop 第一个是防止circle 第二个是读取整个新的数字。
  */
 
 public class HappyNumber {
 
-    public boolean isHappy(int number) {
-
+    public boolean isHappy(int n) {
         Set<Integer> set = new HashSet<>();
-        int squareSum;
-        int remain;
 
-        while (set.add(number)) {
-            squareSum = 0;
-            while (number > 0) {
-                remain = number % 10;
-                squareSum += remain * remain;
-                number = number / 10;
+        int newNumber = n;
+        int squareNumber = 0;
+
+        while (!set.contains(newNumber)) {
+            set.add(newNumber);
+
+            while (newNumber != 0) {
+                int singleNumber = newNumber % 10;
+                squareNumber += singleNumber * singleNumber;
+                newNumber = newNumber / 10;
             }
-            if (squareSum == 1) {
+
+            if (squareNumber == 1) {
                 return true;
             }
-            number = squareSum;
+            newNumber = squareNumber;
+            squareNumber = 0;
         }
         return false;
     }

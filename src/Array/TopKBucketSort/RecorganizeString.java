@@ -24,6 +24,10 @@ package Array.TopKBucketSort;
  * 3 put the letter into even index numbe (0, 2, 4 ...) char array
  * 4 put the rest into the array
  */
+
+// 思路是用bucket求出最大的freq 然后看这个最大的freq有没有大于length + 1 / 2的一般，
+// 如果是的话， 那就证明不能 返回一个空string。 如果可以的话，就从 0 2 4 6这样把大的
+// freq先fill满了，然后再fill其他的。
 public class RecorganizeString {
 
     public String reorganizeString(String s) {
@@ -42,7 +46,7 @@ public class RecorganizeString {
             }
         }
 
-        if (max > (s.length() + 1) / 2) {
+        if (max > (s.length() + 1) / 2) {       // 这个 + 1是为了 基数的时候得
             return "";
         }
 

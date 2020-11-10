@@ -15,6 +15,8 @@ package LinkedList;
  * <p>
  * 这是一个bottom up的方法， 先recursive到最底的元素， 然后往上走开始合并。
  */
+
+// https://www.youtube.com/watch?v=ts1Y5zhuuHA
 public class SortList {
 
     public ListNode sortList(ListNode head) {
@@ -25,7 +27,10 @@ public class SortList {
         ListNode secondPart = middle.next;
         middle.next = null;
 
-        return merge(sortList(head), sortList(secondPart));
+        ListNode l1 = sortList(head);                           // 这里就是一直走到最底
+        ListNode l2 = sortList(secondPart);
+
+        return merge(l1, l2);
     }
 
     private ListNode getMiddle(ListNode head) {                 // 用两个pointer去走， 得到中间的那个元素。

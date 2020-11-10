@@ -26,9 +26,12 @@ import java.util.PriorityQueue;
  * Output: [[3,3],[-2,4]]
  * (The answer [[-2,4],[3,3]] would also be accepted.)
  * <p>
+ *
  * 注意: 以下的comparator 是一个降序的，因为跟 a b 的input 顺序反了。
+ * 一个点到原点的距离 是 sqrt(x^2 + y^2) 但是这个sqrt其实可以省略的 当做比较的时候。
  */
 
+// 关键点是要想清楚用max还是min queue，然后怎么控制queue的数量。
 public class KClosestPointsToOrigin {
 
     public int[][] kClosest(int[][] points, int k) {
@@ -39,18 +42,19 @@ public class KClosestPointsToOrigin {
 
         // comparator 第一部分是a2到原点的距离，第二部分是a1到原点的距离
         // 这是一个max heap
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] * b[0] + b[1] * b[1] - (a[0] * a[0] + a[1] * a[1]));
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] * a[0] + a[1] * a[1] - (b[0] * b[0] + b[1] * b[1]));
 
         for (int[] p : points) {
-            pq.offer(p);
+            pq.offer(p);         // 必须先放再去check
             if (pq.size() > k) { // 如果size已经超了，就poll出来
                 pq.poll();
             }
         }
 
-        while (!pq.isEmpty()) {
-            res[k - 1] = pq.poll();
-            k--;
+        int i = 0;
+        while (i < k && !pq.isEmpty()) {
+            res[i] = pq.poll();
+            k++;
         }
         return res;
     }

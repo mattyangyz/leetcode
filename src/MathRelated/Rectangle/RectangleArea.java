@@ -18,23 +18,26 @@ package MathRelated.Rectangle;
 
 public class RectangleArea {
 
-    public int computeArea(int a, int b, int c, int d, int e, int f, int g, int h) {
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
 
-        int areaA = (c - a) * (d - b);
-        int areaB = (g - e) * (h - f);
+        int areaA = (C - A) * (D - B);
+        int areaB = (G - E) * (H - F);
 
-        // 判断重叠 左边的边去最大值 右边的边取最小值
-        // 如果 left 的 大于 right 的说明有重叠
-        int left = Math.max(a, e);
-        int right = Math.min(c, g);
+        int overLap = 0;
 
-        int top = Math.min(d, h);
-        int bottom = Math.max(b, f);
+        if (A < G && B < H && C > E && D > F) {           // 跟那题判断rectangle有没有overlap的是一样的，这一行。
 
-        int overlap = 0;
-        if (right > left || top > bottom) {
-            overlap = (right - left) * (top - bottom);
+            int left = Math.max(A, E);                  // 求出overlap的rectangle
+            int right = Math.min(C, G);
+
+            int top = Math.min(D, H);
+            int bottom = Math.max(B, F);
+
+            overLap = (right - left) * (top - bottom);
+        } else {
+            overLap = 0;
         }
-        return areaA + areaB - overlap;
+
+        return areaA + areaB - overLap;
     }
 }

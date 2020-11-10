@@ -17,7 +17,7 @@ package BinarySearch.RegularTempldateLessThanEqualsTo;
  * Input: nums = [5,7,7,8,8,10], target = 6
  * Output: [-1,-1]
  * <p>
- * 思路: 通过加减0.5找
+ * 思路: 正常的binary search加上 +-0.5 去做，但是要知道找出来的start 和 end index怎么确定最后的位置，这个要细想。
  */
 
 public class FindFirstAndLastpositionOfElementInSortedArray {
@@ -30,16 +30,17 @@ public class FindFirstAndLastpositionOfElementInSortedArray {
         int[] res = new int[]{-1, -1};
         int left = binarySearch(nums, target - 0.5);
         int right = binarySearch(nums, target + 0.5);
-        if (right - left == 0) {                            // 只有一个元素出现，没有两个。
+        if (right == left) {                            // 只有一个元素出现，没有两个。
             return res;
         }
         res[0] = left;
-        res[1] = right - 1; // 想想 5, 7, 7, 8, 8, 8, 10 找8.5最后会落到8 10这里，最后start和end都会等于10，然后end会等于8的index，这样
+        res[1] = right - 1; // 想想 5, 7, 7, 8, 8, 8, 10 找8.5最后会落到left 8 10 right这里，然后start和end都会等于10，最后end会等于8的index，这样
         // 违反while loop就结束，我们应该拿end的位置，所以要返回的结果 -1。
         return res;
 
     }
 
+    // 这里的binary search不需要找一个具体的值
     private static int binarySearch(int[] nums, double target) {
         int start = 0;
         int end = nums.length - 1;

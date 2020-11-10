@@ -20,19 +20,20 @@ import java.util.List;
  * Explanation: The palindromes are ["battab","tabbat"]
  * <p>
  * 思路:
- * <p>
+ *
  * Case1: If s1 is a blank string, then for any string that is palindrome s2, s1+s2 and s2+s1 are palindrome.
- * <p>
+ *
  * Case 2: If s2 is the reversing string of s1, then s1+s2 and s2+s1 are palindrome.
- * <p>
- * Case 3: If s1[0:cut] is palindrome and there exists s2 is the reversing string of s1[cut+1:] , then s2+s1 is palindrome.
- * <p>
+ *
+ * Case 3: If s1[0:cut] is palindrome and there exists s2 is the reversing string of s1[cut+1:end] , then s2+s1 is palindrome.
+ *
  * Case 4: Similiar to case3. If s1[cut+1: ] is palindrome and there exists s2 is the reversing string of s1[0:cut] , then s1+s2 is palindrome.
- * <p>
+ *
  * To make the search faster, build a HashMap to store the String-idx pairs.
  */
 
 // 不可能出现aaaa然后aaaa这种情况。 不然的话1和3就会出现重复的问题。
+// 遍历整个words array，然后分四种情况去考虑。
 public class PalindromePairs {
 
 
@@ -70,12 +71,12 @@ public class PalindromePairs {
             }
         }
 
-        //3
+        //3 4
         for (int i = 0; i < words.length; i++) {
             String cur = words[i];
             for (int cut = 1; cut < cur.length(); cut++) {
 
-
+                //处理 aalc 和 cl 这种情况，先判断cut的前面时候为pal 然后判断cut后面的string，也就是aalc的时候cut在aa，找后面的lc情况。
                 if (isPalindrom(cur.substring(0, cut))) {               // aalc 和 cl这种情况， 这样cl一定得放前面 found放前面
                     String cut_reverse = reverseStr(cur.substring(cut));
                     if (map.containsKey(cut_reverse)) {
@@ -87,6 +88,7 @@ public class PalindromePairs {
                     }
                 }
 
+                // 处理acbcb和ca这种情况的，先判断cut的后面时候为pal 然后判断cut的前面的string。
                 // 这里一定不能用 else if，为了防止 aa和a这种情况被skip了，因为a可以放在aa的前面和后面都可以的。
                 if (isPalindrom(cur.substring(cut))) {                  // aaaalc 和 aaaa这种情况，这样aaaa一定得放后面
                     String cut_reverse = reverseStr(cur.substring(0, cut));

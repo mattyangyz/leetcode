@@ -54,6 +54,7 @@ package BinarySearch.RegularTempldateLessThanEqualsTo;
  *
  */
 
+// 这题的关键是 怎么利用 / 和 % 去得到number of rows 和 number of cols， 然后剩下的就是标准的二分法了
 public class SearchA2DMatrix {
 
     public boolean searchMatrix(int[][] matrix, int target) {

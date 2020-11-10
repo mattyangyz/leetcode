@@ -16,7 +16,8 @@ import java.util.List;
  * Reminder: The inputs and the desired output are lists of Interval objects, and not arrays or lists.
  * <p>
  * <p>
- * 思路: 交集 开始位置取最大的，结束位置取最小的。然后移动相应的指针。https://www.youtube.com/watch?v=tRpK5G2_vgs
+ * 思路: 这题要善用max和min去解决。要想明白一个点，要是两个区间有交集的话， 就必须 max的开始要小于等于min的结束 这个要理解。
+ * 交集 开始位置取最大的，结束位置取最小的。然后移动相应的指针。https://www.youtube.com/watch?v=tRpK5G2_vgs
  */
 
 public class IntervalListIntersections {

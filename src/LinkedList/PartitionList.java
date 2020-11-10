@@ -15,6 +15,9 @@ package LinkedList;
  * Input: head = 1->4->3->2->5->2, x = 3
  * Output:       1->2->2->4->3->5
  */
+
+// 分开两个curr取走，一个连接小于的 一个连接大于的nodes，最后把第一个的尾部next和第二个的头连接在一起。
+// 但千万要注意，最后curr2的next一定要设置为null，不然会有circle的情况出现。
 public class PartitionList {
 
 
@@ -38,7 +41,7 @@ public class PartitionList {
         }
 
         curr1.next = dummy2.next;
-        curr2.next = null;
+        curr2.next = null;          // 这里要注意！！！不要忘了
 
         return dummy1.next;
     }

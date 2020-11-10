@@ -20,6 +20,9 @@ import java.util.List;
  * <p>
  * Output:
  * [2,3]
+ *
+ * 题目的关键是 a[i] 都是在 1 和 n 之间的。类似于bucket的想法，找出现在index i 数字对应的index，然后flip那个数字， 不是现在array[i]的数字。
+ *
  */
 
 public class FindAllDuplicatesInAnArray {

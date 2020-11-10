@@ -6,7 +6,7 @@ package LinkedList;
  * For example, the following two linked lists:
  * <p>
  * <p>
- * 思路: 如果有长的那一部分，那么一开始长的那一部分肯定不是结果。因为intesection是从后面开始的，而且到结束， 所以可以skip掉。
+ * 思路: 如果有长的那一部分，那么一开始长的那一部分肯定不是结果 这一部分可以skip掉。因为intesection是从后面开始的，而且到结束， 所以可以skip掉。
  */
 public class IntersectionOfTwoLinkedLists {
 
@@ -19,8 +19,8 @@ public class IntersectionOfTwoLinkedLists {
         int lenA = len(headA);
         int lenB = len(headB);
 
-        if (lenA > lenB) {
-            while (lenA != lenB) {      // skip长的那一部分
+        if (lenA > lenB) {          // skip长的那一部分
+            while (lenA != lenB) {
                 headA = headA.next;
                 lenA--;
             }

@@ -20,8 +20,13 @@ import java.util.PriorityQueue;
  * Output: 1->1->2->3->4->4->5->6
  */
 
+// 题目意思: 给定一个array of linkedlist的head，然后这些list都是排好序的，合并他们。
+
+// PriorityQueue 是正常的做法，但是就是注意怎么init这个queue，它的size是多少，要记住这里就行了。
+// PQ的runtime是O(log n)，对于enqueue和dequeue的话(offer, poll, remove, add)。
 public class MergeKSortedLists {
 
+    // 这个优化的还没有看 todo
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
@@ -58,14 +63,14 @@ public class MergeKSortedLists {
     }
 
 
-    public static ListNode mergeKListWithPriorityQueue(ListNode[] lists) {
+    public ListNode mergeKListsWithPriorityQueue(ListNode[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
         }
-
         PriorityQueue<ListNode> queue = new PriorityQueue<>(lists.length, (a, b) -> a.val - b.val);
+
         ListNode dummy = new ListNode(0);
-        ListNode cur = dummy;
+        ListNode curr = dummy;
 
         for (ListNode list : lists) {
             if (list != null) {
@@ -74,11 +79,13 @@ public class MergeKSortedLists {
         }
 
         while (!queue.isEmpty()) {
-            cur.next = queue.poll();
-            cur = cur.next;
-            if (cur.next != null) {
-                queue.add(cur.next);
+            ListNode candidate = queue.poll();
+            curr.next = candidate;
+            curr = curr.next;
+            if (candidate.next != null) {
+                queue.offer(candidate.next);
             }
+
         }
         return dummy.next;
     }

@@ -39,52 +39,53 @@ import java.util.Map;
  * The substring with start index = 0 is "ab", which is an anagram of "ab".
  * The substring with start index = 1 is "ba", which is an anagram of "ab".
  * The substring with start index = 2 is "ab", which is an anagram of "ab".
+ *
+ * 题意: 给定一个target string，找出所有index 从这个index开始，所有字母在target string里面都出现的， 不能多不能少的。
+ * 譬如 cbaebabacd target abc， index 0 符合，但是如果 cb e aebabacd 多了个e，那么index 0就不能算。
  */
 
-
+// anagram 就是 abc 和 bca 就符合，字母出现的次数一样 只是位置不一样。 这就是anagram
+// 思路和代码完全跟 minimumWindowSubstring 一样， 都是不断往右边走 一旦全部char在p里都出现了 就缩小左边的。
 public class FindAllAnagramsInAString {
 
     public List<Integer> findAnagrams(String s, String p) {
 
-        List<Integer> ans = new ArrayList<>();
-        if (p.length() > s.length()) {
-            return ans;
-        }
         Map<Character, Integer> map = new HashMap<>();
-        for (char ch : p.toCharArray()) {
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        List<Integer> res = new ArrayList<>();
+        for (char c : p.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
 
-        int slow = 0;
-        int fast = 0;
-        int countForAllOccurance = map.size();
+        int countFindAllOccurance = map.size();                      // 这里必须是map的size，不能是t的长度 因为p有可能有dup
+        int begin = 0;
+        int end = 0;
 
-        while (fast < s.length()) {
+        while (end < s.length()) {
+            char c = s.charAt(end);
 
-            char fastChar = s.charAt(fast);
-            if (map.containsKey(fastChar)) {
-                map.put(fastChar, map.get(fastChar) - 1);
-                if (map.get(fastChar) == 0) {
-                    countForAllOccurance--;
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) - 1);
+                if (map.get(c) == 0) {                              // 对于char c，所有的occurance都找到了 不多不少
+                    countFindAllOccurance--;
                 }
             }
-            fast++;
+            end++;
 
-            while (countForAllOccurance == 0) {
-
-                if (fast - slow == p.length()) {                // 这里是关键要
-                    ans.add(slow);
-                }
-                char slowChar = s.charAt(slow);
-                if (map.containsKey(slowChar)) {
-                    map.put(slowChar, map.get(slowChar) + 1);
-                    if (map.get(slowChar) > 0) {
-                        countForAllOccurance++;
+            while (countFindAllOccurance == 0) {                     // 检查是否包含了所有在target里面的char
+                char tempC = s.charAt(begin);
+                if (map.containsKey(tempC)) {
+                    map.put(tempC, map.get(tempC) + 1);
+                    if (map.get(tempC) > 0) {
+                        countFindAllOccurance++;
                     }
+
                 }
-                slow++;
+                if (end - begin == p.length()) {                      // 这里是唯一跟MinimumWindowSubstring不一样的地方
+                    res.add(begin);
+                }
+                begin++;
             }
         }
-        return ans;
+        return res;
     }
 }

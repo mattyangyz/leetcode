@@ -30,25 +30,22 @@ package Array.GoingFromLeftThenRight;
 
 public class ProductOfArrayExceptSelf {
 
-    public int[] productExceptSefl(int[] nums) {
-        int n = nums.length;
-        int[] ans = new int[n];
+    public int[] productExceptSelf(int[] nums) {
 
-        int left = 1;
-        for (int i = 0; i < n; i++) {
-            if (i > 0) {
-                left = ans[i - 1] * nums[i - 1];
-            }
-            ans[i] = left;
+        int[] res = new int[nums.length];
+        res[0] = 1;
+        for (int i = 1; i < nums.length; i++) {  // 正常就行，左边到右边。 第一个肯定是一。
+            res[i] = nums[i - 1] * res[i - 1];
         }
 
-        int right = 1;
-        for (int i = n - 1; i >= 0; i--) {
-            if (i < n - 1) {
-                right = ans[i - 1] * nums[i + 1];
-            }
-            ans[i] *= right;
+
+        int right = 1;                         // 右边到左边的话，就需要一个额外的var，去记录之前 nums[i + 1] * right;
+        for (int i = nums.length - 2; i >= 0; i--) {
+
+            right = nums[i + 1] * right;
+            res[i] = right * res[i];
         }
-        return ans;
+
+        return res;
     }
 }

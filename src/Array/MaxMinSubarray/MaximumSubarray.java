@@ -35,6 +35,7 @@ public class MaximumSubarray {
     public static int maxSubArrayOneVar(int[] nums) {
         int prev = nums[0];
         int res = nums[0];
+
         for (int i = 1; i < nums.length; i++) {
             if (prev < 0) {
                 prev = nums[i];

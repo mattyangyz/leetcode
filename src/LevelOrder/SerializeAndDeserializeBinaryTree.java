@@ -8,16 +8,6 @@ import java.util.Queue;
 
 /**
  *
- * [ 4 5 6 7 1 2 3 ] ，[ 4 5 6 7 ] 和 [ 1 2 3 ] 两段有序。
- *
- * 而对于 [ 1 2 3 4] 这种，可以看做 [ 1 2 3 4 ] 和 [ ] 特殊的两段有序。
- *
- * 而对于我们要找的 target ， target 不在的那一段，所有数字可以看做无穷大，这样整个数组就可以看做有序的了，可以用正常的二分法去找 target 了，例如
- *
- * [ 4 5 6 7 1 2 3] ，如果 target = 5，那么数组可以看做 [ 4 5 6 7 inf inf inf ]。
- *
- * [ 4 5 6 7 1 2 3] ，如果 target = 2，那么数组可以看做 [ -inf -inf - inf -inf 1 2 3]。
- *
  * Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer,
  * or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
  *
@@ -40,26 +30,32 @@ import java.util.Queue;
  *
  */
 
+// serialize的时候是用level order去做的， 然后到了deserialize时候 也是用queue 但是不需要level order，queue用来记录TreeNode的order的。
 public class SerializeAndDeserializeBinaryTree {
 
-    public String Serialize(TreeNode root) {
+    public String serialize(TreeNode root) {
         if (root == null) {
             return "";
         }
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-
         StringBuilder sb = new StringBuilder();
         while (!queue.isEmpty()) {
-            TreeNode cur = queue.poll();
-            if (cur == null) {
-                sb.append("null ");
-                continue;
+
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node == null) {
+                    sb.append("null ");
+                    continue;
+                }
+                sb.append(node.val + " ");
+                queue.offer(node.left);
+                queue.offer(node.right);
             }
-            sb.append(cur.val + " ");
-            queue.offer(cur.left);
-            queue.offer(cur.right);
         }
+        System.out.println(sb.toString());
         return sb.toString();
     }
 

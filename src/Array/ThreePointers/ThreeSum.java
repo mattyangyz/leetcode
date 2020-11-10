@@ -34,8 +34,9 @@ import java.util.List;
  *
  * 而怎么保证不加入重复的 list 呢？
  *
- * 要记得我们的 nums 已经有序了，所以只需要找到一组之后，当前指针要移到和当前元素不同的地方。其次在遍历数组的时候，如果和上个数字相同，也要继续后移。文字表述比较困难，可以先看下代码。
- * ]
+ * 要记得我们的 nums 已经有序了，所以只需要找到一组之后，<关键>1. 当前指针要移到和当前元素不同的地方。2. 其次在遍历数组的时候，如果和上个数字相同，也要继续后移<关键>。文字表述比较困难，可以先看下代码。
+ *
+ * <关键>1, 必须要记得是在加完第一个结果的时候就得判断。
  *
  * 这种写法，可以避免结果集中有重复，因为数组时排好序的，所以当一个数被放到结果集中的时候，其后面和它相等的直接被跳过。
  *
@@ -73,33 +74,6 @@ public class ThreeSum {
                 else{
                     high--;
                 }
-            }
-        }
-        return ans;
-    }
-
-    public List<List<Integer>> threeSum2(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        Arrays.sort(nums);
-
-        for (int i = 0; i < nums.length - 2; i++) {
-            int low = i + 1;
-            int high = nums.length - 1;
-            int sum = 0 - nums[i];
-
-            if (nums[low] + nums[high] == sum) {
-                Arrays.asList(nums[i], nums[low], nums[high]);
-                while(low < high && nums[low] == nums[low + 1]){
-                    low++;
-                }
-                while(low < high && nums[high] == nums[high + 1]){
-                    high++;
-                }
-            } else if (nums[low] + nums[high] < sum) {
-                low++;
-            }
-            else{
-                high++;
             }
         }
         return ans;

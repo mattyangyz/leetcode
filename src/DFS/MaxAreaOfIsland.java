@@ -22,75 +22,41 @@ package DFS;
  * Given the above grid, return 0.
  * Note: The length of each dimension in the given grid does not exceed 50.
  * <p>
- * 思路: 第一种解法关键是怎么update global max和single max。
+ * 思路: 就是正常的dfs就行，然后每次回来都 + 1，碰到不能走的就返回0.
  */
 
 public class MaxAreaOfIsland {
 
-    private int globalArea = 0;
-    private int singleMax = 0;
 
     public int maxAreaOfIsland(int[][] grid) {
 
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-
-                if (grid[i][j] == 1 && !visited[i][j]) {
-                    findAreaHelper(grid, visited, i, j);
-                    globalArea = Math.max(globalArea, singleMax);
-                    singleMax = 0;
-                }
-            }
-        }
-        return globalArea;
-    }
-
-    private void findAreaHelper(int[][] grid, boolean[][] visited, int i, int j) {
-
-        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || visited[i][j] || grid[i][j] == 0) {
-            return;
-        }
-        visited[i][j] = true;
-        singleMax += 1;
-
-        findAreaHelper(grid, visited, i - 1, j);
-        findAreaHelper(grid, visited, i + 1, j);
-        findAreaHelper(grid, visited, i, j - 1);
-        findAreaHelper(grid, visited, i, j + 1);
-
-    }
-
-
-    public int maxAreaOfIslandMoreConcise(int[][] grid) {
-
+        int maxArea = 0;
         if (grid.length == 0 || grid[0].length == 0) {
             return 0;
         }
 
-        int max = 0;
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1 && visited[i][j] == false) {
-
-                    int area = depthFirstSearchHelper(grid, visited, i, j);
-                    max = Math.max(area, max);
+                if (grid[i][j] == 1) {
+                    int area = dfsHelper(grid, i, j);
+                    maxArea = Math.max(maxArea, area);
                 }
             }
         }
-        return max;
+        return maxArea;
     }
 
-    private int depthFirstSearchHelper(int[][] grid, boolean[][] visited, int i, int j) {
-        if ((i < 0 || i >= grid.length || j < 0 || j >= grid[0].length) || grid[i][j] != 1 || visited[i][j]) {
+    private int dfsHelper(int[][] grid, int i, int j) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != 1) {
             return 0;
         }
-        visited[i][j] = true;
-        return 1 + depthFirstSearchHelper(grid, visited, i - 1, j) +
-                depthFirstSearchHelper(grid, visited, i + 1, j) +
-                depthFirstSearchHelper(grid, visited, i, j - 1) +
-                depthFirstSearchHelper(grid, visited, i, j + 1);
+
+        grid[i][j] = 0;
+        return dfsHelper(grid, i + 1, j) +
+                dfsHelper(grid, i - 1, j) +
+                dfsHelper(grid, i, j + 1) +
+                dfsHelper(grid, i, j - 1) + 1;
+
     }
 
 

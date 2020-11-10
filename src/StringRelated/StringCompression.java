@@ -62,12 +62,15 @@ package StringRelated;
  * 的count，变成char array。也算是两个pointer，一个往前走，一个保存insert的index。
  */
 
-
+// 外面的while走整个char array，里面的while走有多少重复的。巧妙地利用两类index，第一类是正常的走index，第二类是resInsertIndex
+// 用来存放结果的index，注意怎么把两个数字变为char todo 那里有写
 public class StringCompression {
 
     public int compress(char[] chars) {
-        int res = 0;                                                // 用来作为res的count去计算index的
+
+        int resInsertIndex = 0;                                                // 用来作为res的count去计算index的
         int index = 0;
+
         while (index < chars.length) {
             char cur = chars[index];
             int count = 0;
@@ -75,13 +78,13 @@ public class StringCompression {
                 index++;
                 count++;
             }
-            chars[res++] = cur;
+            chars[resInsertIndex++] = cur;
             if (count != 1) {
                 for (char c : String.valueOf(count).toCharArray()) {// todo: 巧妙的地方：把count转换成char array的形式
-                    chars[res++] = c;
+                    chars[resInsertIndex++] = c;
                 }
             }
         }
-        return res;                                                 // 最后这里的res会被加多一个 因为line 18，所以这就是正确的个数
+        return resInsertIndex;                                                 // 最后这里的res会被加多一个 因为line 18，所以这就是正确的个数
     }
 }

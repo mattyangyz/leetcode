@@ -27,6 +27,8 @@ import java.util.Stack;
  * 思路: 在push的时候花点心思，然后其他的operations的话就按照正常的来。
  */
 
+// 就两个array，一个temp array存原来的顺序，把原来的都先放到这个temp array里面，然后再把新的var放到stack的底部，然后再
+// 把元素从temp array放回到stack中。
 public class ImplementQueueUsingStacks {
 
     Stack<Integer> value;

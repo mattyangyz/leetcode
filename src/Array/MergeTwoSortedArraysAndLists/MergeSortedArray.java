@@ -18,6 +18,8 @@ package Array.MergeTwoSortedArraysAndLists;
  * 想想 first = {0}, 0 second = {1}, 1这种情况。
  */
 
+
+// 两个while loop
 public class MergeSortedArray {
 
     public static void merge(int[] first, int m, int[] second, int n) {
@@ -27,11 +29,18 @@ public class MergeSortedArray {
         int secondIndex = n - 1;
 
         while (firstIndex >= 0 && secondIndex >= 0) {
-            first[insertIndex--] = first[firstIndex] > second[secondIndex] ? first[firstIndex--] : second[secondIndex--];
+            if (first[firstIndex] > second[secondIndex]) {
+                first[insertIndex--] = first[firstIndex];
+                firstIndex--;
+            } else {
+                first[insertIndex--] = second[secondIndex];
+                secondIndex--;
+            }
         }
 
-        while (secondIndex >= 0) {                      // 不用考虑 firstIndex >= 0的情况，因为如果是那样的话，就不用挪了， 因为它本来就是有序的。
+        while (secondIndex >= 0) {
             first[insertIndex--] = second[secondIndex--];
         }
+
     }
 }

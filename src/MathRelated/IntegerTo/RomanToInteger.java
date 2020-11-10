@@ -47,7 +47,7 @@ import java.util.HashMap;
  * Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * <p>
  * <p>
- * 从右往左， 如果之前的比当前的大 那么就需要减去当前的
+ * 从右往左， 如果之前的比当前的大 那么就需要减去当前的. 然后更新prev为现在的element。
  */
 
 public class RomanToInteger {
@@ -63,19 +63,18 @@ public class RomanToInteger {
         ht.put('L', 50);
         ht.put('D', 500);
 
-        int intNum = 0;
+        int res = 0;
         int prev = 0;
-        for (int i = s.length() - 1; i >= 0; i--) {
-            int curr = ht.get(s.charAt(i));
+        for (int i = s.length() - 1; i >= 0; i++) {
 
-            if (curr < prev) {
-                intNum -= curr;
+            if (ht.get(s.charAt(i)) < prev) {
+                res -= ht.get(s.charAt(i));
             } else {
-                intNum += curr;
+                res += ht.get(s.charAt(i));
             }
-            prev = curr;
+            prev = ht.get(s.charAt(i));
         }
-        return intNum;
+        return res;
 
     }
 }

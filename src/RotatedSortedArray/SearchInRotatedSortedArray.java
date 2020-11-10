@@ -33,7 +33,11 @@ package RotatedSortedArray;
  */
 public class SearchInRotatedSortedArray {
 
-    public int search(int[] nums, int target) {
+    public static void main(String[] args) {
+        SearchInRotatedSortedArray.search(new int[]{3, 1}, 1);
+    }
+
+    public static int search(int[] nums, int target) {
         int start = 0;
         int end = nums.length - 1;
 
@@ -43,7 +47,7 @@ public class SearchInRotatedSortedArray {
                 return mid;
             }
 
-            if (nums[start] < nums[mid]) {
+            if (nums[start] <= nums[mid]) {                         // 注意这里一定要有 = 没有的话，对于【3，1】这种情况是错的。
                 if (target >= nums[start] && target <= nums[mid]) {
                     end = mid - 1;
                 }

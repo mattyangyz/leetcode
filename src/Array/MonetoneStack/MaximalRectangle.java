@@ -50,15 +50,17 @@ import java.util.Stack;
  * Output: 6
  */
 
+// 从第0个row开始当成是一个bottom，然后第1个row当成一个bottom，最后到最后一行当成bottom。
 public class MaximalRectangle {
     public static int maximalRectangle(char[][] matrix) {
         int rowLength = matrix.length;
         int colLength = matrix[0].length;
         int max = 0;
-        int[] heigh = new int[colLength + 1];
+        int[] heigh = new int[colLength + 1];                       // 这里记得要 + 1，方便留出额外的一位给 0。
 
         for (int row = 0; row < rowLength; row++) {
             Stack<Integer> stack = new Stack<>();
+
             for (int col = 0; col <= colLength; col++) {            // 加的
                 if (col < colLength && matrix[row][col] == '1') {
                     heigh[col] += 1;
@@ -67,6 +69,7 @@ public class MaximalRectangle {
                 }
             }
 
+            // 这里的就跟84的一模一样。
             for (int col = 0; col <= colLength; col++) {
                 if (stack.isEmpty() || heigh[col] > heigh[stack.peek()]) {
                     stack.push(col);

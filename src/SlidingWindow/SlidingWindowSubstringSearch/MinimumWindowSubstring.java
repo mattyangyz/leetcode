@@ -36,7 +36,9 @@ import java.util.Map;
  *
  */
 
-
+// map 存还需要找到这个char多少次。正数表示需要找到的次数，负数表示额外出现了多少次
+// countFindAllOccurance 表示 是否所有的unique char都找到了， 它必须等于map的size 而不能是t的length
+//
 public class MinimumWindowSubstring {
 
     public static String minWindow(String s, String t) {
@@ -51,7 +53,7 @@ public class MinimumWindowSubstring {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
 
-        int countFindAllOccurance = map.size();                      // 这里必须是map的size，不能是t的长度 因为有可能有dup
+        int countFindAllOccurance = map.size();                      // 这里必须是map的size，不能是t的长度 因为t有可能有dup
         int begin = 0;
         int end = 0;
         int startIndex = 0;

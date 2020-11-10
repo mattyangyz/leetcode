@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Need to review.
+ *
  * <p>
  * Given a nested list of integers, implement an iterator to flatten it.
  * <p>
@@ -34,12 +34,15 @@ import java.util.Stack;
  * This is iterative version of flatting the nested list. Again, we need to iterate from the back to front of the list.
  */
 
+// 这题要想明白 整道题 都是围绕NestedInteger去做的， 就算是一个single digit也是被NestedInteger给wrap起来的
+// 一开始先把所有的element push到stack里面去， 然后在call next的时候开始unwrap，这是思路。
+// hasNext 用while是因为 里面的 for 完了之后，还需要判断顶上的是否是一个数字。。
 public class FlattenNestedListIterator implements Iterator<Integer> {
 
     Stack<NestedInteger> stack = new Stack<>();
 
     public FlattenNestedListIterator(List<NestedInteger> nestedIntegerList) {
-        for (int i = nestedIntegerList.size() - 1; i >= 0; i--) {
+        for (int i = nestedIntegerList.size() - 1; i >= 0; i--) {               // 注意这里是从最后开始的，因为是stack
             stack.push(nestedIntegerList.get(i));
         }
     }
@@ -53,6 +56,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
         }
     }
 
+    // 这个同时有flatten的功能，不只是找hasNext
     @Override
     public boolean hasNext() {
         while (!stack.isEmpty()) {
@@ -61,7 +65,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
                 return true;
             }
             NestedInteger list = stack.pop();
-            for (int i = list.getList().size() - 1; i >= 0; i--) {
+            for (int i = list.getList().size() - 1; i >= 0; i--) {      // 注意这里是从最后开始的因为是stack
                 stack.push(curr.getList().get(i));
             }
         }

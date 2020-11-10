@@ -2,6 +2,7 @@ package Design;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -26,85 +27,74 @@ import java.util.HashMap;
  */
 
 
-class Node {
-    int key;
-    int value;
-    Node prev;
-    Node next;
+class LRUCache {
 
-    public Node(int key, int value) {
-        this.key = key;
-        this.value = value;
+    class Node {
+        int key;
+        int value;
+        Node next;
+        Node prev;
     }
-}
 
-public class LRUCache {
+    private Map<Integer, Node> map;
+    private Node first;
+    private Node tail;
+    private int capacity;
+    private int size = 0;
 
 
-    public void deleteNode(Node node) {
+    public LRUCache(int capacity) {
+        map = new HashMap<>();
+        first = new Node();
+        tail = new Node();
+        first.next = tail;
+        tail.prev = first;
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        if (!map.containsKey(key)) {
+            return -1;
+        } else {
+            Node node = map.get(key);
+            this.delete(node);          // 重点是先remove 在 moveTohead， 顺序不能乱
+            this.insertFirst(node);
+            return node.value;
+        }
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            map.get(key).value = value;
+            delete(map.get(key));
+            insertFirst(map.get(key));
+        } else {
+            if (capacity == size) {
+                map.remove(tail.prev.key);  // 这里一定要先remove再delete，不然tail.prev就不是原来的，而是更新过得
+                delete(tail.prev);
+            } else {
+                size++;
+            }
+            Node node = new Node();
+            map.put(key, node);
+            node.key = key;
+            node.value = value;
+            this.insertFirst(node);
+        }
+    }
+
+    private void delete(Node node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
     }
 
-    public void addToHead(Node node) {
-        node.next = head.next;
-        node.prev = head;
+    private void insertFirst(Node node) {
+        node.next = first.next;
+        node.prev = first;
 
-        head.next.prev = node;
-        head.next = node;
-    }
+        first.next.prev = node;
+        first.next = node;
 
-    private HashMap<Integer, Node> map;
-    private int capacity;
-    private int count = 0;
-    private Node head;
-    private Node tail;
-
-    public LRUCache(int capacity) {
-        this.capacity = capacity;
-        map = new HashMap<>();
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
-        head.next = tail;
-        tail.prev = head;
-        head.prev = null;
-        tail.next = null;
-        count = 0;
-    }
-
-    public int get(int key) {
-        if (map.get(key) != null) {
-            Node node = map.get(key);
-            System.out.println(node.value);
-            int result = node.value;
-            this.deleteNode(node);
-            this.addToHead(node);
-            return result;
-        }
-        return -1;
-    }
-
-    public void put(int key, int value) {
-        if (map.get(key) != null) {
-            Node node = map.get(key);
-            node.value = value;
-            this.deleteNode(node);
-            this.addToHead(node);
-        }
-        else{
-            Node node = new Node(key, value);
-            map.put(key, node);
-            if (count < capacity) {
-                this.addToHead(node);
-                count++;
-            }
-            else{
-                map.remove(tail.prev.key);
-                deleteNode(tail.prev);
-                this.addToHead(node);
-            }
-        }
 
     }
-
 }

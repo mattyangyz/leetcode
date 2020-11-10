@@ -16,6 +16,7 @@ package MathRelated;
  * Output: "10101"
  * <p>
  * 思路，每一个位数都单独对待就行， 只是需要考虑上之前的carry. 用stringbuilder最后需要reverse。
+ * 要知道怎么处理sum以及carry的情况。要用 % 和 / 去解决。
  */
 
 public class AddBinary {
@@ -29,17 +30,18 @@ public class AddBinary {
         while (i >= 0 || j >= 0) {
             int sum = 0;
             sum += carry;
+
             if (i >= 0) {
                 sum += a.charAt(i) - '0';
             }
             if (j >= 0) {
                 sum += b.charAt(j) - '0';
             }
-            sb.append(sum % 2);             // 这里是关键
+            sb.append(sum % 2);                 // 这里是计算当前的数字sum的
             carry = sum / 2;
         }
         if (carry != 0) {
-            sb.append(carry);
+            sb.append("1");
         }
         return sb.reverse().toString();
     }

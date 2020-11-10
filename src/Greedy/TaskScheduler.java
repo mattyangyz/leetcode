@@ -26,6 +26,10 @@ package Greedy;
 
 public class TaskScheduler {
 
+    public static void main(String[] args) {
+        TaskScheduler.leastInterval(new char[]{'A', 'A', 'A', 'B', 'B', 'B'}, 2);
+    }
+
     public static int leastInterval(char[] tasks, int n) {
         int[] counter = new int[26];
         int max = 0;

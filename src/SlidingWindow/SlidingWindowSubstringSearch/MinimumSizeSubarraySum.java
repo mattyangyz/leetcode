@@ -12,6 +12,7 @@ package SlidingWindow.SlidingWindowSubstringSearch;
  *
  */
 
+// 标准的sliding window做法，这个是相对简单的了。没有什么edge case需要考虑。
 public class MinimumSizeSubarraySum {
 
     public int solveWithN(int s, int[] nums) {

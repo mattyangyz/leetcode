@@ -33,7 +33,10 @@ import java.util.Stack;
  * Input: s = "(a(b(c)d)"
  * Output: "a(b(c)d)"
  * <p>
- * 思路: 碰到不匹配的（和）的时候，用*去标记，最后用replaceAll去把所有invalid的去掉。
+ * 思路: 同时用stack去记录invalid的index， 这个要仔细想想问什么这么做。
+ * 为什么是存index呢，因为方便最后对于有多余的(，把stack里面的所有(都替换成*。这个是关键。
+ * 而且要理解stack里面只存 （ 的position，对于 ） 不存。
+ * 碰到不匹配的（和）的时候，用*去标记，最后用replaceAll去把所有invalid的去掉。
  * 为什么要用*呢，因为不能马上去掉，这样就会造成shift的出现 for loop的位置会不对。
  */
 
@@ -41,7 +44,8 @@ import java.util.Stack;
 public class MinimumRemoveToMakeValidParentheses {
 
     public String minRemoveToMakeValid(String s) {
-        StringBuilder sb = new StringBuilder();
+
+        StringBuilder sb = new StringBuilder(s);
         Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < sb.length(); i++) {
@@ -52,13 +56,13 @@ public class MinimumRemoveToMakeValidParentheses {
                 if (!stack.empty()) {
                     stack.pop();
                 } else {
-                    sb.setCharAt(i, '*');
+                    sb.setCharAt(i, '0');
                 }
             }
         }
         while (!stack.empty()) {
-            sb.setCharAt(stack.pop(), '*');
+            sb.setCharAt(stack.pop(), '0');
         }
-        return sb.toString().replace("\\*", "");
+        return sb.toString().replaceAll("0", "");
     }
 }

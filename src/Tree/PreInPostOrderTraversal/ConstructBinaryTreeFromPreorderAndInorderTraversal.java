@@ -33,6 +33,7 @@ import Tree.TreeNode;
  * numsOnLeft = root - inStart.
  */
 
+// 这题的关键是搞清楚怎么传inorder的startIndex endIndex以及
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
 
     public TreeNode buildTree(int[] preOrder, int[] inOrder) {

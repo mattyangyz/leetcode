@@ -39,6 +39,9 @@ import java.util.*;
  * 当arraylist remove的时候， runtime是O（N）， 但是当remove最后一个index的element的时候， 是O（1） 因为
  * 不需要shift。这题的关键是swap.
  */
+
+// map的key存val，然后value存index，然后arrayList存的是input val，为什么是input val呢，这样就能在swap的时候知道swap什么
+// input val从而更新map的index。
 public class InsertDeleteGetRandomOOne {
 
     ArrayList<Integer> list;

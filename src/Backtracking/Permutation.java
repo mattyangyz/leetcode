@@ -22,6 +22,8 @@ import java.util.List;
  * ]
  * <p>
  * O(n! * n) 空间O(n)
+ *
+ * // distinct是关键。 这题的关键是怎么避免出现， 1 1 1 或者 1 3 2 (1 2 3 已经出现过了)
  */
 public class Permutation {
 
@@ -33,13 +35,10 @@ public class Permutation {
 
     private static void backtrack(List<List<Integer>> ans, List<Integer> candidate, int[] nums) {
         if (candidate.size() == nums.length) {
-            System.out.println(candidate);
             ans.add(new ArrayList<>(candidate));
         } else {
             for (int i = 0; i < nums.length; i++) {
-                if (candidate.contains(nums[i])) {                  // 这里是关键， 有了这里 i 就可以每次都从 i = 0开始，这是是O(N
-                    continue;
-                } else {
+                if (!candidate.contains(nums[i])) {                  // 这里是关键
                     candidate.add(nums[i]);
                     backtrack(ans, candidate, nums);
                     candidate.remove(candidate.size() - 1);

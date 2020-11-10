@@ -39,22 +39,42 @@ import java.util.Stack;
  * 在pop stack的时候，把所有框起来的area都算一次
  */
 
+// 为什么是单调递增呢，因为遇到小的时候 stack上肯定有某些bar就会结束高度了，譬如 5 6 2，5的高度是递增的 6的也是的，但是一遇到2，就表明
+// 以5 和 6为左边界的面积就结束了 一开始我们只知道以6为边界的结束了 还要在走一次for loop才知道5也结束了。
+// 所以返回去pop他们出来计算面积。然后width为什么要取i - stack.peek - 1呢, 下面的else那里有解释。
+// https://www.youtube.com/watch?v=Bx_JMXnTCwE&t=310s
 public class LargestRectangleInHistogram {
 
-    public int largestRectangleArea(int[] nums) {
+
+    public static int largestRectangleArea(int[] nums) {
         int length = nums.length;
         int max = 0;
+
         Stack<Integer> stack = new Stack<>();   // 存index
+
         for (int i = 0; i <= nums.length; i++) {
 
-            int currHeigh = (i == length ? 0 : nums[i]);
+            int currHeigh = (i == length ? 0 : nums[i]);            // 这个是trigger point以防 1 2 3 4 5 6这种情况
 
             if (stack.isEmpty() || currHeigh > nums[stack.peek()]) {
                 stack.push(i);
             } else {
                 int currTop = stack.pop();
-                // 重点在这里
-                max = Math.max(max, nums[currTop] * (stack.isEmpty() ? i : i - stack.peek() - 1));
+                // If this bar is smaller than the top of stack,
+                // then keep removing the top of stack while top of the stack is greater.
+                // Let the removed bar be hist[tp].
+                // Calculate area of rectangle with hist[tp] as smallest bar. For hist[tp],
+                // the ‘left index’ is previous (previous to tp) item in stack and ‘right index’ is ‘i’ (current index).
+                int width = 0;
+                if (stack.isEmpty()) {
+                    width = i;         // 左边全拿的情况，这个要仔细想为什么要这样。开始 8 7 6 和
+                } else {
+                    // 这里为什么是stack.peek()而不是currTop - 1呢，因为试想5 7 6，当道6的时候就会把7pop出来计算。然后剩下
+                    // 5 6 在stack里面，一旦需要计算5 6 形成面积的时候，
+                    // 面积是从5开始算得（这是stack.peek的index指向的），而不是7开始算得（这是currTop - 1index指向的）
+                    width = i - stack.peek() - 1;
+                }
+                max = Math.max(max, nums[currTop] * width);
                 i--;
             }
         }

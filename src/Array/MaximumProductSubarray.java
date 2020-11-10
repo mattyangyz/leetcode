@@ -33,7 +33,11 @@ package Array;
  */
 public class MaximumProductSubarray {
 
-    public int maxProduct(int[] a) {
+    public static void main(String[] args) {
+        MaximumProductSubarray.maxProduct(new int[]{3, 2, 4, -7, 10, 50});
+    }
+
+    public static int maxProduct(int[] a) {
         if (a.length == 0) {
             return 0;
         }

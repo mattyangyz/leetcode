@@ -28,6 +28,10 @@ public class RemoveDuplicatesFromSortedListII {
         while (previous.next != null && previous.next.next != null) {
             if (previous.next.val == previous.next.next.val) {
                 int sameNumber = previous.next.val;
+                // 例子 1 1 1 2 3， 一开始prev在一前面的dummy。
+                // 然后因为 previous.next != null && previous.next.next
+                // pre的next就会skip到第二个1那里，继续skip到第三个1，然后知道2才停下来
+                // 这样所有的1都会被skip了
                 while (previous.next != null && previous.next.val == sameNumber) {
                     previous.next = previous.next.next;                   // 删除是这里发生
                 }

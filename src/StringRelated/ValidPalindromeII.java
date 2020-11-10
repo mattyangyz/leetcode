@@ -19,30 +19,25 @@ package StringRelated;
 public class ValidPalindromeII {
 
     public boolean validPalindrome(String s) {
-        int i = 0;
-        int j = s.length() - 1;
-
-        while (i < j && s.charAt(i) == s.charAt(j)) {
+        char[] sc = s.toCharArray();
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (sc[i] != sc[j]) {
+                return helper(sc, i + 1, j) || helper(sc, i, j - 1);
+            }
             i++;
             j--;
         }
-
-        if (j <= i) {
-            return true;
-        }
-        return isPalindrome(s.substring(i + 1, j + 1)) || isPalindrome(s.substring(i, j));
-
-
+        return true;
     }
 
-    public static boolean isPalindrome(String s) {
-        int i = 0;
-        int j = s.length() - 1;
+    boolean helper(char[] sc, int i, int j) {
         while (i < j) {
-            if (s.charAt(i) == s.charAt(j)) {
-                i++;
-                j--;
-            } else return false;
+            if (sc[i] != sc[j]) {
+                return false;
+            }
+            i++;
+            j--;
         }
         return true;
     }

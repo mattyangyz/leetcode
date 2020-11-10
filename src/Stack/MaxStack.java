@@ -64,16 +64,24 @@ public class MaxStack {
     }
 
     public int popMax() {
-        int max = peekMax();                    // 这里一定要是peekMax, 不能是maxStack.pop(); 不然就pop多了一次了。
-        Stack<Integer> buffer = new Stack<>();
+        int peekTop = stack.peek();
+        int maxElement = maxStack.peek();
+        if (peekTop != maxElement) {
+            Stack<Integer> tempStack = new Stack<>();
+            while (!stack.isEmpty() && stack.peek() != maxElement) {
+                maxStack.pop();
+                tempStack.push(stack.pop());
+            }
+            stack.pop();                                // 这里千万别忘记要pop这两个东西
+            maxStack.pop();
+            while (!tempStack.isEmpty()) {
+                this.push(tempStack.pop());
+            }
+            return maxElement;
 
-        while (top() != max) {
-            buffer.push(pop());
+        } else {
+            stack.pop();
+            return maxStack.pop();
         }
-        pop();
-        while (!buffer.isEmpty()) {
-            push(buffer.pop());
-        }
-        return max;
     }
 }

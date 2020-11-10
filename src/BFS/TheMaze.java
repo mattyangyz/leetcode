@@ -54,6 +54,7 @@ public class TheMaze {
                     newY += direction[1];
 
                 }
+                // 只能放终点的，途中的不能放
                 if (!visited[newX][newY]) {                                                 // 这个是必须的，防止死循环。
                     queue.offer(new Point(newX, newY));
                 }

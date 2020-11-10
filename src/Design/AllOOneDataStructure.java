@@ -22,6 +22,14 @@ import java.util.Set;
  * https://leetcode.com/problems/all-oone-data-structure/discuss/91383/An-accepted-JAVA-solution-detailed-explanation.(HashMap-%2B-double-linked-list)
  */
 
+// 用一个key到count，然后count到bucket的映射，bucket里面包含所有的同一count次数的key，
+// 用这个bucket是为了当max min变动的时候，可以O(1)地去变化。
+// 这一题的关键是想明白怎么归纳一个helper function。
+// 一共是四大类，
+// 第一 removeKeyFromBucket  用于inc和dec的时候用的
+// 第二 removeBucketFromList 用于当前的set大小等于0的时候
+// 第三 changeKeyCount       用于inc和dec的时候用的
+// 第四个 addBucketAfter     用于如果这是一个新的key加bucket在head后面，或是inc 或 dec的时候是一个新的count的时候。
 public class AllOOneDataStructure {
 
     private Bucket head;
@@ -54,9 +62,9 @@ public class AllOOneDataStructure {
     public void inc(String key) {
         if (keyCountMap.containsKey(key)) {                 // this is a new key
             changeKey(key, 1);
-        } else {                                               // existing key
+        } else {                                            // existing key
             keyCountMap.put(key, 1);
-            if (head.next.count != 1) {
+            if (head.next.count != 1) {                     // count 1 does not exist, head.next is the min
                 addBucketAfter(new Bucket(1), head);
             }
             head.next.keySet.add(key);                      // add the string key to the bucket

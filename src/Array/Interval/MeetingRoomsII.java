@@ -1,6 +1,7 @@
 package Array.Interval;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * 高频
@@ -36,9 +37,30 @@ import java.util.Arrays;
  * 当start在3的时候， 表明已经有一个房间在a那里结束了，可以用那个房间，
  * 当start在4， end在b的时候 表明已经有房间结束 可以用那个房间。
  */
+
 public class MeetingRoomsII {
 
-    public static int minMeetingRoom(int[][] intervals) {
+    public static int minMeetingRoomsWithHeap(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        PriorityQueue<Integer> minHeap = new PriorityQueue(); // 默认是一个min heap
+
+        minHeap.add(intervals[0][1]);
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= minHeap.peek()) {          // 表明当前的intervals i可以利用之前的在最top上的interval，所以把之前的给poll掉
+                minHeap.poll();
+            }
+            minHeap.offer(intervals[i][1]);
+        }
+
+        return minHeap.size();
+    }
+
+
+    public int minMeetingRooms(int[][] intervals) {
 
         int[] startTime = new int[intervals.length];
         int[] endTime = new int[intervals.length];

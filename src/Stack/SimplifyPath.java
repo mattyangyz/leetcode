@@ -48,11 +48,14 @@ import java.util.Stack;
  * popping only if there's smth to pop and we met "..".
  */
 
+// 先把string用split分开，然后对于..的话就pop一个出来，对于 . 和 ""的话不予理会，因为split的时候会有 "" 所以要注意，
+// 然后对于正常的dir名字，放到stack里面。
+// 最后处理剩下的dir的时候，要注意顺序的问题。
 public class SimplifyPath {
 
     public String simplifyPath(String path) {
         Stack<String> stack = new Stack<>();
-        String[] paths = path.split("/+");
+        String[] paths = path.split("/");
         for (String s : paths) {
             if (s.equals("..")) {                         // pop一个东西出来，以致于返回上一个目录。
                 if (!stack.isEmpty()) {

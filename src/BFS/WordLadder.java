@@ -39,38 +39,35 @@ public class WordLadder {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
 
         Queue<String> queue = new LinkedList<>();
-        Set<String> set = new HashSet<>(wordList);
-        queue.offer(beginWord);
+        Set<String> set = new HashSet<>(wordList);              // 这里必须用一个set去去从 这里是关键
         int length = 1;
+        queue.offer(beginWord);
 
         while (!queue.isEmpty()) {
+
             int size = queue.size();
-            length++;
-
             for (int i = 0; i < size; i++) {
+                String word = queue.poll();
 
-                String candidate = queue.poll();
-                for (int j = 0; j < candidate.length(); j++) {            // 这里是level order
+                if (word.equals(endWord)) {
+                    return length;
+                }
 
-                    char preserveChar = candidate.charAt(j);
-                    char[] charArray = candidate.toCharArray();
+                for (int k = 0; k < word.length(); k++) {
+                    char[] chars = word.toCharArray();
 
-                    for (char ch = 'a'; ch <= 'z'; ch++) {
-                        charArray[j] = ch;
-                        String newWord = new String(charArray);
+                    for (int j = 'a'; j <= 'z'; j++) {
+                        chars[k] = ((char) j);
 
-                        if (set.contains(newWord)) {                    // 如果转换过程中找到在dict里面出现
-                            if (newWord.equals(endWord)) {
-                                return length;
-                            }
-                            queue.offer(newWord);
-                            set.remove(newWord);
+                        String candidate = new String(chars);
+                        if (set.contains(candidate)) {
+                            set.remove(candidate);
+                            queue.offer(candidate);
                         }
-
                     }
-                    charArray[j] = preserveChar;                        // 这一步可有可无，因为是从candidate.toCharArray()的
                 }
             }
+            length++;
         }
         return 0;
     }

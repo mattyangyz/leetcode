@@ -18,8 +18,8 @@ import java.util.Stack;
  * Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 8 -> 0 -> 7
  * <p>
- * 思路: 用list这个var来存current的value。 然后用head存左边的var， 记住这个head要存carryover。 然后挪动list到head。整个过程由
- * 右边向左边进行。 巧妙之处在于如何处理最后一位的carry over以及如何用sum来存carryover。
+ * 思路: 这题要用两个stack去做，而且要注意这个res list是从后往前填满的，这就要注意如何控制的问题，这一点跟
+ * add two numers 1不一样，而且处理最后一个是carry的方法也不一样。
  */
 
 public class AddTwoNumbersII {
@@ -38,8 +38,10 @@ public class AddTwoNumbersII {
             l2 = l2.next;
         }
 
-        int sum = 0;
         ListNode list = new ListNode(0);
+        int sum = 0;
+        int carry = 0;
+
         while (!s1.isEmpty() || !s2.isEmpty()) {
             if (!s1.isEmpty()) {
                 sum += s1.pop();
@@ -47,11 +49,14 @@ public class AddTwoNumbersII {
             if (!s2.isEmpty()) {
                 sum += s2.pop();
             }
+            sum += carry;
             list.val = sum % 10;
-            ListNode head = new ListNode(sum / 10);         // todo： 巧妙处 给最后一位的carryover用
+            carry = sum / 10;
+            sum = 0;
+
+            ListNode head = new ListNode(carry);
             head.next = list;
             list = head;
-            sum /= 10;                                          // todo: 给普通的carryover用
         }
         return list.val == 0 ? list.next : list;
     }

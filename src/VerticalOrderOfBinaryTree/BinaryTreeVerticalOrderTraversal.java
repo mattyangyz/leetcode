@@ -95,29 +95,31 @@ public class BinaryTreeVerticalOrderTraversal {
         int minX = 0;
         int maxX = 0;
 
-        while (!queue.isEmpty()) {// 注意这里不需要keep track of size， 这里是level order
-            Node cur = queue.poll();
-            map.putIfAbsent(cur.x, new ArrayList<>());
-            minX = Math.min(minX, cur.x);
-            maxX = Math.max(maxX, cur.x);
+        while (!queue.isEmpty()) {
+            int size = queue.size();                            // 其实这里这个size的for loop有没有都没有关系。
+            for (int i = 0; i < size; i++) {
+                Node cur = queue.poll();
+                map.putIfAbsent(cur.x, new ArrayList<>());
+                minX = Math.min(minX, cur.x);
+                maxX = Math.max(maxX, cur.x);
 
-            map.get(cur.x).add(cur);
+                map.get(cur.x).add(cur);
 
-            if (cur.root.left != null) {
-                queue.offer(new Node(cur.root.left, cur.x - 1, cur.y - 1));
-            }
-            if (cur.root.right != null) {
-                queue.offer(new Node(cur.root.right, cur.x + 1, cur.y - 1));
+                if (cur.root.left != null) {
+                    queue.offer(new Node(cur.root.left, cur.x - 1, cur.y - 1));
+                }
+                if (cur.root.right != null) {
+                    queue.offer(new Node(cur.root.right, cur.x + 1, cur.y - 1));
+                }
             }
         }
 
-        int index = 0;
-        for (int i = minX; i <= maxX; i++) {
+
+        for (int i = minX; i <= maxX; i++) {                    // 唯一的区别就是少了这里的排序
             res.add(new ArrayList<>());
             for (Node node : map.get(i)) {
-                res.get(index).add(node.root.val);
+                res.get(res.size() - 1).add(node.root.val);
             }
-            index++;
         }
         return res;
     }

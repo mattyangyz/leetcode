@@ -1,6 +1,5 @@
 package Backtracking;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,11 @@ import java.util.List;
  */
 
 public class Combinations {
+
+    public static void main(String[] args) {
+        System.out.println(Combinations.combine(4, 3));
+    }
+
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> combs = new ArrayList<>();
         combine(combs, new ArrayList<>(), 1, n, k);

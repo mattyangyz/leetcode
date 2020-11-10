@@ -53,6 +53,7 @@ public class LoggerRateTimer {
     public boolean shouldPrintMessage(int timeStamp, String message) {
         int index = timeStamp % 10;
 
+        // 表明已经超出 10s 这个window，所以可以直接清除掉
         if (timeStamp != buckets[index]) {    // 3 foo, 3 shot, 13 foo， 这时候 13 != 3 会把 foo跟shot都remvoe 但没关系的。 shot在下一次call的时候会print true的
             sets[index].clear();
             buckets[index] = timeStamp;
@@ -65,7 +66,8 @@ public class LoggerRateTimer {
                 }
             }
         }
-        sets[index].add(message);
+
+        sets[index].add(message); // 只有大于10s的时候才加进来
         return true;
     }
 }

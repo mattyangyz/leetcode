@@ -45,7 +45,9 @@ import java.util.Stack;
  * 另外一种做法就是 用inorder去做， 把inorder在constructor的时候去call。
  */
 
-
+// 关键点是binary search tree 然后next是返回next smallest number 这两点。
+// 在constructor的时候把左边的path push进去，然后next出来的时候判断curr pop有没有右边，如果有的话
+// 同理把左边的path push进去。
 public class BinarySearchTreeIterator {
 
     private Stack<TreeNode> stack;
@@ -56,6 +58,7 @@ public class BinarySearchTreeIterator {
         TreeNode curr = root;
         while (curr != null) {
             stack.push(curr);
+
             if (curr.left != null) {
                 curr = curr.left;
             }

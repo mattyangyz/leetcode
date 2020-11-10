@@ -21,29 +21,29 @@ import java.util.Map;
  * 思路： sliding window里面算比较简单的一题
  */
 
+// 正常滴left, right两个variable去走，然后碰到size大于K的话，就
 public class LongestSubstringWithAtMostKDistinctCharacters {
 
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
 
         Map<Character, Integer> map = new HashMap<>();
         int left = 0;
+        int right = 0;
         int longest = 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        while (right < s.length()) {
+
+            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
 
             while (map.size() > k) {
-                char leftChar = s.charAt(left);
-                if (map.containsKey(leftChar)) {
-                    map.put(leftChar, map.get(leftChar) - 1);
-                    if (map.get(leftChar) == 0) {
-                        map.remove(leftChar);
-                    }
+                map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
+                if (map.get(s.charAt(left)) == 0) {
+                    map.remove(s.charAt(left));
                 }
                 left++;
             }
-            longest = Math.max(longest, i - left + 1);
+            right++;
+            longest = Math.max(right - left, longest);  // 这个不能放while loop里面，因为如果一旦max没达到的话 这样就miss了计算longest的机会了
         }
         return longest;
     }

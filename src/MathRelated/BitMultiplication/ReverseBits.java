@@ -17,6 +17,8 @@ package MathRelated.BitMultiplication;
  * <p>
  * 思路: 用shift, & 以及 加一去完成
  */
+
+// 把原来的n跟1 and 看最sinificant bit是不是一，是的话结果就加一，但是同时结果要想左移动。
 public class ReverseBits {
 
     public int reverseBits(int n) {

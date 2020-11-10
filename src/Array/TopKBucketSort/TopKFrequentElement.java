@@ -34,11 +34,19 @@ import java.util.Map;
  *
  * 但是这里有bug， [4,1,-1,2,-1,2,3] k = 3，it should return 所有五个元素，但是在这题里面只return了-1, 2. 这里需要问
  * 清楚面试官, 问清楚是 k most of frequency 还是 k most of the result.
+ *
+ *
+ * 注意这里要读。
+ * Think about the case when K=2,
+ * and you have 1 number that has max frequency, say 10 times.
+ * and you have 10 numbers that has 2nd max frequency, say 9 times.
+ * the returned int should be size 2 not 11.
+ *
  */
 
 public class TopKFrequentElement {
 
-    public static List<Integer> topKFrequent(int[] nums, int k) {
+    public static int[] topKFrequent(int[] nums, int k) {
 
         Map<Integer, Integer> map = new HashMap<>();
         for (int n : nums) {
@@ -53,15 +61,19 @@ public class TopKFrequentElement {
                 bucket[frequency] = new ArrayList<>();
             }
             bucket[frequency].add(n);
-        }
+        }                                                                // 上面两个loop都是bucket sort的套路
 
-        List<Integer> ans = new ArrayList<>();
-        for (int i = bucket.length - 1; i >= 0 && ans.size() < k; i--) { // 这里注意是ans.size < k 不是 count < k
+        int[] res = new int[k];
+        int count = 0;
+        for (int i = bucket.length - 1; i >= 0; i--) {                    // 遍历每一个bucket，
             if (bucket[i] != null) {
-                ans.addAll(bucket[i]);
+
+                for (int j = 0; j < bucket[i].size() && count < k; j++) {    // 遍历每个bucket里面的list
+                    res[count] = bucket[i].get(j);
+                    count++;
+                }
             }
         }
-
-        return ans;
+        return res;
     }
 }

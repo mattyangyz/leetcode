@@ -28,6 +28,7 @@ import java.util.Queue;
  * 思路: 不要把null的node放进去，不需要什么fancy的东西 也不需要level。 要知道每一层的size
  */
 
+// 正常地level order就行了 没什么fancy的东西，关键在于subList那里
 public class BinaryTreeLevelOrderTraversal {
 
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -41,8 +42,10 @@ public class BinaryTreeLevelOrderTraversal {
         queue.offer(root);
 
         while(!queue.isEmpty()){
+
             int size = queue.size();
             List<Integer> subList = new ArrayList<>();
+
             for (int i = 0; i < size; i++) {
                 TreeNode curr = queue.poll();
                 subList.add(curr.val);

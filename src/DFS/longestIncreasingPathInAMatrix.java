@@ -28,12 +28,18 @@ package DFS;
  * Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
  * <p>
  * 思路: 用DFS去做。
- * <p>
+ *
  * Cache的作用是保存之前的结果，例如
  * [4, 3, 2]
- * [-1, 4      -> 当走到上面example2的中间的2的时候，对于向上走 不需要重复走。只需要把上面的结果3拿下来就可以。
+ * [0, 4      -> 当走到上面example2的中间的2的时候，对于向上走 不需要重复走。只需要把上面的结果3拿下来就可以。
  */
 
+// 这题的优化是存之前的结果，而且注意要用两个max，第一个max是全局的，第二个max是四个方向的max。
+// 只要一个方向的cell是之前走过的，就能利用之前的结果。前提是curr的cell value要小于那个方向的。
+
+// 从一个点开始，然后dfs，一边走一边update cache的value。同时要用一个prev的value知道当前的node相对应之前的value
+// 是什么，如果现在的比之前的小 那就不需要走下去了。 而且如果当前的已经存在cache中，表明已经走过了 直接返回结果就行
+// 在四个方向里面取最大的放到cache中，而且返回最大的那一个
 public class longestIncreasingPathInAMatrix {
 
     public int longestIncreasingpath(int[][] matrix) {

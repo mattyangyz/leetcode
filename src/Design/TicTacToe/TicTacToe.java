@@ -58,7 +58,8 @@ package Design.TicTacToe;
  * This will help us to get O(n) for each move instead of O(n^2)     ->    这个可以保证我们能够有O(N)
  */
 
-
+// 这题的简单版本就是每一次move都判断一下row，col以及对角是否都是当前move的玩家的，如果是的话，就赢了。
+// 进阶的版本是 最后一步才判断。
 public class TicTacToe {
 
     int[][] grid;

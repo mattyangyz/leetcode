@@ -20,10 +20,11 @@ package Trie;
  * You may assume that all words are consist of lowercase letters a-z.
  */
 
+// 一个当前的char val加上一个array of TrieNode表示下一个char的slot，如果下一个char不为null，则会在相应的children里面显示。
 public class ImplementTrie {
 
     class TrieNode {                                 // 每一个node就是一个char 加上一个size 26的children TrieNode
-        char val;
+        char val;                                    // 其实没有这个val也能work。
         boolean isWord;
         TrieNode[] children = new TrieNode[26];
 
@@ -34,7 +35,7 @@ public class ImplementTrie {
     }
 
     public class Trie {
-        private TrieNode root;                      // 有一个root
+        private TrieNode root;                      // 有一个root， 这个root是一个dummy root
 
         public Trie() {
             root = new TrieNode();
