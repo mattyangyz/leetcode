@@ -65,7 +65,7 @@ public class RomanToInteger {
 
         int res = 0;
         int prev = 0;
-        for (int i = s.length() - 1; i >= 0; i++) {
+        for (int i = s.length() - 1; i >= 0; i--) {
 
             if (ht.get(s.charAt(i)) < prev) {
                 res -= ht.get(s.charAt(i));

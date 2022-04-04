@@ -33,67 +33,63 @@ import java.util.*;
  * <p>
  * 思路 -> 图 -> 入度为0 -> BFS
  */
+
+// 思路在这里 -> https://www.youtube.com/watch?v=B5hxqxBL2d0
 public class AlienDictionary {
 
+    Map<Character, List<Character>> graph = new HashMap<>();
+    Map<Character, Integer> indegree = new HashMap<>();
+    boolean valid = true;
+
     public String alienOrder(String[] words) {
-        if (words == null || words.length == 0) {
+        build(words);
+        if(!valid){
             return "";
         }
 
-        StringBuilder res = new StringBuilder();
-        Map<Character, Set<Character>> map = new HashMap<>();
-
-        int[] degree = new int[26];
-        int count = 0;                          // count distinct, 跟CourseSchedule里面的numCourses是一样的
-
-        for (String word : words) {
-            for (char c : word.toCharArray()) {
-                if (degree[c - 'a'] == 0) {
-                    count++;
-                    degree[c - 'a'] = 1;
-                }
-            }
-        }
-
-        for (int i = 0; i < words.length - 1; i++) {
-            char[] cur = words[i].toCharArray();
-            char[] next = words[i + 1].toCharArray();
-            int len = Math.min(cur.length, next.length);    //"er", "ert" 这种的话是无法比较的，所以取最小值就可以了
-            for (int j = 0; j < len; j++) {                   // 这里是构建一个图
-                if (cur[j] != next[j]) {
-                    if (!map.containsKey(cur[j])) {
-                        map.put(cur[j], new HashSet<>());
-                    }
-                    if (map.get(cur[j]).add(next[j])) {       // 关键
-                        degree[next[j] - 'a']++;
-                    }
-                    break;                                  // 理解这里为什么是break
-                }
-            }                                               // 构图结束
-        }
-
-        // BFS
+        StringBuilder sb = new StringBuilder();
         Queue<Character> queue = new LinkedList<>();
-        for (int i = 0; i < 26; i++) {
-            if (degree[i] == 1) {
-                queue.offer((char) ('a' + i));
+        for (char c : indegree.keySet()) {
+            if(indegree.get(c) == 0){
+                queue.add(c);
             }
         }
+
 
         while (!queue.isEmpty()) {
             char c = queue.poll();
-            res.append(c);
-            if (map.containsKey(c)) {
-                for (char ch : map.get(c)) {
-                    if (--degree[ch - 'a'] == 1) {
-                        queue.offer(ch);
-                    }
+            sb.append(c);
+            for(Character nei: graph.getOrDefault(c, new ArrayList<>())){   // 这里一定要有这个getOrDefault，不然对于单独没有任何nei的char，会得到null的
+                indegree.put(nei, indegree.get(nei) - 1);
+                if(indegree.get(nei) == 0){
+                    queue.add(nei);
                 }
             }
         }
-        if (res.length() != count) {
-            return "";
+        return sb.length() < indegree.size() ? "" : sb.toString();
+    }
+
+    private void build(String[] words){
+        for(String word: words){                // 建图， 构建一个indegree的base，
+            for (char c : word.toCharArray()) {
+                indegree.put(c, 0);
+                graph.put(c, new ArrayList<>());
+            }
         }
-        return res.toString();
+
+        for(int i = 0; i < words.length - 1; i++){ // 构件图和enrich indegree，注意有一个edge case看到后要马上set valid = false
+            String word1 = words[i];
+            String word2 = words[i + 1];
+            if(word1.length() > word2.length() && word1.startsWith(word2)){
+                valid = false;
+            }
+            for(int j = 0; j < Math.min(word1.length(), word2.length()); j++){
+                if (word1.charAt(j) != word2.charAt(j)) {
+                    graph.get(word1.charAt(j)).add(word2.charAt(j));
+                    indegree.put(word2.charAt(j), indegree.get(word2.charAt(j)) + 1);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -37,6 +37,9 @@ package Array;
  * 所以如果有结果的话，这个就必须是结果。但是我们还需要验证一下，因为存在没有结果的情况。 验证的其实就是两部分，
  * 第一部分他有没认识的人在0到k-1里面，第二部分是k+1到n里面有没人不认识他。
  */
+
+// 需要two past来做，只是nesting for loop还是平衡for loop的问题!
+// https://www.youtube.com/watch?v=QDehNYXlCAg
 public class FindTheCelebrity {
 
     public int findCelebrity(int n) {

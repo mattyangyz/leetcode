@@ -21,7 +21,10 @@ import java.util.List;
  * ]
  * <p>
  * 用一个open， close，max的var去keep track括号的数量。必须先放(， 再放)。
+ * 要保证不要无限地放（ 还有就是右边必须小左边的时候才放！
  */
+
+// 挺重要的一道题！！
 public class GenerateParentheses {
 
     public List<String> generateParenthesis(int n) {

@@ -1,0 +1,16 @@
+
+模板: 基本的 < 家伙是哪个 mid + 1(left) 的情况。
+        while(left < right){
+
+            mid = left + (right - left) / 2;
+
+            if(array[mid] >= target){
+                right = mid;    //因为这个mid有可能是结果，所以这个mid要保留，如果这里是mid-1的话 这个mid就被skip了
+            }
+            else if(array[mid] < target){
+                left = mid + 1;
+            }
+        }
+        return -1;
+
+    如果找到的话，left就停在那个数字上。如果没找到的话left就停在大于目标数的第一个数那里。

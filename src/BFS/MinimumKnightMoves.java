@@ -48,6 +48,7 @@ public class MinimumKnightMoves {
 
                     int newX = dir[0] + potentialPos[0];
                     int newY = dir[1] + potentialPos[1];
+                    // 这里的newY可以是零，不必是-1.
                     if (!visited.contains(newX + "," + newY) && newX >= -1 && newY >= -1) { // 注意这里必须是 -1 -1 不能是 0 0，因为考虑 1 1 这种input情况，只需两部就够了。
                         queue.add(new int[]{newX, newY});
                         visited.add(newX + "," + newY);

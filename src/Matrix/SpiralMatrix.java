@@ -37,7 +37,7 @@ public class SpiralMatrix {
         }
 
         int rowBegin = 0;
-        int rowEnd = matrix.length - 1;
+        int rowEnd = matrix.length - 1;             // 这里一定要有 -1 ！！！
         int colBegin = 0;
         int colEnd = matrix[0].length - 1;
 

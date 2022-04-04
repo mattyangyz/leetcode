@@ -24,11 +24,15 @@ package MathRelated;
  */
 public class PowerOfThree {
 
+    public static void main(String[] strs){
+        isPowerOfThreeIterative(27);
+    }
+
     public boolean isPowerOfThree(int n) {
         return n > 0 && (n == 1 || (n % 3 == 0 && isPowerOfThree(n / 3)));
     }
 
-    public boolean isPowerOfThreeIterative(int n) {
+    public static boolean isPowerOfThreeIterative(int n) {
         if (n > 1) {
             while (n % 3 == 0) {
                 n /= 3;

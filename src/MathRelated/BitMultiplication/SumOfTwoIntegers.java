@@ -56,6 +56,10 @@ package MathRelated.BitMultiplication;
 
 public class SumOfTwoIntegers {
 
+    public static void main(String[] strs){
+        System.out.println((3 & 3) + "-----------");
+    }
+
     public int getSum(int a, int b) {
 
         int c = 0;

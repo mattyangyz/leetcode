@@ -38,7 +38,7 @@ package StringRelated;
 public class CountAndSay {
 
     public static void main(String[] args) {
-        CountAndSay.countAndSay(6);
+        CountAndSay.countAndSay2(6);
     }
 
 

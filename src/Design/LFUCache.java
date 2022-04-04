@@ -31,6 +31,7 @@ import java.util.LinkedHashSet;
 // put的时候看这个key是否已经存在 是的话就更新一下然后顺便call一下get(更新对应的min 如果有需要的话)，如果size已经满了的话， 就remove一下在
 // linkedHashSet最开头的元素，因为这个是least recently used的。然后需要更新min，因为新进来的元素都是min = 1的，然后就把这个freq count和
 // key-value都update一下。
+// todo： 关键是想到怎么保持平手时候的顺序, 需要用一个linkedHashSet
 public class LFUCache {
 
     HashMap<Integer, Integer> keyToVal;

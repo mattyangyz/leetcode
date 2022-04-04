@@ -34,7 +34,7 @@ public class PalindromeLinkedList {
         }
 
         ListNode middle = getMiddle(head);
-        ListNode secondPart = reverse(middle.next);
+        ListNode secondPart = reverse(middle);
 
         while (head != null && secondPart != null) {
             if (head.val != secondPart.val) {
@@ -43,6 +43,7 @@ public class PalindromeLinkedList {
             head = head.next;
             secondPart = secondPart.next;
         }
+
         return true;
     }
 
@@ -50,7 +51,7 @@ public class PalindromeLinkedList {
         ListNode slow = head;
         ListNode fast = head;
 
-        while (fast.next != null && fast.next.next != null) {
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }

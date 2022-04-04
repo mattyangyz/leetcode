@@ -45,37 +45,43 @@ import java.util.List;
 public class ThreeSum {
 
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i = 0; i < nums.length - 2; i++){
 
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) { //为了保证不加入重复的 list,因为是有序的，所以如果和前一个元素相同，只需要继续后移就可以
+            int left = i + 1;
+            int right = nums.length - 1;
+            int target = 0 - nums[i];
+
+            if(i != 0 && nums[i] == nums[i - 1]){                   // 跳过重复的
                 continue;
             }
-            int low = i + 1;
-            int high = nums.length - 1;
-            int sum = 0 - nums[i];
 
-            while (low < high) {
-                if (nums[low] + nums[high] == sum) {
-                    ans.add(Arrays.asList(nums[i], nums[low], nums[high]));
-                    while (low < high && nums[low] == nums[low + 1]) { // //元素相同要后移，防止加入重复的 list
-                        low++;
+            while(left < right){
+                int tempSum = nums[left] + nums[right];
+                if(tempSum == target){
+                    List<Integer> res = new ArrayList<>();
+                    res.add(nums[i]);
+                    res.add(nums[left]);
+                    res.add(nums[right]);
+                    list.add(res);
+                    while(left < right && nums[left] == nums[left + 1]){            // 跳过重复的
+                        left++;
                     }
-                    while (low < high && nums[high] == nums[high - 1]) {
-                        high--;
+                    while(left < right && nums[right] == nums[right - 1]){          // 跳过重复的
+                        right--;
                     }
-                    low++;                                              // watch out here
-                    high--;
+                    left++;
+                    right--;
                 }
-                else if (nums[low] + nums[high] < sum) {
-                    low++;
+                else if(tempSum < target){
+                    left++;
                 }
                 else{
-                    high--;
+                    right--;
                 }
             }
         }
-        return ans;
+        return list;
     }
 }

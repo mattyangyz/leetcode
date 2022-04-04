@@ -19,7 +19,7 @@ package Array;
  * 没有非常特别的edge case需要考虑. 为什么是移动比较少那一边的呢，因为防止下次碰到更高的时候 如果现在移动了小的那一边，那时候就能用现在
  * 比较高一点的作为一个低点去跟那个更高的组成一个更大的rectangle.
  *
- *
+ * 不用担心说没有考虑到的情况
  */
 
 public class ContainerWithMostWater {

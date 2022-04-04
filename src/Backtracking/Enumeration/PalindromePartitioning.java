@@ -31,34 +31,41 @@ import java.util.List;
  * |    |
  * ——  2
  */
+
+// 这题是backtracking去遍历每一种可能，注意一定是要把string给partition了，不是找单独的palindromie substring
 public class PalindromePartitioning {
 
-    public static List<List<String>> partition(String s) {
-        List<List<String>> list = new ArrayList<>();
-        backtrack(list, new ArrayList<>(), s, 0);
+    List<List<String>> list = new ArrayList<>();
+
+    public List<List<String>> partition(String s) {
+        recur(s, new ArrayList<>(), 0);
         return list;
     }
 
-    public static void backtrack(List<List<String>> list, List<String> tempList, String s, int start) {
-        if (start == s.length()) {
-            list.add(new ArrayList<>(tempList));
+    private void recur(String s, List<String> candidate, int index){
+        if(index == s.length()){ // base case
+            list.add(new ArrayList<>(candidate));
+            return;
         }
-        else{
-            for (int i = start; i < s.length(); i++) {                      // backtracking templdate
-                if(isPalindrome(s, start, i)){
-                    tempList.add(s.substring(start, i + 1));
-                    backtrack(list, tempList, s, i + 1);
-                    tempList.remove(tempList.size() - 1);
-                }
+
+        for(int i = index; i < s.length(); i++){
+            if(isPalindrome(s.substring(index, i + 1))){
+                candidate.add(s.substring(index, i + 1));
+                recur(s, candidate, i + 1);
+                candidate.remove(candidate.size() - 1);
             }
         }
     }
 
-    private static boolean isPalindrome(String s, int low, int high) {      // palindrome template
-        while (low < high) {
-            if (s.charAt(low++) != s.charAt(high--)) {
+    private boolean isPalindrome(String s){
+        int left = 0;
+        int right = s.length() - 1;
+        while(left <= right){
+            if(s.charAt(left) != s.charAt(right)){
                 return false;
             }
+            left++;
+            right--;
         }
         return true;
     }

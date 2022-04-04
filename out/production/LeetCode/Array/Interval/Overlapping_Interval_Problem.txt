@@ -1,0 +1,12 @@
+
+
+https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/discuss/93735/A-Concise-Template-for-%22Overlapping-Interval-Problem%22
+
+452 Minimum Number of Arrows to Burst Balloons
+
+435 Non-overlapping Intervals <- very similar to 452 and 56
+56 Merge Intervals <- very similar to 452
+252 Meeting Rooms
+253 Meeting Rooms II
+986 IntervalListIntersections
+

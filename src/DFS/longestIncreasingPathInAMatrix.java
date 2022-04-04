@@ -50,6 +50,7 @@ public class longestIncreasingPathInAMatrix {
         int m = matrix.length;
         int n = matrix[0].length;
         int[][] cache = new int[m][n];      // 把中间结果存起来，减少重复计算。
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 int max = dfs(matrix, Integer.MIN_VALUE, i, j, m, n, cache);

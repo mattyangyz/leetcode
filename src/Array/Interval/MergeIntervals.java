@@ -29,32 +29,41 @@ import java.util.List;
  *
  */
 
+// 这个版本是新写的，很好理解的。
 public class MergeIntervals {
 
     public int[][] merge(int[][] intervals) {
 
-        if (intervals.length <= 1)
-            return intervals;
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> first = new ArrayList<>();
+        first.add(intervals[0][0]);
+        first.add(intervals[0][1]);
+        res.add(first);
 
-        Arrays.sort(intervals, (i1, i2) -> i1[0] - i2[2]);
-        List<int[]> list = new ArrayList<>();           // 这里注意可以写成这样子的，List<int[]>
+        for(int i = 1; i < intervals.length; i++){
 
-        list.add(intervals[0]);
-
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] <= list.get(list.size() - 1)[1]) {
-                list.get(list.size() - 1)[1] = Math.max(intervals[i][1], list.get(list.size() - 1)[1]);
-            } else {
-                list.add(intervals[i]);
+            if(intervals[i][0] <= res.get(res.size() - 1).get(1)){
+                int newEnd = Math.max(res.get(res.size() - 1).get(1), intervals[i][1]);
+                res.get(res.size() - 1).add(1, newEnd);
+            }
+            else{
+                List<Integer> innerList = new ArrayList<>();
+                innerList.add(intervals[i][0]);
+                innerList.add(intervals[i][1]);
+                res.add(innerList);
             }
         }
 
-        int[][] result = new int[list.size()][2];
-        int i = 0;
-        for (int[] array : list) {
-            result[i++] = array;
+        int[][] matrix = new int[res.size()][];
+        int index = 0;
+        for(List<Integer> innerList: res){
+            int[] innerMatrix = new int[2];
+            innerMatrix[0] = innerList.get(0);
+            innerMatrix[1] = innerList.get(1);
+            matrix[index++] = innerMatrix;
         }
-        return result;
+        return matrix;
     }
 
 }

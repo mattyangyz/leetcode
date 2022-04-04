@@ -16,27 +16,23 @@ package StringRelated;
  * Explanation: There is no common prefix among the input strings.
  * <p>
  * <p>
- * 思路: 利用第一个word作为prefix先, 然后不断indexof去看这个prefix有没有出现 缩小结果就行。两个while loop
+ * 思路: 利用第一个word作为prefix先, 然后不断indexof去看这个prefix有没有出现 缩小结果就行。
  */
 
 public class LongestCommonPrefix {
 
     public String longestCommonPrefix(String[] strs) {
-        if (strs.length == 0) {
-            return "";
-        }
+        String common = strs[0];
 
-        String prexFix = strs[0];
-
-        for (String str : strs) {
-            int index = str.length();
-
-            while (prexFix.indexOf(str.substring(0, index)) != 0) {
+        for(String str: strs){
+            int index = common.length();
+            while(str.indexOf(common.substring(0, index)) != 0) {
                 index--;
             }
-            prexFix = str.substring(0, index);
+
+            common = common.substring(0, index);
         }
 
-        return prexFix;
+        return common;
     }
 }

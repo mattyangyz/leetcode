@@ -31,7 +31,8 @@ public class ValidPalindrome {
         int right = s.length() - 1;
 
         while (left < right) {
-            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) { // TODO: 这里注意一定要是 left < right,
+                // 不能是 left < s.length()，因为如果只有".,"的这个例子的时候会fail
                 left++;
             }
             while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {

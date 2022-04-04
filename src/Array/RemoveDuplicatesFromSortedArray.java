@@ -1,5 +1,11 @@
 package Array;
 
+
+/**
+ *
+ * 这题就是用一个i去记录insert的index同时也作为判断是否有dup的index，而且也是一个counter！
+ *
+ */
 public class RemoveDuplicatesFromSortedArray {
 
     public static int removeDuplicates(int[] nums) {

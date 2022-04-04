@@ -48,4 +48,20 @@ public class ProductOfArrayExceptSelf {
 
         return res;
     }
+
+    public int[] productExceptSelfMostOptVersion(int[] nums) {      // 这个是最优解法！
+
+        int[] left = new int[nums.length];
+        left[0] = 1;
+        for(int i = 1; i < nums.length; i++){
+            left[i] = nums[i - 1] * left[i - 1];
+        }
+        int prev = nums[nums.length - 1];
+        for(int i = nums.length - 2; i >= 0; i--){
+            left[i] = prev * left[i];
+            prev *= nums[i];
+        }
+
+        return left;
+    }
 }

@@ -41,7 +41,7 @@ public class GroupAnagrams {
     private String arrayToString(int[] key) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < key.length; i++) {
-            sb.append(key[i]);
+            sb.append(key[i] + "-");                // 这里记得要加一个-，不然10，不知道是，这个是重点！！！！
         }
         return sb.toString();
     }

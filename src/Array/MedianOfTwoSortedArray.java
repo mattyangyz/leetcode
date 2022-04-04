@@ -53,7 +53,7 @@ public class MedianOfTwoSortedArray {
         int cutLinNums1 = 0;                   // cut1 是cutL 跟 cutR的范围里面决定的
         int cutRinNums1 = nums1.length;
 
-        while (cut1 <= nums1.length) {  // cut 1 需要小于 nums1.length 而不是left < right， 这不是传统的binary search patern
+        while (cutRinNums1 >= cutLinNums1) {  // cut 1 需要小于 nums1.length 而不是left < right， 这不是传统的binary search patern
 
 
             cut1 = (cutRinNums1 - cutLinNums1) / 2 + cutLinNums1;

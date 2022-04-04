@@ -45,22 +45,13 @@ public class SurroundedRegions {
         int rows = board.length;
         int cols = board[0].length;
 
-
-        for (int i = 0; i < rows; i++) {
-            if (board[i][0] == 'O') {
-                dfs(board, i, 0);
-            }
-            if (board[i][cols - 1] == 'O') {
-                dfs(board, i, cols - 1);
-            }
-        }
-
-        for (int i = 0; i < cols; i++) {
-            if (board[0][i] == 'O') {
-                dfs(board, 0, i);
-            }
-            if (board[rows - 1][i] == 'O') {
-                dfs(board, rows - 1, i);
+        for(int i = 0; i < rows; i++){          // 遍历边上，把边上全部能够到的都变为1， 这样剩下的内陆部分只要是'O'的就可以全部变为'X'
+            for(int j = 0; j < cols; j++){      // 只需要这里用dfs就够了，里面不需要！
+                if(i == 0 || i == rows - 1 || j == 0 || j == cols - 1) {
+                    if (board[i][j] == 'O') {
+                        dfs(board, i, j);
+                    }
+                }
             }
         }
 

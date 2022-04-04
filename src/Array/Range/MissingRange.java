@@ -14,7 +14,7 @@ import java.util.List;
  *
  *
  *
- * 思路: 就是一个实现题。
+ * 思路: 就是一个实现题，没有什么需要特别考虑的，就是要注意分开三段来考虑！
  *
  * Find the range between lower and first element in the array.
  * Find ranges between adjacent elements in the array.
@@ -36,7 +36,7 @@ public class MissingRange {
 
         // 2nd step
         for (int i = 0; i < nums.length - 1; i++) {
-            if (nums[i + 1] != nums[i] && nums[i + 1] > nums[i] + 1) {
+            if (nums[i + 1] > nums[i] + 1) {
                 result.add(formRange(nums[i] + 1, nums[i + 1] - 1));
             }
         }

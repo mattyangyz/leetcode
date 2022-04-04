@@ -22,12 +22,16 @@ import java.util.Map;
  *
  *  思路:   第一种是排序。 直接排序 然后num[nums.length / 2】就是那一个元素。
  *           第二种是利用hashmap， 一边往里面添加一边检查有没有大于nums.length / 2的元素。
- *             第三种是moore voting algo. 理解 -> https://leetcode.com/problems/majority-element-ii/discuss/63537/My-understanding-of-Boyer-Moore-Majority-Vote
+ *             第三种是moore voting algo. 理解 -> https://www.youtube.com/watch?v=2s7b0zs4Vf4
  *
  */
 
 
 public class MajorityElement {
+
+    public static void main(String[] args){
+        majorityElement3(new int[]{2, 3, 4, 1, 1, 1});
+    }
 
     public int majorityElement(int[] nums) {
         Arrays.sort(nums);
@@ -53,9 +57,9 @@ public class MajorityElement {
         return ret;
     }
 
-    // 每次都找出一对不同的元素， 从数组中删除。 知道数组为空或只有一种元素
+    // 每次都找出一对不同的元素， 从数组中删除， 其实关键就是balance out。 知道数组为空或只有一种元素
     // 不难证明， 如果存在元素e出现的频率拆过半数，那么数组中最后剩下的就只有e。
-    public int majorityElement3(int[] nums) {           // 这个做法巧妙，必须理解
+    public static int majorityElement3(int[] nums) {                // 这个做法巧妙，必须理解
         int count = 0;
         int ans = 0;
         for (int num : nums) {

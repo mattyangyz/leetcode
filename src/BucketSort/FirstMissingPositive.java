@@ -30,7 +30,7 @@ package BucketSort;
 public class FirstMissingPositive {
 
     public static void main(String[] args) {
-        FirstMissingPositive.firstMissingPositive(new int[]{3, 4, -1, 1});
+        FirstMissingPositive.firstMissingPositive(new int[]{12, 11, 10, 9, 8});
     }
 
     public static int firstMissingPositive(int[] nums) {
@@ -41,7 +41,7 @@ public class FirstMissingPositive {
 
             // 这里必须用while，考虑 3 4 -1 1 这种情况， 第一次 for loop结束后变成 -1 4 3 1， 第二次 for loop后变成 -1 1 3 4
             // 即使 3 和 4 的位置对了 但是1的位置还没有对 所以要继续用while loop处理。因为一旦i 过了之前的就没办法再处理了
-            while(nums[i] > 0 && nums[i] <= nums.length && nums[nums[i] - 1] != nums[i]){
+            while(nums[i] > 0 && nums[i] <= nums.length && nums[nums[i] - 1] != nums[i]){               // 这里的 <= 变成 < 也是可以的。
                 FirstMissingPositive.swap(nums, nums[i] - 1, i);
             }
         }

@@ -4,6 +4,8 @@ import java.util.Stack;
 
 /**
  *
+ * 大意， 保持一个单调递减的stack，这样当遇到比当前top高的bar的时候就可以储水。
+ *
  * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
  *
  *
@@ -23,7 +25,7 @@ public class TrappingRainWater {
 
     public static void main(String[] args) {
 
-        TrappingRainWater.trap(new int[]{10, 5, 6, 20});
+        TrappingRainWater.trap(new int[]{2, 4, 6, 4});
 
     }
 

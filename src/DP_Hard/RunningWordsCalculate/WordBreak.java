@@ -63,16 +63,16 @@ import java.util.Set;
  * 思路：  l e e t c o d e
  * dp[] T F F F T F F F T      <- 这个是正确的dp数组迭代思路
  *
- * https://www.youtube.com/channel/UCamg61pfZpRnTp5-L4XEM1Q/about
+ * https://www.youtube.com/watch?v=KppuKbiBX78
  *
  */
 public class WordBreak {
 
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
-        list.add("leet");
-        list.add("leetcode");
-        System.out.println(WordBreak.wordBreak("leetcode", list));
+        list.add("apple");
+        list.add("pen");
+        System.out.println(WordBreak.wordBreak("applepenapple", list));
 
     }
 
@@ -82,7 +82,7 @@ public class WordBreak {
         Set<String> set = new HashSet<>(wordDict);
 
         for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {                 // 注意这里一定要等于，因为substring j是不包含的，要+1才能包含
+            for (int j = i; j <= s.length(); j++) {                 // 注意这里一定要等于，因为substring j是不包含的，要+1才能包含
                 String subString = s.substring(i, j);
 
                 if (previousResult[i] && set.contains(subString)) {

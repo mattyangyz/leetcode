@@ -46,7 +46,7 @@ public class Flatten2DArray {
         if (array.length != 0) {
 
             // 还没到最后一排 但是已经超过最后一个element了。
-            while (arrayIndex < array.length - 1 && elementIndex == array[arrayIndex].length) {
+            while (arrayIndex < array.length - 1 && elementIndex == array[arrayIndex].length) { //这里一定得是 - 1
                 arrayIndex++;
                 elementIndex = 0;
             }

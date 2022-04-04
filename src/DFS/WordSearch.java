@@ -43,13 +43,14 @@ public class WordSearch {
 
     private boolean dfsHelper(char[][] board, String word, int index, int i, int j) {
 
-        if (index == word.length()) {
-            return true;
-        }
-
         if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || visited[i][j] || board[i][j] != word.charAt(index)) {
             return false;
         }
+
+        if (index == word.length() - 1) {
+            return true;
+        }
+
         visited[i][j] = true;
         if (dfsHelper(board, word, index + 1, i + 1, j) ||
                 dfsHelper(board, word, index + 1, i - 1, j) ||
@@ -57,7 +58,7 @@ public class WordSearch {
                 dfsHelper(board, word, index + 1, i, j - 1)) {
             return true;
         }
-        visited[i][j] = false;
+        visited[i][j] = false;                                          // 这里要记得设回false，如果一旦59行return true的时候，就不用的，因为一旦true就代表有结果了，不需要再走了
         return false;
     }
 }

@@ -41,9 +41,10 @@ public class JumpGame {
             return true;
         }
 
-        for (int curr = nums.length - 2; curr >= 0; curr--) {
+        for (int curr = nums.length - 2; curr >= 0; curr--) { // 这里一定是要 nums.length - 2!!!!
             if (nums[curr] == 0) {
                 int neededJumps = 1;
+
                 while (neededJumps > nums[curr]) {
                     neededJumps++;
                     curr--;

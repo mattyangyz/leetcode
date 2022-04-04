@@ -1,10 +1,10 @@
 package Iterator;
 
-import Tree.DFS.NestedInteger;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
+
+import Tree.DFS.NestedInteger;
 
 /**
  *
@@ -37,6 +37,7 @@ import java.util.Stack;
 // 这题要想明白 整道题 都是围绕NestedInteger去做的， 就算是一个single digit也是被NestedInteger给wrap起来的
 // 一开始先把所有的element push到stack里面去， 然后在call next的时候开始unwrap，这是思路。
 // hasNext 用while是因为 里面的 for 完了之后，还需要判断顶上的是否是一个数字。。
+// https://www.youtube.com/watch?v=TU-XUau4jsI
 public class FlattenNestedListIterator implements Iterator<Integer> {
 
     Stack<NestedInteger> stack = new Stack<>();
@@ -49,11 +50,7 @@ public class FlattenNestedListIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        if (hasNext()) {
-            return stack.pop().getInteger();
-        } else {
-            return null;
-        }
+        return stack.pop().getInteger();    // 因为根据题意，每次被call之前都会是call hasnext先的，所以。。。
     }
 
     // 这个同时有flatten的功能，不只是找hasNext

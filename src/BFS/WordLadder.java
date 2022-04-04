@@ -34,6 +34,8 @@ import java.util.*;
  * 3. 根据poll出来的word，进行每个位置 a到z的转换， 如果转换过程中有 在 set中，则判断是否endword。 如果不是就加入到queue中
  * 4. 记得要从set中remove转换符合条件在dict中的word，不然会导致死循环。
  */
+
+// 这一题最关键是想明白为什么要用set和queue，queue可以保证是最短的路程，不需要用一个math min！！！
 public class WordLadder {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
@@ -60,7 +62,7 @@ public class WordLadder {
                         chars[k] = ((char) j);
 
                         String candidate = new String(chars);
-                        if (set.contains(candidate)) {
+                        if (set.contains(candidate)) {          // 因为这里已经找到了，就算以后找到也会比这个长，所以可以删除！！
                             set.remove(candidate);
                             queue.offer(candidate);
                         }

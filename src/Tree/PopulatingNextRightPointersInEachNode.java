@@ -48,9 +48,9 @@ public class PopulatingNextRightPointersInEachNode {
 
     ;
 
-    public void connect(Node root) {
+    public Node connect(Node root) {
         if (root == null) {
-            return;
+            return null;
         }
         if (root.left != null) {            // 这是root是最上面的情况，
             root.left.next = root.right;
@@ -60,5 +60,6 @@ public class PopulatingNextRightPointersInEachNode {
         }
         connect(root.left);
         connect(root.right);
+        return root;
     }
 }

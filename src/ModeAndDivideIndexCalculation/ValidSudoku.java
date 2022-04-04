@@ -1,6 +1,7 @@
 package ModeAndDivideIndexCalculation;
 
 import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -45,33 +46,23 @@ import java.util.HashSet;
  *
  */
 
-// 这题的关键在于对%和/的理解，要做两次这样的计算
+// https://www.youtube.com/watch?v=ceOLAY4XUOw&t=172s
 public class ValidSudoku {
 
     public boolean isValidSudoku(char[][] board) {
 
-        for (int i = 0; i < board.length; i++) {
+        Set<String> seen = new HashSet<>();
 
-            HashSet<Character> rows = new HashSet<>();
-            HashSet<Character> cols = new HashSet<>();
-            HashSet<Character> cube = new HashSet<>();
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[0].length; j++){
+                if(board[i][j] != '.'){
+                    int number = board[i][j] - '0';
+                    if(!seen.add(number + " in col " + j)
+                            || !seen.add(number + " in row " + i)
+                            || !seen.add(number + " in col " + i / 3 + "." + j / 3)){
+                        return false;
+                    }
 
-            boolean cubeFlag = false;
-            for (int j = 0; j < board[0].length; j++) {
-                if(board[i][j] != '.' && !rows.add(board[i][j])){
-                    return false;
-                }
-                if (board[j][i] != '.' && !cols.add(board[j][i])){
-                    return false;
-                }
-                int rowIndex = 3 * (i / 3);         // i / 3 计算在那个
-                int colIndex = 3 * (i % 3);
-
-                int realRowIndex = rowIndex + j / 3;
-                int realColIndex = colIndex + j % 3;
-
-                if (board[realRowIndex][realColIndex] != '.' && !cube.add(board[realRowIndex][realColIndex])) {
-                    return false;
                 }
             }
         }

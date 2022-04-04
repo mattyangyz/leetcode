@@ -41,54 +41,62 @@ import java.util.Map;
 //
 public class MinimumWindowSubstring {
 
+    public static void main(String[] args){
+        System.out.println(minWindow("ADOBECODCEBANC", "ABCC"));
+    }
+
     public static String minWindow(String s, String t) {
 
-        if (t.length() > s.length()) return "";
+        // if (t.length() > s.length()) return "";
 
-        // 计算还有多少次 我们需要找到这个char, 比如AABC -> a:2 b:1 c:1
-        // 我们需要找到a两次，b一次，c一次。如果是负数的话，代表多出来一个。
         Map<Character, Integer> map = new HashMap<>();
-
-        for (char c : t.toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        for(Character ch : t.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
 
-        int countFindAllOccurance = map.size();                      // 这里必须是map的size，不能是t的长度 因为t有可能有dup
-        int begin = 0;
-        int end = 0;
+        int uniqueCharCount = t.length();   // if this is zero, means we found all the char.
+
         int startIndex = 0;
-        int minLength = Integer.MAX_VALUE;
+        int length = Integer.MAX_VALUE;
 
-        while (end < s.length()) {
-            char c = s.charAt(end);
+        int slowInx = 0;
+        int fastInx = 0;
 
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) - 1);
-                if (map.get(c) == 0) {                              // 对于char c，所有的occurance都找到了 不多不少
-                    countFindAllOccurance--;
+
+        while(fastInx < s.length()){
+
+            char fastChar = s.charAt(fastInx);
+
+            if(map.containsKey(fastChar)){
+                map.put(fastChar, map.get(fastChar) - 1);
+
+                if(map.get(fastChar) == 0){
+                    uniqueCharCount --;
                 }
             }
-            end++;
 
-            while (countFindAllOccurance == 0) {                     // 检查是否包含了所有在target里面的char
-                char tempC = s.charAt(startIndex);
-                if (map.containsKey(tempC)) {
-                    map.put(tempC, map.get(tempC) + 1);
-                    if (map.get(tempC) > 0) {
-                        countFindAllOccurance++;
+            while(uniqueCharCount == 0){
+                char slowChar = s.charAt(slowInx);
+                if(fastInx - slowInx + 1 < length){
+                    startIndex = slowInx;
+                    length = fastInx - slowInx + 1;
+                }
+
+                if(map.containsKey(slowChar)){
+                    map.put(slowChar, map.get(slowChar) + 1);
+                    if(map.get(slowChar) > 0){
+                        uniqueCharCount++;
                     }
-
                 }
-                if (end - begin < minLength) {                      // 更新minLength
-                    minLength = end - begin;
-                    startIndex = begin;
-                }
-                begin++;
+                slowInx++;
             }
+            fastInx++;
         }
-        if (minLength == Integer.MAX_VALUE) {
+
+        if(length == Integer.MAX_VALUE){
             return "";
         }
-        return s.substring(startIndex, startIndex + minLength);
+
+        return s.substring(startIndex, startIndex + length);
     }
 }

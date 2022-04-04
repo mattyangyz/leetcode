@@ -8,6 +8,8 @@ import java.util.Map;
  *
  * 非常重要
  *
+ * 一个hashmap加一个double linked list， map的value就是list的node。
+ *
  * doubly linked list + hashmap + dummy head + dummy head, 重点是先remove 在 moveTohead， 顺序不能乱。
  *
  * 关键是要define两个function， 一个是delete， 一个是move to head。跟一个dummy tail 和 dummy head
@@ -30,7 +32,7 @@ import java.util.Map;
 class LRUCache {
 
     class Node {
-        int key;
+        int key;        //这里的key是需要的，因为第75行remove的时候需要
         int value;
         Node next;
         Node prev;
@@ -56,8 +58,8 @@ class LRUCache {
         if (!map.containsKey(key)) {
             return -1;
         } else {
-            Node node = map.get(key);
-            this.delete(node);          // 重点是先remove 在 moveTohead， 顺序不能乱
+            Node node = map.get(key);   // 这里非常关键！！
+            this.delete(node);          // 重点是先remove 在 moveTohead， 顺序不能乱。因为我们挪动的是node的指针，而不是创建一个新的在head
             this.insertFirst(node);
             return node.value;
         }
@@ -94,7 +96,5 @@ class LRUCache {
 
         first.next.prev = node;
         first.next = node;
-
-
     }
 }

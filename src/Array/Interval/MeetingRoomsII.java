@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
+ *
+ * 思路: 两边走，start time和end time都排序然后分别走
+ *
  * 高频
  * <p>
  * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
@@ -22,10 +25,10 @@ import java.util.PriorityQueue;
  * Time --------------------------------------->
  * <p>
  * Start    1   2       3       4
- * |   |       |       |
+ *          |   |       |       |
  * <p>
  * End              a       b       c
- * |       |       |
+ *                  |       |       |
  * <p>
  * <p>
  * <p>
@@ -65,6 +68,7 @@ public class MeetingRoomsII {
         int[] startTime = new int[intervals.length];
         int[] endTime = new int[intervals.length];
 
+
         for (int i = 0; i < intervals.length; i++) {
             startTime[i] = intervals[i][0];
         }
@@ -75,17 +79,19 @@ public class MeetingRoomsII {
 
         Arrays.sort(startTime);
         Arrays.sort(endTime);
+
+        int start = 0;
         int end = 0;
         int room = 0;
-
-        for (int i = 0; i < startTime.length; i++) {
-            if (startTime[i] < endTime[end]) {
+        while(start < intervals.length){
+            if(startTime[start] < endTime[end]){
                 room++;
-            } else {
+            }
+            else{
                 end++;
             }
+            start++;
         }
         return room;
     }
-
 }

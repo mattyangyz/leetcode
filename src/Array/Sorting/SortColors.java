@@ -54,29 +54,31 @@ public class SortColors {
     }
 
     // 思路: https://www.youtube.com/watch?v=yTwW8WiGrKw
+    // 思路就是定义三个空间，红色的insert空间，白色的可以不管，蓝色的放最后，只要红色，蓝色放好了，白色自然也会放好！！
     public static void sortColors(int[] nums) {
-        int left = 0;
-        int right = nums.length - 1;
-        int index = 0;
+        int redInsert = 0;
+        int unknownIndex = 0;
+        int blueInsert = nums.length - 1;
 
-        while (index <= right) {
-            if (nums[index] == 0) {
-                swap(nums, index, left);
-                index++;
-                left++;
-            } else if (nums[index] == 1) {
-                index++;
-            } else if (nums[index] == 2) {  // 理解这里为什么不能index++;
-                swap(nums, index, right);   // 这里不能移动index++, 因为我们是把最后的一个元素放到前面 而不知道他是什么。 这里是关键
-                right--;
+        while(unknownIndex <= blueInsert){
+            if(nums[unknownIndex] == 0){
+                swap(nums, redInsert, unknownIndex);
+                redInsert++;
+                unknownIndex++;
+            }
+            else if(nums[unknownIndex] == 1){
+                unknownIndex++;
+            }
+            else if(nums[unknownIndex] == 2){
+                swap(nums, unknownIndex, blueInsert);
+                blueInsert--;
             }
         }
     }
 
-    private static void swap(int[] nums, int original, int destination) {
-        int temp = nums[original];
-        nums[original] = nums[destination];
-        nums[destination] = temp;
-
+    private static void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

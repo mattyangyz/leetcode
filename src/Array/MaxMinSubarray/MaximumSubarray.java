@@ -14,7 +14,30 @@ package Array.MaxMinSubarray;
  *
  */
 
+//  runtime是O(n^2)， 每一个i对应找j和k 所以是平方。
 public class MaximumSubarray {
+
+    public static void main(String[] args){
+        MaximumSubarray.maxSubArrayOwn(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
+    }
+
+    public static int maxSubArrayOwn(int[] nums) {
+
+        int runningSum = 0;
+        int max = 0;
+        for(int i = 0; i < nums.length; i++){
+
+            runningSum += nums[i];
+            if(runningSum >= 0){
+                max = Math.max(max, runningSum);
+            }
+            else{
+                runningSum = 0;
+            }
+        }
+
+        return max;
+    }
 
     public static int maxSubArray(int[] nums) {     // 这个是用memo来解决的
         int[] memo = new int[nums.length];

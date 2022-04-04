@@ -2,34 +2,30 @@ package Array;
 
 public class LongestPalindromicSubstring {
 
-    int low;
-    int max;
-
+    int startIndex = 0;
+    int maxLength = 0;
     public String longestPalindrome(String s) {
-        if(s.length() < 2){
+        if(s.length() == 1){
             return s;
         }
 
-        int j = 0;
-        int k = 0;
-
         for(int i = 0; i < s.length() - 1; i++){
-            longetPalHelper(s, i, i);
-            longetPalHelper(s, i, i + 1);
+            expandToBothSide(s, i, i);
+            expandToBothSide(s, i, i + 1);
+
         }
-        return s.substring(low, low + max);
+        return s.substring(startIndex, startIndex + maxLength);
     }
 
+    private void expandToBothSide(String s, int left, int right){
 
-    private void longetPalHelper(String s, int j, int k){
-
-        while(j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)){
-            j--;
-            k++;
-        }
-        if(k - j - 1> max){
-            max = k - j - 1;
-            low = j + 1;
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            if(right - left + 1 > maxLength){
+                maxLength = right - left + 1;
+                startIndex = left;
+            }
+            left--;
+            right++;
         }
     }
 }

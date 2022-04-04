@@ -1,7 +1,9 @@
 package Backtracking.Enumeration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
@@ -18,31 +20,40 @@ import java.util.List;
 
 public class LetterCombinationsOfAPhoneNumber {
 
-    public static void main(String[] args) {
-        LetterCombinationsOfAPhoneNumber.letterCombinations("23");
-    }
+//    public static void main(String[] args) {
+//        LetterCombinationsOfAPhoneNumber.letterCombinations("23");
+//    }
 
-    private static final String[] KEYS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
-    public static List<String> letterCombinations(String digits) {
-        if (digits.equals("")) {
+    Map<Integer, String> map = new HashMap<>();
+    public List<String> letterCombinations(String digits) {
+        if(digits.equals("")){
             return new ArrayList<>();
         }
+        map.put(2, "abc");
+        map.put(3, "def");
+        map.put(4, "ghi");
+        map.put(5, "jkl");
+        map.put(6, "mno");
+        map.put(7, "pqrs");
+        map.put(8, "tuv");
+        map.put(9, "wxyz");
+
         List<String> ans = new ArrayList<>();
-        combination("", digits, 0, ans);
+        com(ans, "", 0, digits);
         return ans;
     }
 
-    private static void combination(String prefix, String digits, int offset, List<String> ans) {
-
-        if(offset >= digits.length()){
-            ans.add(prefix);
-            System.out.println(prefix);
+    private void com(List<String> res, String tempRes, int index, String digits){
+        if(index == digits.length()){
+            res.add(tempRes);
             return;
         }
-        String letters = KEYS[(digits.charAt(offset)) - '0'];
-        for(int i = 0; i < letters.length(); i++) {
-            combination(prefix + letters.charAt(i), digits, offset + 1, ans);
+
+        String candidate = map.getOrDefault(digits.charAt(index) - '0', "");
+        for(int i = 0; i < candidate.length(); i++){
+            com(res, tempRes + candidate.charAt(i), index + 1, digits);
         }
-    }}
+
+    }
+}
 

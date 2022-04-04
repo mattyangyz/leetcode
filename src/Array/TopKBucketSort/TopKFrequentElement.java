@@ -46,23 +46,26 @@ import java.util.Map;
 
 public class TopKFrequentElement {
 
-    public static int[] topKFrequent(int[] nums, int k) {
+    public static void main(String[] strs){
+        ArrayList<List<Integer>> bucket = new ArrayList<>(5);
+        bucket.add(1, new ArrayList<>());
+        bucket.get(2);
+    }
 
+    public static int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int n : nums) {
             map.put(n, map.getOrDefault(n, 0) + 1);
         }
 
         List<Integer>[] bucket = new ArrayList[nums.length + 1];
-
         for (int n : map.keySet()) {
             int frequency = map.get(n);
             if (bucket[frequency] == null) {
                 bucket[frequency] = new ArrayList<>();
             }
             bucket[frequency].add(n);
-        }                                                                // 上面两个loop都是bucket sort的套路
-
+        }
         int[] res = new int[k];
         int count = 0;
         for (int i = bucket.length - 1; i >= 0; i--) {                    // 遍历每一个bucket，

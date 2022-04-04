@@ -45,6 +45,11 @@ package Array.TwoDArray;
 //
 public class GameOfLife {
 
+    public static void main(String[] args){
+        System.out.println(3 >>1);
+
+    }
+
     public void gameOfLife(int[][] board) {
         if (board == null || board.length == 0) {
             return;
@@ -55,7 +60,8 @@ public class GameOfLife {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 int count = countNeighbor(board, i, j);
-                if (board[i][j] == 1) {
+
+                if (board[i][j] == 1) {             //或者 if((board[i][j] & 1) == 1) 也是可以的。
                     if (count == 2 || count == 3) {
                         board[i][j] += 2;           // 01变成11
                     }
@@ -64,10 +70,11 @@ public class GameOfLife {
                 }
             }
         }
+        System.out.println(board);
 
         for (int i = 0; i < m; i++) {               //进行一个右边的移位
             for (int j = 0; j < n; j++) {
-                board[i][j] = board[i][j] >> 1;
+                board[i][j] = board[i][j] >> 1;     // 这里或者 >>> 也是可以的。
             }
         }
     }
