@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// google 高频重要
 // https://www.youtube.com/watch?v=2pLhH2eLaP8, 重点是6:50分那里的解说
+// 这里关键的点就是，不像传统的BFS，这个BFS的写法，其实对于同一个点 可以visit多次的。这个要理解，视频里面有讲。
+// 同时搞清楚什么时候push进去queue里面。
 public class ShortestPathInAGridWithObstaclesElimination {
 
     public static void main(String[] args){
